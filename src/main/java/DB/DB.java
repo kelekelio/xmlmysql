@@ -80,6 +80,7 @@ public class DB {
             st.execute(SQLStatement);
             st.close();
         } catch (SQLException throwables) {
+            //TODO: use errorHanlder for errors
             //if error, check columns
 
             // 1062 => DUPLICATE KEY
