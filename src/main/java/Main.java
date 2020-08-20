@@ -1,3 +1,5 @@
+import DB.DB;
+
 import java.util.*;
 
 public class Main {
@@ -8,22 +10,22 @@ public class Main {
 
 
 
-        TreeMap<String,String> map=new TreeMap<String,String>();
+
         numbers.put("id", "\"133345\"");
-        numbers.put("id2", "133345");
-        numbers.put("name", "dev_name");
-        numbers.put("desc", "description");
-        numbers.put("desc1", "description1");
-        numbers.put("desc2", "description2");
-
-        Set keys = numbers.keySet();
-        System.out.println(keys);
-
-        Collection<String> valuess = numbers.values();
+        numbers.put("id2", "\"1133345\"");
+        numbers.put("name", "\"dev_name\"");
+        numbers.put("desc", "\"description\"");
+        numbers.put("desc1", "\"description1\"");
+        numbers.put("desc2", "\"description2\"");
 
 
-        Collection<String> values = numbers.values();
-        System.out.println(values);
+
+
+        DB.insert(numbers, "testaion");
+
+
+
+
 
     }
 }
