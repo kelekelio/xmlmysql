@@ -6,15 +6,15 @@ public class Main {
     public static void main(String[] args) {
 
 
-        LinkedHashMap<String, String> numbers = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> xml = new LinkedHashMap<String, String>();
 
-        numbers.put("id", "\"133966677\"");
-        numbers.put("id2", "\"1133345\"");
-        numbers.put("name", "\"dev_name\"");
-        numbers.put("desc1", "\"description1\"");
-        numbers.put("desc2a", "\"description2\"");
+        xml.put("id", "\"133966677\"");
+        xml.put("id2", "\"1133345\"");
+        xml.put("name", "\"dev_name\"");
+        xml.put("desc1", "\"description1\"");
+        xml.put("desc2a", "\"description2\"");
 
-        //DB.insert(numbers, "testaion");
+        //DB.insert(xml, "testaion", "INSERT");
 
 
         //DB.truncate("yyyyy");

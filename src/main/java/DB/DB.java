@@ -1,5 +1,7 @@
 package DB;
 
+import Errors.Errors;
+
 import java.sql.*;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -50,7 +52,8 @@ public class DB {
         }
     }
 
-    public static void insert(LinkedHashMap<String, String> sqlArray, String table_name) {
+    public static void insert(LinkedHashMap<String, String> sqlArray, String tableName, String insertionType) {
+
 
 
         //keys => [id, id2, name, desc, desc1, desc2]
@@ -61,7 +64,7 @@ public class DB {
         Collection<String> SQLvalues = sqlArray.values();
         System.out.println(SQLvalues);
 
-        String SQLStatement = "INSERT INTO " + table_name + " "+ SQLkeys +" VALUES "+ SQLvalues +";";
+        String SQLStatement = insertionType + " INTO " + tableName + " "+ SQLkeys +" VALUES "+ SQLvalues +";";
 
 
         SQLStatement = SQLStatement.replaceAll("\\[", "(").replaceAll("]", ")");
@@ -82,6 +85,7 @@ public class DB {
             // 1062 => DUPLICATE KEY
             if (throwables.getErrorCode() == 1062) {
                 System.out.println("ID already exists");
+                insert(sqlArray, tableName, "REPLACE");
             }
             // 1054 => UNKNOWN COLUMN
             else if (throwables.getErrorCode() == 1054) {
@@ -133,6 +137,7 @@ public class DB {
                 " KEY `name` (`name`)\n" +
                 ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
+        //test
         System.out.println(SQLStatement);
 
         try {
@@ -143,12 +148,15 @@ public class DB {
 
             st.execute(SQLStatement);
             st.close();
+
+            //test, replace with errorHandler
             System.out.println(tableName + " has been created.");
+
         } catch (SQLException throwables) {
 
-            // 1064 syntax error, 1050 table exists
-            System.out.println("Table creation failed. Error: " + throwables.getErrorCode());
-            }
+            Errors.errorHandler("sql", throwables.getErrorCode(), tableName);
+
+        }
 
 
     }
