@@ -52,7 +52,7 @@ public class DB {
         }
     }
 
-    public static void insert(LinkedHashMap<String, String> sqlArray, String tableName, String insertionType) {
+    public static void insert(LinkedHashMap<String, String> sqlArray, String tableName) {
 
 
 
@@ -64,7 +64,7 @@ public class DB {
         Collection<String> SQLvalues = sqlArray.values();
         System.out.println(SQLvalues);
 
-        String SQLStatement = insertionType + " INTO " + tableName + " "+ SQLkeys +" VALUES "+ SQLvalues +";";
+        String SQLStatement = "REPLACE INTO " + tableName + " "+ SQLkeys +" VALUES "+ SQLvalues +";";
 
 
         SQLStatement = SQLStatement.replaceAll("\\[", "(").replaceAll("]", ")");
@@ -86,7 +86,6 @@ public class DB {
             // 1062 => DUPLICATE KEY
             if (throwables.getErrorCode() == 1062) {
                 System.out.println("ID already exists");
-                insert(sqlArray, tableName, "REPLACE");
             }
             // 1054 => UNKNOWN COLUMN
             else if (throwables.getErrorCode() == 1054) {

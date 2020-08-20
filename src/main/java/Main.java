@@ -14,7 +14,7 @@ public class Main {
         xml.put("desc1", "\"description1\"");
         xml.put("desc2a", "\"description2\"");
 
-        DB.insert(xml, "testaion", "INSERT");
+        DB.insert(xml, "testaion");
 
 
         //DB.truncate("yyyyy");
