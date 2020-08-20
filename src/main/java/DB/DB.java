@@ -119,6 +119,7 @@ public class DB {
                 //on closing xml tag, create a new CREATE TABLE txt file =>
                 // store all unique xml nodes, get their last known type (SHOW COLUMNS FROM table_name;), else use text for all but ID
                 //create/overwrite SQLcreate file
+                createTable(tableName);
             }
         }
     }
@@ -129,7 +130,7 @@ public class DB {
 
 
 
-        //load statement from file
+        //TODO: load statement from file
         String SQLStatement = "CREATE TABLE " + tableName + " (\n" +
                 " id int(15) NOT NULL,\n" +
                 " name varchar(255) NOT NULL,\n" +
@@ -149,7 +150,7 @@ public class DB {
             st.execute(SQLStatement);
             st.close();
 
-            //test, replace with errorHandler
+            //TODO: test, replace with errorHandler
             System.out.println(tableName + " has been created.");
 
         } catch (SQLException throwables) {

@@ -17,9 +17,9 @@ public class Main {
         //DB.insert(xml, "testaion", "INSERT");
 
 
-        //DB.truncate("yyyyy");
+        DB.truncate("yyyyy");
 
-        DB.createTable("testCreate1");
+        //DB.createTable("testCreate1");
 
 
 
