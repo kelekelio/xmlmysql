@@ -112,11 +112,44 @@ public class DB {
             if (throwables.getErrorCode() == 1146) {
                 System.out.println("Table doesn't exist, create the table from a new");
                 //create table method
+                //on closing xml tag, create a new CREATE TABLE txt file =>
+                // store all unique xml nodes, get their last known type (SHOW COLUMNS FROM table_name;), else use text for all but ID
+                //create/overwrite SQLcreate file
             }
         }
     }
 
-    public static void createTable () {
+
+
+    public static void createTable (String tableName) {
+
+
+
+        //load statement from file
+        String SQLStatement = "CREATE TABLE " + tableName + " (\n" +
+                " id int(15) NOT NULL,\n" +
+                " name varchar(255) NOT NULL,\n" +
+                " PRIMARY KEY (id),\n" +
+                " KEY `name` (`name`)\n" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
+        System.out.println(SQLStatement);
+
+        try {
+            Statement st = DB
+                    .getInstance()
+                    .getConn()
+                    .createStatement();
+
+            st.execute(SQLStatement);
+            st.close();
+            System.out.println(tableName + " has been created.");
+        } catch (SQLException throwables) {
+
+            // 1064 syntax error, 1050 table exists
+            System.out.println("Table creation failed. Error: " + throwables.getErrorCode());
+            }
+
 
     }
 

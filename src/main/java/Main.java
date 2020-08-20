@@ -14,9 +14,12 @@ public class Main {
         numbers.put("desc1", "\"description1\"");
         numbers.put("desc2a", "\"description2\"");
 
-        DB.insert(numbers, "testaion");
+        //DB.insert(numbers, "testaion");
 
 
+        //DB.truncate("yyyyy");
+
+        DB.createTable("testCreate1");
 
 
 
