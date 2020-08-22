@@ -1,25 +1,23 @@
 import DB.DB;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
 
         LinkedHashMap<String, String> xml = new LinkedHashMap<String, String>();
 
-        xml.put("id", "\"133766677\"");
-        xml.put("id2", "\"1133345\"");
-        xml.put("name", "\"dev_name\"");
-        xml.put("desc1", "\"description1\"");
-        xml.put("desc2a", "\"description2\"");
+        xml.put("id", "\"2\"");
+        xml.put("name", "\"icon_shop_item_preset_default\"");
 
-        DB.insert(xml, "testaion");
+        //DB.insert(xml, "client_goods_icon");
 
 
         //DB.truncate("yyyyy");
 
-        //DB.createTable("testCreate1");
+        DB.loadTableCreate("client_goods_icon");
 
 
 

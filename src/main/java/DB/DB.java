@@ -2,6 +2,10 @@ package DB;
 
 import Errors.Errors;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -52,7 +56,7 @@ public class DB {
         }
     }
 
-    public static void insert(LinkedHashMap<String, String> sqlArray, String tableName) {
+    public static void insert(LinkedHashMap<String, String> sqlArray, String tableName) throws IOException {
 
 
 
@@ -80,7 +84,6 @@ public class DB {
             st.execute(SQLStatement);
             st.close();
         } catch (SQLException throwables) {
-            //TODO: use errorHanlder for errors
             //if error, check columns
 
             // 1062 => DUPLICATE KEY
@@ -89,8 +92,16 @@ public class DB {
             }
             // 1054 => UNKNOWN COLUMN
             else if (throwables.getErrorCode() == 1054) {
+                // todo: on column missing, initiate creation of new table creation file based on all mapped nodes
                 // Create column compare method
                 System.out.println("Unknown column");
+            }
+            // 1146 Table doesn't exist
+            else if (throwables.getErrorCode() == 1146) {
+                System.out.println("Table doesn't exist. Creating the table from a new.");
+                loadTableCreate(tableName);
+                System.out.println("Inserting data again.");
+                insert(sqlArray, tableName);
             }
             else {
                 System.out.println(throwables.getErrorCode());
@@ -99,7 +110,9 @@ public class DB {
         }
     }
 
-    public static void truncate (String tableName) {
+    public static void truncate (String tableName) throws IOException {
+        // execute on initial xml tag (or 1st ID)
+
         try {
 
             Statement st = DB
@@ -109,6 +122,7 @@ public class DB {
 
             st.execute("TRUNCATE " + tableName + ";");
             st.close();
+            System.out.println(tableName + " has been cleared.");
         } catch (SQLException throwables) {
 
             //if error, create table
@@ -119,27 +133,12 @@ public class DB {
                 //on closing xml tag, create a new CREATE TABLE txt file =>
                 // store all unique xml nodes, get their last known type (SHOW COLUMNS FROM table_name;), else use text for all but ID
                 //create/overwrite SQLcreate file
-                createTable(tableName);
+                loadTableCreate(tableName);
             }
         }
     }
 
-
-
-    public static void createTable (String tableName) {
-
-
-
-        //TODO: load statement from file
-        String SQLStatement = "CREATE TABLE " + tableName + " (\n" +
-                " id int(15) NOT NULL,\n" +
-                " name varchar(255) NOT NULL,\n" +
-                " PRIMARY KEY (id),\n" +
-                " KEY `name` (`name`)\n" +
-                ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-
-        //test
-        System.out.println(SQLStatement);
+    public static void execute (String sqlStatement) {
 
         try {
             Statement st = DB
@@ -147,18 +146,64 @@ public class DB {
                     .getConn()
                     .createStatement();
 
-            st.execute(SQLStatement);
+            st.execute(sqlStatement);
             st.close();
-
-            //TODO: test, replace with errorHandler
-            System.out.println(tableName + " has been created.");
-
         } catch (SQLException throwables) {
-
-            Errors.errorHandler("sql", throwables.getErrorCode(), tableName);
-
+            System.out.println("Error: " + throwables.getErrorCode());
         }
 
+    }
+
+
+
+
+
+    public static void loadTableCreate (String tableName) throws IOException {
+
+
+
+
+        String s            = new String();
+        StringBuffer sb = new StringBuffer();
+        String[] inst = new String[0];
+
+        try {
+            FileReader fr = new FileReader(new File("src//main//resources//sqlTables//" + tableName + ".sql"));
+            BufferedReader br = new BufferedReader(fr);
+
+            while((s = br.readLine()) != null)
+            {
+                sb.append(s);
+            }
+            br.close();
+
+            inst = sb.toString().split(";");
+
+            for(int i = 0; i<inst.length; i++)
+            {
+
+                if(!inst[i].trim().equals(""))
+                {
+
+                    execute(inst[i]);
+                    System.out.println(">>"+inst[i]);
+                }
+            }
+
+        }
+        catch(Exception e) {
+            System.out.println("Scheme doesn't exist. Using a default scheme.");
+
+            String SQLStatement = "CREATE TABLE " + tableName + " (\n" +
+                    " id int(15) NOT NULL,\n" +
+                    " name varchar(255) NOT NULL,\n" +
+                    " PRIMARY KEY (id),\n" +
+                    " KEY `name` (`name`)\n" +
+                    ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
+            execute(SQLStatement);
+
+        }
 
     }
 

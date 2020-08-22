@@ -2,6 +2,8 @@ package DB;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -58,5 +60,10 @@ class DBTest {
 
     @Test
     void createTable() {
+    }
+
+    @Test
+    void loadTableCreate() throws IOException {
+        DB.loadTableCreate("client_goods_icon");
     }
 }
