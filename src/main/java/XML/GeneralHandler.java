@@ -83,7 +83,7 @@ public class GeneralHandler extends DefaultHandler{
             } catch (IOException | SQLException e) {
 
             }
-            System.out.println("Inserted " + i + " objects to the DB.");
+            System.out.println("Inserted " + i + " objects into the " + tableName + " table.");
         }
         // end of xml. Set truncate to true; clear ignore list, start i from 0
         else if (qName.equalsIgnoreCase(initialNode)) {

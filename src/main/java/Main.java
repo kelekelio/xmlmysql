@@ -51,6 +51,18 @@ public class Main {
         saxParser.parse(new File("D:/PB/data/pc/client_PCRace.xml"), handler);
 
 
+        handler.setInitialNode("client_item_collection_attrs");
+        handler.setTableName("client_item_collection_attr");
+        saxParser.parse(new File("D:/PB/data/pc/client_item_collection_attr.xml"), handler);
+
+
+        handler.setInitialNode("client_jumping_quickbars");
+        handler.setTableName("client_jumping_quickbar");
+        saxParser.parse(new File("D:/PB/data/pc/client_jumping_quickbar.xml"), handler);
+
+        handler.setInitialNode("client_ride_datas");
+        handler.setTableName("client_ride_data");
+        saxParser.parse(new File("D:/PB/data/rides/rides.xml"), handler);
 
     }
 }
