@@ -14,7 +14,7 @@ public class VersionHandler extends GeneralHandler {
 
     private String region = "kr";
     private String tableName;
-    private final String version = DLL.DllVersionCheck(region);
+    private String version = DLL.DllVersionCheck(region);
     private String initialNode;
     private boolean truncate = false;
     int i = 0;
@@ -22,6 +22,7 @@ public class VersionHandler extends GeneralHandler {
 
     public void setRegion(String region) {
         this.region = region;
+        version = DLL.DllVersionCheck(region);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class VersionHandler extends GeneralHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (qName.equalsIgnoreCase("id")) {
-            DB.execute("INSERT INTO " + tableName + "_version (id, version) VALUES (" + data + ", \"" + version + "\");");
+            DB.execute("INSERT INTO " + tableName + "_version (id, client_version) VALUES (" + data + ", \"" + version + "\");");
             System.out.println("Inserted " + i + " objects into the " + tableName + " table.");
         }
         else if (qName.equalsIgnoreCase(initialNode)) {

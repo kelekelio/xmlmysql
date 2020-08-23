@@ -101,7 +101,7 @@ public class DB {
             }
             // 1054 => UNKNOWN COLUMN
             else if (throwables.getErrorCode() == 1054) {
-                // todo: on column missing, initiate creation of new table creation file based on all mapped nodes
+                // todo: on column missing, initiate creation of new table
                 // Create column compare method
                 System.out.println(ANSI_RED + "Unknown column. Error " + throwables.getErrorCode() + ANSI_RESET);
                 Set<String> tempColumns = new HashSet<>(SQLkeys);
