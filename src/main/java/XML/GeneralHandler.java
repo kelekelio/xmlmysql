@@ -99,6 +99,8 @@ public class GeneralHandler extends DefaultHandler{
             //TODO: list of MYSQL reserved words
             if ("condition".equalsIgnoreCase(qName)) {
                 xmlMap.put("conditions", "\"" + data + "\"");
+            } else if ("desc".equalsIgnoreCase(qName)) {
+                xmlMap.put("description", "\"" + data + "\"");
             }else {
                 xmlMap.put(qName, "\"" + data + "\"");
             }
