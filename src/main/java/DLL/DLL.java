@@ -54,7 +54,7 @@ public class DLL {
     }
 
     public static String dump(short [] data, String region) {
-        //Product version => Kr: 77.20.0806.15981 / EU: 7520.0311.0714
+        //Product version => Kr: 77.20.806.15981 / EU: 7520.311.714.555685
         String month = String.format("%04d", data[2]).substring(0, 4);
         String version = "" + data[0];
 

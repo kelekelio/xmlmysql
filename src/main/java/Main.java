@@ -37,7 +37,7 @@ public class Main {
 
 
 
-/*
+
         ignoreList.add("bonus_attrs");
         ignoreList.add("data");
         handler.setIgnoreList(ignoreList);
@@ -72,13 +72,13 @@ public class Main {
         versionHandler.setTableName("client_ride_data");
         saxParser.parse(new File("D:/PB/data/rides/rides.xml"), versionHandler);
 
- */
+
 
         versionHandler.setRegion("kr");
         versionHandler.setInitialNode("client_items");
         versionHandler.setTableName("client_item");
         saxParser.parse(new File("D:/PB/data/items/client_items_etc_1.xml"), versionHandler);
-        //saxParser.parse(new File("D:/PB/data/items/client_items_etc_2.xml"), versionHandler);
+        saxParser.parse(new File("D:/PB/data/items/client_items_etc_2.xml"), versionHandler);
         versionHandler.setRegion("eu");
         saxParser.parse(new File("D:/PB/data_eu/items/client_items_etc_2.xml"), versionHandler);
 
