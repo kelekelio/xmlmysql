@@ -45,10 +45,13 @@ public class Main {
         saxParser.parse(new File("D:/PB/data/pc/abyss_race_bonuses.xml"), handler);
 
 
+        /*
         LinkedHashMap<String, ArrayList<String>> nodeIgnoreList = new LinkedHashMap<>();
         nodeIgnoreList.put("name", ("node1", "node2"));
         nodeIgnoreList.put("name1", ("node1", "node2"));
 
+
+         */
 
     }
 }

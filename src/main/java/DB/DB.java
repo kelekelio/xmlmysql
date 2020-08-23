@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
+import static Extra.Colors.*;
 
 public class DB {
     // connect to DB +
@@ -75,7 +76,7 @@ public class DB {
                 .replaceAll("\\[", "(")
                 .replaceAll("]", ")");
 
-        System.out.println(SQLStatement);
+        System.out.println(ANSI_GREEN + ">> " + SQLStatement + ANSI_RESET);
 
         try {
             Statement st = DB
@@ -90,11 +91,11 @@ public class DB {
 
             // 1062 => DUPLICATE KEY
             if (throwables.getErrorCode() == 1062) {
-                System.out.println("ID already exists");
+                System.out.println(ANSI_RED + "ID already exists" + ANSI_RESET);
             }
             // 1146 Table doesn't exist
             else if (throwables.getErrorCode() == 1146) {
-                System.out.println("Table doesn't exist. Creating the table from a new.");
+                System.out.println(ANSI_RED + "Table doesn't exist. Creating the table from a new." + ANSI_RESET);
                 loadTableCreate(tableName);
                 System.out.println("Inserting data again.");
                 insert(sqlArray, tableName);
@@ -103,7 +104,7 @@ public class DB {
             else if (throwables.getErrorCode() == 1054) {
                 // todo: on column missing, initiate creation of new table creation file based on all mapped nodes
                 // Create column compare method
-                System.out.println("Unknown column. Error " + throwables.getErrorCode());
+                System.out.println(ANSI_RED + "Unknown column. Error " + throwables.getErrorCode() + ANSI_RESET);
                 Set<String> tempColumns = new HashSet<>(SQLkeys);
 
                 ResultSet results = DB
@@ -151,7 +152,7 @@ public class DB {
             //if error, create table
             // 1146 => table doesn't exist
             if (throwables.getErrorCode() == 1146) {
-                System.out.println("Table doesn't exist, create the table from a new");
+                System.out.println(ANSI_RED + "Table doesn't exist, create the table from a new" + ANSI_RESET);
                 //create table method
                 //on closing xml tag, create a new CREATE TABLE sql file =>
                 // store all unique xml nodes, get their last known type (SHOW COLUMNS FROM table_name;), else use text for all but ID
@@ -164,6 +165,7 @@ public class DB {
     public static void execute (String sqlStatement) {
 
         try {
+            System.out.println(ANSI_GREEN + ">> " + sqlStatement + ANSI_RESET);
             Statement st = DB
                     .getInstance()
                     .getConn()
@@ -173,9 +175,9 @@ public class DB {
             st.close();
         } catch (SQLException throwables) {
             if (throwables.getErrorCode() == 1050) {
-                System.out.println("Table already exists. Error: " + throwables.getErrorCode());
+                System.out.println(ANSI_RED + "Table already exists. Error: " + throwables.getErrorCode() + ANSI_RESET);
             }else {
-                System.out.println("Error: " + throwables.getErrorCode());
+                System.out.println(ANSI_RED + "Error: " + throwables.getErrorCode() + ANSI_RESET);
             }
         }
 
@@ -210,8 +212,6 @@ public class DB {
 
                 if (!value.trim().equals("")) {
 
-
-                    System.out.println(">>" + value);
                     execute(value);
                 }
             }
