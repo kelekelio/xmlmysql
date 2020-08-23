@@ -71,7 +71,9 @@ public class DB {
         String SQLStatement = "REPLACE INTO " + tableName + " "+ SQLkeys +" VALUES "+ SQLvalues +";";
 
 
-        SQLStatement = SQLStatement.replaceAll("\\[", "(").replaceAll("]", ")");
+        SQLStatement = SQLStatement
+                .replaceAll("\\[", "(")
+                .replaceAll("]", ")");
 
         System.out.println(SQLStatement);
 
@@ -90,12 +92,6 @@ public class DB {
             if (throwables.getErrorCode() == 1062) {
                 System.out.println("ID already exists");
             }
-            // 1054 => UNKNOWN COLUMN
-            else if (throwables.getErrorCode() == 1054) {
-                // todo: on column missing, initiate creation of new table creation file based on all mapped nodes
-                // Create column compare method
-                System.out.println("Unknown column");
-            }
             // 1146 Table doesn't exist
             else if (throwables.getErrorCode() == 1146) {
                 System.out.println("Table doesn't exist. Creating the table from a new.");
@@ -103,6 +99,13 @@ public class DB {
                 System.out.println("Inserting data again.");
                 insert(sqlArray, tableName);
             }
+            // 1054 => UNKNOWN COLUMN
+            else if (throwables.getErrorCode() == 1054) {
+                // todo: on column missing, initiate creation of new table creation file based on all mapped nodes
+                // Create column compare method
+                System.out.println("Unknown column");
+            }
+
             else {
                 System.out.println(throwables.getErrorCode());
             }
@@ -130,7 +133,7 @@ public class DB {
             if (throwables.getErrorCode() == 1146) {
                 System.out.println("Table doesn't exist, create the table from a new");
                 //create table method
-                //on closing xml tag, create a new CREATE TABLE txt file =>
+                //on closing xml tag, create a new CREATE TABLE sql file =>
                 // store all unique xml nodes, get their last known type (SHOW COLUMNS FROM table_name;), else use text for all but ID
                 //create/overwrite SQLcreate file
                 loadTableCreate(tableName);
@@ -163,8 +166,8 @@ public class DB {
 
 
 
-        String s            = new String();
-        StringBuffer sb = new StringBuffer();
+        String s;
+        StringBuilder sb = new StringBuilder();
         String[] inst = new String[0];
 
         try {
@@ -179,14 +182,12 @@ public class DB {
 
             inst = sb.toString().split(";");
 
-            for(int i = 0; i<inst.length; i++)
-            {
+            for (String value : inst) {
 
-                if(!inst[i].trim().equals(""))
-                {
+                if (!value.trim().equals("")) {
 
-                    execute(inst[i]);
-                    System.out.println(">>"+inst[i]);
+                    execute(value);
+                    System.out.println(">>" + value);
                 }
             }
 

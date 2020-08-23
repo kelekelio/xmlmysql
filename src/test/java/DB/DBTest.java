@@ -2,43 +2,36 @@ package DB;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DBTest {
 
     @Test
-    void insert() throws SQLException {
-        int id = 93323677;
-        String name = "\"dev_name\"";
+    void insert() throws SQLException, IOException {
+        LinkedHashMap<String, String> xml = new LinkedHashMap<String, String>();
 
+        xml.put("id", "\"2\"");
+        xml.put("name", "\"icon_shop_item_preset_default\"");
 
-        String SQLStatement = "INSERT INTO testaion " +
-                "(id, name) VALUES " +
-                "(" + id + ", " + name + ");";
-
-
-
-        //insert
-        Statement st = DB.getInstance().getConn().createStatement();
-        st.execute(SQLStatement);
-        st.close();
+        DB.insert(xml, "client_goods_icon");
 
         //Check if ID was inserted
         ResultSet results = DB
                 .getInstance()
                 .getConn()
                 .createStatement()
-                .executeQuery("select id, name from testaion where id = " + id);
+                .executeQuery("select id, name from client_goods_icon where id = 2");
 
         if (results.next()) {
-            assertEquals(id, results.getInt("id"));
-            assertEquals(name, "\"" + results.getString("name") + "\"");
+            assertEquals(2, results.getInt("id"));
+            assertEquals("\"icon_shop_item_preset_default\"", "\"" + results.getString("name") + "\"");
         }
         results.close();
 
@@ -49,17 +42,32 @@ class DBTest {
                 .getConn()
                 .createStatement();
 
-        delete.execute("delete from testaion where id = " + id);
+        delete.execute("delete from testaion where id = 2");
         delete.close();
 
     }
 
     @Test
-    void truncate() {
-    }
+    void truncate() throws IOException, SQLException {
+        int expected = 0;
+        int returned = 0;
+        DB.truncate("client_goods_icon");
 
-    @Test
-    void createTable() {
+
+
+        ResultSet results = DB
+                .getInstance()
+                .getConn()
+                .createStatement()
+                .executeQuery("SELECT COUNT(*) as count FROM client_goods_icon");
+
+        while (results.next()) {
+            returned = results.getInt("count");
+        }
+
+
+        assertEquals(expected, returned);
+
     }
 
     @Test
