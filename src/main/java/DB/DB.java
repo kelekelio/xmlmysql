@@ -20,13 +20,16 @@ public class DB {
     // on insert error, check available table columns, compare with keySet(), add missing columns (alter table)
 
     private final String address = "localhost";
-    private final String dbname = "java";
+    private String dbname = "java";
     private final String user = "root";
     private final String password = "";
 
     private static DB instance;
     private Connection conn;
 
+    public void setDbname(String dbname) {
+        this.dbname = dbname;
+    }
 
     public static DB getInstance() {
         if (instance == null) {
@@ -62,11 +65,11 @@ public class DB {
 
         //keys => [id, id2, name, desc, desc1, desc2]
         Set<String> SQLkeys = sqlArray.keySet();
-        System.out.println(SQLkeys);
+        //System.out.println(SQLkeys);
 
         //values => ["133345", "1133345", "dev_name", "description", "description1", "description2"]
         Collection<String> SQLvalues = sqlArray.values();
-        System.out.println(SQLvalues);
+        //System.out.println(SQLvalues);
 
         String SQLStatement = "REPLACE INTO " + tableName + " "+ SQLkeys +" VALUES "+ SQLvalues +";";
 
@@ -152,7 +155,11 @@ public class DB {
             st.execute(sqlStatement);
             st.close();
         } catch (SQLException throwables) {
-            System.out.println("Error: " + throwables.getErrorCode());
+            if (throwables.getErrorCode() == 1050) {
+                System.out.println("Table already exists. Error: " + throwables.getErrorCode());
+            }else {
+                System.out.println("Error: " + throwables.getErrorCode());
+            }
         }
 
     }
@@ -186,8 +193,9 @@ public class DB {
 
                 if (!value.trim().equals("")) {
 
-                    execute(value);
+
                     System.out.println(">>" + value);
+                    execute(value);
                 }
             }
 

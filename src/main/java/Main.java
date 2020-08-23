@@ -29,7 +29,13 @@ public class Main {
         SAXParser saxParser = saxParserFactory.newSAXParser();
         GeneralHandler handler = new GeneralHandler();
 
-        saxParser.parse(new File("P:/Java/xmlmysql/src/main/resources/xml/client_goods_icon.xml"), handler);
+        handler.setInitialNode("client_goods_icons");
+        handler.setTableName("client_goods_icon");
+        //saxParser.parse(new File("P:/Java/xmlmysql/src/main/resources/xml/client_goods_icon.xml"), handler);
+
+
+        saxParser.parse(new File("D:/PB/data_eu/goods/client_goods_icon.xml"), handler);
+
 
 
     }

@@ -12,13 +12,29 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class GeneralHandler extends DefaultHandler{
 
-    private LinkedHashMap<String, String> xmlMap = new LinkedHashMap<String, String>();
+    private final LinkedHashMap<String, String> xmlMap = new LinkedHashMap<String, String>();
     private String tableName;
+    private String initialNode;
     private StringBuilder data = null;
+    private boolean truncate = true;
+
+    int i = 0;
+
+    public void setInitialNode(String initialNode) {
+        this.initialNode = initialNode;
+    }
+
+    public void setTruncate(boolean truncate) {
+        this.truncate = truncate;
+    }
 
     public void setTableName(String tableName) {
         this.tableName = tableName;
     }
+
+
+
+
 
     public LinkedHashMap<String, String> getXmlMap() {
         return xmlMap;
@@ -26,14 +42,22 @@ public class GeneralHandler extends DefaultHandler{
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+
         if (qName.equalsIgnoreCase(tableName)) {
-            try {
-                DB.loadTableCreate(tableName);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (i == 0 && truncate) {
+                try {
+                    DB.truncate(tableName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        } else if (qName.equalsIgnoreCase("id")) {
+            xmlMap.clear();
+            i++;
+        }
+        else if (qName.equalsIgnoreCase("id")) {
             xmlMap.put("id", null);
+        } else {
+            xmlMap.put(qName, null);
         }
         data = new StringBuilder();
     }
@@ -43,12 +67,25 @@ public class GeneralHandler extends DefaultHandler{
 
         if (qName.equalsIgnoreCase("id")) {
             xmlMap.put("id", String.valueOf(data));
-            System.out.println(data);
+        }
+        else if (qName.equalsIgnoreCase(tableName)) {
+            try {
+                DB.insert(xmlMap, tableName);
+            } catch (IOException e) {
+
+            }
+            System.out.println("Inserted " + i + " objects to the DB.");
+        }
+        else if (qName.equalsIgnoreCase(initialNode)) {
+            truncate = true;
+        }
+        else {
+            xmlMap.put(qName, "\"" + data + "\"");
         }
     }
 
     @Override
-    public void characters(char ch[], int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) throws SAXException {
         data.append(new String(ch, start, length));
     }
 
