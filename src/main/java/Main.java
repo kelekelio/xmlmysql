@@ -11,20 +11,13 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
-
-        //LinkedHashMap<String, String> xml = new LinkedHashMap<String, String>();
-        //xml.put("id", "\"2\"");
-        //xml.put("name", "\"icon_shop_item_preset_default\"");
-        //DB.insert(xml, "client_goods_icon");
-        //DB.truncate("yyyyy");
-        //DB.loadTableCreate("client_goods_icon");
-
-
-        ArrayList<String> ignoreList = new ArrayList<>();
-
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
         GeneralHandler handler = new GeneralHandler();
+
+        ArrayList<String> ignoreList = new ArrayList<>();
+
+
 
         /*
         handler.setInitialNode("client_goods_icons");
@@ -51,12 +44,10 @@ public class Main {
         handler.setTableName("client_abyss_race_bonus");
         saxParser.parse(new File("D:/PB/data/pc/abyss_race_bonuses.xml"), handler);
 
-        ArrayList<String> cities = new ArrayList<>(Arrays.asList("London", "Tokyo", "New York"));
-
 
         LinkedHashMap<String, ArrayList<String>> nodeIgnoreList = new LinkedHashMap<>();
-        nodeIgnoreList.put("client_abyss_race_bonus", ("data", "bonus_attrs"));
-
+        nodeIgnoreList.put("name", ("node1", "node2"));
+        nodeIgnoreList.put("name1", ("node1", "node2"));
 
 
     }

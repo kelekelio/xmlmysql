@@ -68,9 +68,11 @@ public class GeneralHandler extends DefaultHandler{
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
 
+        //start of XML object (ID is alwats first), set ID wihtout "" in value. could be removed
         if (qName.equalsIgnoreCase("id")) {
             xmlMap.put("id", String.valueOf(data));
         }
+        //end of a single XML object. Insert into DB
         else if (qName.equalsIgnoreCase(tableName)) {
             try {
                 DB.insert(xmlMap, tableName);
@@ -79,11 +81,13 @@ public class GeneralHandler extends DefaultHandler{
             }
             System.out.println("Inserted " + i + " objects to the DB.");
         }
+        // end of xml. Set truncate to true; clear ignore list, start i from 0
         else if (qName.equalsIgnoreCase(initialNode)) {
             truncate = true;
             ignoreList.clear();
             i = 0;
         }
+        // Node appears in the ignore list. Do nothing
         else if (ignoreList.contains(qName)) {
 
         }
