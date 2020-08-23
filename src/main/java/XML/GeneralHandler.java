@@ -14,11 +14,16 @@ public class GeneralHandler extends DefaultHandler{
 
     private final LinkedHashMap<String, String> xmlMap = new LinkedHashMap<String, String>();
     private String tableName;
+    private ArrayList<String> ignoreList = new ArrayList<>();
     private String initialNode;
     private StringBuilder data = null;
     private boolean truncate = true;
 
     int i = 0;
+
+    public void setIgnoreList(ArrayList<String> ignoreList) {
+        this.ignoreList = ignoreList;
+    }
 
     public void setInitialNode(String initialNode) {
         this.initialNode = initialNode;
@@ -54,11 +59,6 @@ public class GeneralHandler extends DefaultHandler{
             xmlMap.clear();
             i++;
         }
-        else if (qName.equalsIgnoreCase("id")) {
-            xmlMap.put("id", null);
-        } else {
-            xmlMap.put(qName, null);
-        }
         data = new StringBuilder();
     }
 
@@ -78,9 +78,18 @@ public class GeneralHandler extends DefaultHandler{
         }
         else if (qName.equalsIgnoreCase(initialNode)) {
             truncate = true;
+            ignoreList.clear();
+        }
+        else if (ignoreList.contains(qName)) {
+
         }
         else {
-            xmlMap.put(qName, "\"" + data + "\"");
+            //TODO: list of MYSQL reserved words
+            if ("condition".equalsIgnoreCase(qName)) {
+                xmlMap.put("conditions", "\"" + data + "\"");
+            }else {
+                xmlMap.put(qName, "\"" + data + "\"");
+            }
         }
     }
 
