@@ -33,13 +33,14 @@ public class Main {
 
         saxParser.parse(new File("D:/PB/data_eu/goods/client_goods_icon.xml"), handler);
 
-*/
+
         handler.setInitialNode("client_pcraces");
         handler.setTableName("client_pcrace");
         saxParser.parse(new File("D:/PB/data/pc/client_PCRace.xml"), handler);
 
+*/
 
-
+        //TODO: declare a separate ignore list in a ArrayList<ArrayList<>>
 
 
         ignoreList.add("bonus_attrs");
@@ -49,6 +50,13 @@ public class Main {
         handler.setInitialNode("client_abyss_race_bonuss");
         handler.setTableName("client_abyss_race_bonus");
         saxParser.parse(new File("D:/PB/data/pc/abyss_race_bonuses.xml"), handler);
+
+        ArrayList<String> cities = new ArrayList<>(Arrays.asList("London", "Tokyo", "New York"));
+
+
+        LinkedHashMap<String, ArrayList<String>> nodeIgnoreList = new LinkedHashMap<>();
+        nodeIgnoreList.put("client_abyss_race_bonus", ("data", "bonus_attrs"));
+
 
 
     }

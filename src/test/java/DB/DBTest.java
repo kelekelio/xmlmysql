@@ -72,6 +72,6 @@ class DBTest {
 
     @Test
     void loadTableCreate() throws IOException {
-        DB.loadTableCreate("client_goods_icon");
+        DB.loadTableCreate("tuuuj");
     }
 }

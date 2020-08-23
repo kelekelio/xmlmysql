@@ -1,6 +1,7 @@
 package XML;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -50,11 +51,13 @@ public class GeneralHandler extends DefaultHandler{
 
         if (qName.equalsIgnoreCase(tableName)) {
             if (i == 0 && truncate) {
+
                 try {
                     DB.truncate(tableName);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
             }
             xmlMap.clear();
             i++;
@@ -71,7 +74,7 @@ public class GeneralHandler extends DefaultHandler{
         else if (qName.equalsIgnoreCase(tableName)) {
             try {
                 DB.insert(xmlMap, tableName);
-            } catch (IOException e) {
+            } catch (IOException | SQLException e) {
 
             }
             System.out.println("Inserted " + i + " objects to the DB.");

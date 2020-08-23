@@ -7,10 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 public class DB {
     // connect to DB +
@@ -59,7 +56,7 @@ public class DB {
         }
     }
 
-    public static void insert(LinkedHashMap<String, String> sqlArray, String tableName) throws IOException {
+    public static void insert(LinkedHashMap<String, String> sqlArray, String tableName) throws IOException, SQLException {
 
 
 
@@ -107,6 +104,26 @@ public class DB {
                 // todo: on column missing, initiate creation of new table creation file based on all mapped nodes
                 // Create column compare method
                 System.out.println("Unknown column. Error " + throwables.getErrorCode());
+                Set<String> tempColumns = new HashSet<>(SQLkeys);
+
+                ResultSet results = DB
+                        .getInstance()
+                        .getConn()
+                        .createStatement()
+                        .executeQuery("SHOW COLUMNS FROM " + tableName);
+
+                while (results.next()) {
+                    tempColumns.remove(results.getString("Field"));
+                }
+
+                for (String column : tempColumns) {
+                    execute("ALTER TABLE " + tableName + " ADD COLUMN " + column + " TEXT NULL;");
+                }
+                results.close();
+
+                System.out.println("Inserting data again.");
+                insert(sqlArray, tableName);
+
             }
 
             else {
