@@ -3,13 +3,13 @@ package DLL;
 import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+
 
 class DLLTest {
 
-    private Object DLLFileVersionInfo;
+
 
     @Test
     public void dllVersionCheckEU() {

@@ -1,6 +1,5 @@
 package DB;
 
-import Errors.Errors;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -91,7 +90,7 @@ public class DB {
 
             // 1062 => DUPLICATE KEY
             if (throwables.getErrorCode() == 1062) {
-                System.out.println(ANSI_RED + "ID already exists" + ANSI_RESET);
+                System.out.println(ANSI_RED + "ID already exists. Error: " + throwables.getErrorCode() + ANSI_RESET);
             }
             // 1146 Table doesn't exist
             else if (throwables.getErrorCode() == 1146) {
@@ -176,7 +175,11 @@ public class DB {
         } catch (SQLException throwables) {
             if (throwables.getErrorCode() == 1050) {
                 System.out.println(ANSI_RED + "Table already exists. Error: " + throwables.getErrorCode() + ANSI_RESET);
-            }else {
+            } else if (throwables.getErrorCode() == 1064) {
+                System.out.println(ANSI_RED + "Syntax error. Error: " + throwables.getErrorCode() + ANSI_RESET);
+            } else if (throwables.getErrorCode() == 1062) {
+                System.out.println(ANSI_RED + "ID already exists. Error: " + throwables.getErrorCode() + ANSI_RESET);
+            } else {
                 System.out.println(ANSI_RED + "Error: " + throwables.getErrorCode() + ANSI_RESET);
             }
         }

@@ -1,4 +1,5 @@
 import XML.GeneralHandler;
+import XML.VersionHandler;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -13,6 +14,7 @@ public class Main {
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
         GeneralHandler handler = new GeneralHandler();
+        VersionHandler versionHandler = new VersionHandler();
 
         ArrayList<String> ignoreList = new ArrayList<>();
 
@@ -32,6 +34,7 @@ public class Main {
         // <TableName></TableName>
         // <Truncate></Truncate>
         // <consolidate></consolidate>
+
 
 
 
@@ -61,6 +64,13 @@ public class Main {
         handler.setInitialNode("client_ride_datas");
         handler.setTableName("client_ride_data");
         saxParser.parse(new File("D:/PB/data/rides/rides.xml"), handler);
+
+
+
+        versionHandler.setRegion("kr");
+        versionHandler.setInitialNode("client_ride_datas");
+        versionHandler.setTableName("client_ride_data");
+        saxParser.parse(new File("D:/PB/data/rides/rides.xml"), versionHandler);
 
     }
 }

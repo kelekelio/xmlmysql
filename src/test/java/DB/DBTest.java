@@ -15,7 +15,7 @@ class DBTest {
 
     @Test
     void insert() throws SQLException, IOException {
-        LinkedHashMap<String, String> xml = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> xml = new LinkedHashMap<>();
 
         xml.put("id", "\"2\"");
         xml.put("name", "\"icon_shop_item_preset_default\"");

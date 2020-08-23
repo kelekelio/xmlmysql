@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 import DB.DB;
 import org.xml.sax.Attributes;
@@ -14,7 +13,7 @@ import static Extra.Colors.*;
 
 public class GeneralHandler extends DefaultHandler{
 
-    private final LinkedHashMap<String, String> xmlMap = new LinkedHashMap<String, String>();
+    private final LinkedHashMap<String, String> xmlMap = new LinkedHashMap<>();
     private String tableName;
     private ArrayList<String> ignoreList = new ArrayList<>();
     private String initialNode;
@@ -42,11 +41,6 @@ public class GeneralHandler extends DefaultHandler{
 
 
 
-
-    public LinkedHashMap<String, String> getXmlMap() {
-        return xmlMap;
-    }
-
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
@@ -72,7 +66,7 @@ public class GeneralHandler extends DefaultHandler{
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
 
-        //start of XML object (ID is alwats first), set ID wihtout "" in value. could be removed
+        //start of XML object (ID is always first), set ID without "" in value. could be removed
         if (qName.equalsIgnoreCase("id")) {
             xmlMap.put("id", String.valueOf(data));
         }
@@ -80,7 +74,7 @@ public class GeneralHandler extends DefaultHandler{
         else if (qName.equalsIgnoreCase(tableName)) {
             try {
                 DB.insert(xmlMap, tableName);
-            } catch (IOException | SQLException e) {
+            } catch (IOException | SQLException ignored) {
 
             }
             System.out.println("Inserted " + i + " objects into the " + tableName + " table.");
