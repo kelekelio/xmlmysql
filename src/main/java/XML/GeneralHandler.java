@@ -10,6 +10,7 @@ import DB.DB;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+import static Extra.Colors.*;
 
 public class GeneralHandler extends DefaultHandler{
 
@@ -61,6 +62,9 @@ public class GeneralHandler extends DefaultHandler{
             }
             xmlMap.clear();
             i++;
+        }
+        else if (qName.equalsIgnoreCase(initialNode)) {
+            System.out.println(ANSI_PURPLE + "Settings: Ignore => " + ignoreList + ", DB Truncate => " + truncate + ANSI_RESET);
         }
         data = new StringBuilder();
     }

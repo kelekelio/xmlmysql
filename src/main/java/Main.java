@@ -1,5 +1,6 @@
 import DB.DB;
 import XML.GeneralHandler;
+import XML.IgnoreNodes;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,21 +20,21 @@ public class Main {
 
 
 
-        /*
-        handler.setInitialNode("client_goods_icons");
-        handler.setTableName("client_goods_icon");
-        //saxParser.parse(new File("P:/Java/xmlmysql/src/main/resources/xml/client_goods_icon.xml"), handler);
-
-        saxParser.parse(new File("D:/PB/data_eu/goods/client_goods_icon.xml"), handler);
 
 
-        handler.setInitialNode("client_pcraces");
-        handler.setTableName("client_pcrace");
-        saxParser.parse(new File("D:/PB/data/pc/client_PCRace.xml"), handler);
 
-*/
 
         //TODO: declare a separate ignore list in a ArrayList<ArrayList<>>
+
+        //TODO: set the list of files in a file????
+        // <file_url></file_url>
+        // <handler></handler>
+        // <IgnoreList></IgnoreList>
+        // <InitialNode></InitialNode>
+        // <TableName></TableName>
+        // <Truncate></Truncate>
+        // <consolidate></consolidate>
+
 
 
         ignoreList.add("bonus_attrs");
@@ -45,13 +46,11 @@ public class Main {
         saxParser.parse(new File("D:/PB/data/pc/abyss_race_bonuses.xml"), handler);
 
 
-        /*
-        LinkedHashMap<String, ArrayList<String>> nodeIgnoreList = new LinkedHashMap<>();
-        nodeIgnoreList.put("name", ("node1", "node2"));
-        nodeIgnoreList.put("name1", ("node1", "node2"));
+        handler.setInitialNode("client_pcraces");
+        handler.setTableName("client_pcrace");
+        saxParser.parse(new File("D:/PB/data/pc/client_PCRace.xml"), handler);
 
 
-         */
 
     }
 }
