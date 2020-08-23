@@ -45,6 +45,7 @@ public class Main {
         ignoreList.add("bonus_attrs");
         ignoreList.add("data");
         handler.setIgnoreList(ignoreList);
+        handler.setTruncate(false);
         handler.setInitialNode("client_abyss_race_bonuss");
         handler.setTableName("client_abyss_race_bonus");
         saxParser.parse(new File("D:/PB/data/pc/abyss_race_bonuses.xml"), handler);

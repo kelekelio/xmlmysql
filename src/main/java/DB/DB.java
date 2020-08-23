@@ -106,7 +106,7 @@ public class DB {
             else if (throwables.getErrorCode() == 1054) {
                 // todo: on column missing, initiate creation of new table creation file based on all mapped nodes
                 // Create column compare method
-                System.out.println("Unknown column");
+                System.out.println("Unknown column. Error " + throwables.getErrorCode());
             }
 
             else {

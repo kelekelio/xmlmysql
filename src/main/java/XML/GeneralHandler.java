@@ -79,6 +79,7 @@ public class GeneralHandler extends DefaultHandler{
         else if (qName.equalsIgnoreCase(initialNode)) {
             truncate = true;
             ignoreList.clear();
+            i = 0;
         }
         else if (ignoreList.contains(qName)) {
 
