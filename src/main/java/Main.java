@@ -84,6 +84,8 @@ public class Main {
 
 
         /*
+        //files too large to be pushed to github.
+
         versionHandler.setRegion("kr");
         versionHandler.setInitialNode("client_items");
         versionHandler.setTableName("client_item");
@@ -91,8 +93,6 @@ public class Main {
         saxParser.parse(new File("D:/PB/data/items/client_items_etc_2.xml"), versionHandler);
         versionHandler.setRegion("eu");
         saxParser.parse(new File("D:/PB/data_eu/items/client_items_etc_2.xml"), versionHandler);
-
-
          */
 
 
