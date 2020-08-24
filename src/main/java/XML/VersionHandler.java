@@ -6,12 +6,15 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.LinkedHashMap;
 
 import static Extra.Colors.ANSI_PURPLE;
 import static Extra.Colors.ANSI_RESET;
 
 public class VersionHandler extends GeneralHandler {
 
+    private final LinkedHashMap<String, String> xmlMap = new LinkedHashMap<>();
     private String region = "kr";
     private String tableName;
     private String version = DLL.DllVersionCheck(region);
@@ -27,7 +30,7 @@ public class VersionHandler extends GeneralHandler {
 
     @Override
     public void setTableName(String tableName) {
-        this.tableName = tableName;
+        this.tableName = tableName + "_version";
     }
 
     @Override
@@ -37,19 +40,28 @@ public class VersionHandler extends GeneralHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        if (qName.equalsIgnoreCase(tableName)) {
+        if (qName.equalsIgnoreCase(initialNode)) {
+            System.out.println(ANSI_PURPLE + "Settings: Ignore => , DB Truncate => " + truncate + ANSI_RESET);
+            xmlMap.put("id", null);
+            xmlMap.put("client_version", "\"" + version + "\"");
+        }
+        else if (qName.equalsIgnoreCase("id")) {
             i++;
         }
-        else if (qName.equalsIgnoreCase(initialNode)) {
-            System.out.println(ANSI_PURPLE + "Settings: Ignore => , DB Truncate => " + truncate + ANSI_RESET);
-        }
+
         data = new StringBuilder();
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (qName.equalsIgnoreCase("id")) {
-            DB.execute("INSERT INTO " + tableName + "_version (id, client_version) VALUES (" + data + ", \"" + version + "\");");
+
+            xmlMap.put("id", String.valueOf(data));
+            try {
+                DB.insert(xmlMap, tableName);
+            } catch (IOException | SQLException e) {
+                e.printStackTrace();
+            }
             System.out.println("Inserted " + i + " objects into the " + tableName + " table.");
         }
         else if (qName.equalsIgnoreCase(initialNode)) {
