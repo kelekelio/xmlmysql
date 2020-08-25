@@ -12,13 +12,10 @@ import java.io.File;
 
 public class DLL {
 
-    /*
+
     final private static String krDLL = "P:/PlayNC/AION_KOR_TEST/bin64/Game.dll";
     final private static String euDLL = "P:/Program Files (x86)/AION QA1/bin64/Game.dll";
-     */
 
-    final private static String euDLL = "src\\main\\resources\\dll\\CrySystem.dll";
-    final private static String krDLL = "src\\main\\resources\\dll\\CrySystem.dll";
 
 
     public static String DllVersionCheck (String region) {

@@ -59,8 +59,6 @@ public class DB {
     //TODO: either create a new replace method or add another parameter that will create either an insert or replace statement
     public static void insert(LinkedHashMap<String, String> sqlArray, String tableName) throws IOException, SQLException {
 
-
-
         //keys => [id, id2, name, desc, desc1, desc2]
         Set<String> SQLkeys = sqlArray.keySet();
         //System.out.println(SQLkeys);

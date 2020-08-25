@@ -45,26 +45,26 @@ public class Main {
         handler.setTruncate(false);
         handler.setInitialNode("client_abyss_race_bonuss");
         handler.setTableName("client_abyss_race_bonus");
-        saxParser.parse(new File("src\\main\\resources\\xml\\abyss_race_bonuses.xml"), handler);
+        saxParser.parse(new File("D:\\PB\\data\\pc\\abyss_race_bonuses.xml"), handler);
 
 
         handler.setInitialNode("client_pcraces");
         handler.setTableName("client_pcrace");
-        saxParser.parse(new File("src\\main\\resources\\xml\\client_PCRace.xml"), handler);
+        saxParser.parse(new File("D:\\PB\\data\\pc\\client_PCRace.xml"), handler);
 
 
         handler.setInitialNode("client_item_collection_attrs");
         handler.setTableName("client_item_collection_attr");
-        saxParser.parse(new File("src\\main\\resources\\xml\\client_item_collection_attr.xml"), handler);
+        saxParser.parse(new File("D:\\PB\\data\\pc\\client_item_collection_attr.xml"), handler);
 
 
         handler.setInitialNode("client_jumping_quickbars");
         handler.setTableName("client_jumping_quickbar");
-        saxParser.parse(new File("src\\main\\resources\\xml\\client_jumping_quickbar.xml"), handler);
+        saxParser.parse(new File("D:\\PB\\data\\pc\\client_jumping_quickbar.xml"), handler);
 
         handler.setInitialNode("client_ride_datas");
         handler.setTableName("client_ride_data");
-        saxParser.parse(new File("src\\main\\resources\\xml\\rides.xml"), handler);
+        saxParser.parse(new File("D:\\PB\\data\\rides\\rides.xml"), handler);
 
 
 
@@ -73,12 +73,12 @@ public class Main {
         versionHandler.setRegion("kr");
         versionHandler.setInitialNode("client_ride_datas");
         versionHandler.setTableName("client_ride_data");
-        saxParser.parse(new File("src\\main\\resources\\xml\\rides.xml"), versionHandler);
+        saxParser.parse(new File("D:\\PB\\data\\rides\\rides.xml"), versionHandler);
 
         versionHandler.setRegion("eu");
         versionHandler.setInitialNode("client_ride_datas");
         versionHandler.setTableName("client_ride_data");
-        saxParser.parse(new File("src\\main\\resources\\xml\\rides.xml"), versionHandler);
+        saxParser.parse(new File("D:\\PB\\data\\rides\\rides.xml"), versionHandler);
 
 
 
