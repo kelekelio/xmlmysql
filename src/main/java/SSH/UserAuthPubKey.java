@@ -13,72 +13,74 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 public class UserAuthPubKey{
-    public static void main(String[] arg){
 
+    private String sshKey = "P:\\ssh_private_key.ppk";
+    private String host = "wn24.webd.pl";
+    private String user = "kele01";
+    private int port = 22022;
+    Session session;
+
+
+    public Session getSession() {
+        return session;
+    }
+
+    public UserAuthPubKey() {
         try{
             JSch jsch=new JSch();
 
+            jsch.addIdentity(sshKey);
 
+            session=jsch.getSession(user, host, port);
 
-            jsch.addIdentity("P:\\ssh_private_key.ppk");
-
-            String host= "wn24.webd.pl";
-            String user = "kele01";
-            int port = 22022;
-            String command = "find public_html/java/testdelete/ -type f -name \"*.html\" -delete";
-
-
-
-
-            Session session=jsch.getSession(user, host, port);
-
-            // username and passphrase will be given via UserInfo interface.
             UserInfo ui = new MyUserInfo();
-
 
             session.setUserInfo(ui);
 
-
             session.connect();
 
-            Channel channel = session.openChannel("exec");
-            ((ChannelExec)channel).setCommand(command);
-            channel.setInputStream(null);
-            ((ChannelExec)channel).setErrStream(System.err);
-
-            InputStream input = channel.getInputStream();
 
 
-
-            channel.connect();
-
-
-
-            try{
-                InputStreamReader inputReader = new InputStreamReader(input);
-                BufferedReader bufferedReader = new BufferedReader(inputReader);
-                String line = null;
-
-                while((line = bufferedReader.readLine()) != null){
-                    System.out.println(line);
-                }
-                bufferedReader.close();
-                inputReader.close();
-            }catch(IOException ex){
-                ex.printStackTrace();
-            }
-
-
-            channel.disconnect();
-            session.disconnect();
-            System.out.println("Cache has been wiped!");
         }
         catch(Exception e){
             System.out.println(e);
         }
+    }
+
+    public void executeSSH (Session session, String command) throws JSchException, IOException {
+        Channel channel = session.openChannel("exec");
+        ((ChannelExec)channel).setCommand(command);
+        channel.setInputStream(null);
+        ((ChannelExec)channel).setErrStream(System.err);
+
+        InputStream input = channel.getInputStream();
+
+
+
+        channel.connect();
+
+
+
+        try{
+            InputStreamReader inputReader = new InputStreamReader(input);
+            BufferedReader bufferedReader = new BufferedReader(inputReader);
+            String line = null;
+
+            while((line = bufferedReader.readLine()) != null){
+                System.out.println(line);
+            }
+            bufferedReader.close();
+            inputReader.close();
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+
+
+        channel.disconnect();
+        session.disconnect();
+        System.out.println("Cache has been wiped!");
     }
 
 

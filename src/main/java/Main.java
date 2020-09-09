@@ -1,5 +1,9 @@
+import DLL.DLL;
+import Discord.DiscordWebhook;
+import SSH.UserAuthPubKey;
 import XML.GeneralHandler;
 import XML.VersionHandler;
+import com.jcraft.jsch.JSchException;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.xml.sax.SAXException;
@@ -7,15 +11,18 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
 
 
-    public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
+    public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException, JSchException {
+        long startTime = System.nanoTime();
 
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
@@ -27,11 +34,27 @@ public class Main {
 
 
 
-        //apache
+        System.out.println("ssh wipe");
+        UserAuthPubKey ssh = new UserAuthPubKey();
+        ssh.executeSSH(ssh.getSession(), "find public_html/java/testdelete/ -type f -name \"*.html\" -delete");
+        System.out.println("ssh wipe done");
 
 
 
 
+
+        DiscordWebhook webhook = new DiscordWebhook("https://discordapp.com/api/webhooks/710484134773915648/VYvTlgWV-0hOIm04wbzpQg6o5vXmvYzegTvX0Ap1eqQjcRwuPBtHQ3nFDuQaE0dwqF_R");
+        webhook.setUsername("Aion is Dead");
+        webhook.addEmbed(new DiscordWebhook.EmbedObject()
+            .setTitle("Version Update")
+            .setDescription("New game version detected!")
+            .setColor(Color.RED)
+            .addField("KR", DLL.DllVersionCheck("kr"), true)
+            .addField("EU", DLL.DllVersionCheck("eu"), true)
+            .setThumbnail("https://kryptongta.com/images/kryptonlogo.png")
+            .setFooter("Update initiated. Estimated downtime: 5min", "")
+            .setUrl("https://aionpowerbook.com/powerbook/Version"));
+        webhook.execute(); //Handle exception
 
         //TODO: set the list of files in a file????
         // <file_url></file_url>
@@ -110,5 +133,9 @@ public class Main {
 
 
 
+
+        long elapsedTime = System.nanoTime() - startTime;
+        long convert = TimeUnit.MINUTES.convert(elapsedTime, TimeUnit.NANOSECONDS);
+        System.out.println(convert);
     }
 }
