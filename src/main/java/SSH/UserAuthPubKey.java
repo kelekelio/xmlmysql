@@ -27,12 +27,13 @@ public class UserAuthPubKey{
 
             String host= "wn24.webd.pl";
             String user = "kele01";
+            int port = 22022;
             String command = "find public_html/java/testdelete/ -type f -name \"*.html\" -delete";
 
 
 
 
-            Session session=jsch.getSession(user, host, 22022);
+            Session session=jsch.getSession(user, host, port);
 
             // username and passphrase will be given via UserInfo interface.
             UserInfo ui = new MyUserInfo();
@@ -73,6 +74,7 @@ public class UserAuthPubKey{
 
             channel.disconnect();
             session.disconnect();
+            System.out.println("Cache has been wiped!");
         }
         catch(Exception e){
             System.out.println(e);
