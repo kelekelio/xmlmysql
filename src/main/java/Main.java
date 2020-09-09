@@ -1,3 +1,4 @@
+import CMD.Cmd;
 import DLL.DLL;
 import Discord.DiscordWebhook;
 import SSH.UserAuthPubKey;
@@ -34,15 +35,18 @@ public class Main {
 
 
 
+        /*
         System.out.println("ssh wipe");
         UserAuthPubKey ssh = new UserAuthPubKey();
         ssh.executeSSH(ssh.getSession(), "find public_html/java/testdelete/ -type f -name \"*.html\" -delete");
         System.out.println("ssh wipe done");
 
 
+         */
 
 
 
+/*
         DiscordWebhook webhook = new DiscordWebhook("https://discordapp.com/api/webhooks/710484134773915648/VYvTlgWV-0hOIm04wbzpQg6o5vXmvYzegTvX0Ap1eqQjcRwuPBtHQ3nFDuQaE0dwqF_R");
         webhook.setUsername("Aion is Dead");
         webhook.addEmbed(new DiscordWebhook.EmbedObject()
@@ -55,6 +59,9 @@ public class Main {
             .setFooter("Update initiated. Estimated downtime: 5min", "")
             .setUrl("https://aionpowerbook.com/powerbook/Version"));
         webhook.execute(); //Handle exception
+ */
+
+
 
         //TODO: set the list of files in a file????
         // <file_url></file_url>
@@ -131,11 +138,18 @@ public class Main {
 
          */
 
+        /*
+        Cmd.Backupdbtosql();
+         */
 
-
+        try {
+            Cmd.cmdExec();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         long elapsedTime = System.nanoTime() - startTime;
         long convert = TimeUnit.MINUTES.convert(elapsedTime, TimeUnit.NANOSECONDS);
-        System.out.println(convert);
+        System.out.println("Execution time = " + convert + "min");
     }
 }
