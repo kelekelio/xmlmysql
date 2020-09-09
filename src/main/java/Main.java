@@ -1,5 +1,7 @@
 import XML.GeneralHandler;
 import XML.VersionHandler;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.XMLConfiguration;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -10,9 +12,14 @@ import java.io.IOException;
 import java.util.*;
 
 public class Main {
+
+
+
     public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException {
+
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
+
         GeneralHandler handler = new GeneralHandler();
         VersionHandler versionHandler = new VersionHandler();
 
@@ -20,11 +27,11 @@ public class Main {
 
 
 
+        //apache
 
 
 
 
-        //TODO: declare a separate ignore list in a ArrayList<ArrayList<>>
 
         //TODO: set the list of files in a file????
         // <file_url></file_url>
@@ -38,7 +45,7 @@ public class Main {
 
 
 
-
+/*
         ignoreList.add("bonus_attrs");
         ignoreList.add("data");
         handler.setIgnoreList(ignoreList);
@@ -46,6 +53,8 @@ public class Main {
         handler.setInitialNode("client_abyss_race_bonuss");
         handler.setTableName("client_abyss_race_bonus");
         saxParser.parse(new File("D:\\PB\\data\\pc\\abyss_race_bonuses.xml"), handler);
+
+
 
 
         handler.setInitialNode("client_pcraces");
@@ -83,7 +92,9 @@ public class Main {
 
 
 
-        /*
+
+
+
         //files too large to be pushed to github.
 
         versionHandler.setRegion("kr");
@@ -93,6 +104,8 @@ public class Main {
         saxParser.parse(new File("D:/PB/data/items/client_items_etc_2.xml"), versionHandler);
         versionHandler.setRegion("eu");
         saxParser.parse(new File("D:/PB/data_eu/items/client_items_etc_2.xml"), versionHandler);
+
+
          */
 
 

@@ -70,6 +70,8 @@ public class DB {
         String SQLStatement = "REPLACE INTO " + tableName + " "+ SQLkeys +" VALUES "+ SQLvalues +";";
 
 
+        //replace into [id, id2, name, desc, desc1, desc2] values ["133345", "1133345", "dev_name", "description", "description1", "description2"]
+
         SQLStatement = SQLStatement
                 .replaceAll("\\[", "(")
                 .replaceAll("]", ")");
@@ -93,7 +95,7 @@ public class DB {
             }
             // 1146 Table doesn't exist
             else if (throwables.getErrorCode() == 1146) {
-                System.out.println(ANSI_RED + "Table doesn't exist. Creating the table from a new." + ANSI_RESET);
+                System.out.println(ANSI_RED + "Table doesn't exist. Creating the table from a new. Error " + throwables.getErrorCode() + ANSI_RESET);
                 loadTableCreate(tableName);
                 System.out.println("Inserting data again.");
                 insert(sqlArray, tableName);
@@ -151,7 +153,7 @@ public class DB {
             //if error, create table
             // 1146 => table doesn't exist
             if (throwables.getErrorCode() == 1146) {
-                System.out.println(ANSI_RED + "Table doesn't exist, create the table from a new" + ANSI_RESET);
+                System.out.println(ANSI_RED + "Table doesn't exist, create the table from a new. Error " + throwables.getErrorCode() + ANSI_RESET);
                 //create table method
                 //on closing xml tag, create a new CREATE TABLE sql file =>
                 // store all unique xml nodes, get their last known type (SHOW COLUMNS FROM table_name;), else use text for all but ID
