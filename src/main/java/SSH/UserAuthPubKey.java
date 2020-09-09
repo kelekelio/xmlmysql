@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class UserAuthPubKey{
     public static void main(String[] arg){
@@ -26,7 +27,9 @@ public class UserAuthPubKey{
 
             String host= "wn24.webd.pl";
             String user = "kele01";
-            String command="ls -ltr";
+            String command = "find public_html/java/testdelete/ -type f -name \"*.html\" -delete";
+
+
 
 
             Session session=jsch.getSession(user, host, 22022);
@@ -46,6 +49,7 @@ public class UserAuthPubKey{
             ((ChannelExec)channel).setErrStream(System.err);
 
             InputStream input = channel.getInputStream();
+
 
 
             channel.connect();
