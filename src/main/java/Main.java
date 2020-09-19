@@ -1,20 +1,15 @@
-import CMD.Cmd;
-import DLL.DLL;
-import Discord.DiscordWebhook;
-import SSH.UserAuthPubKey;
+import FTP.FTPFunctions;
 import XML.GeneralHandler;
 import XML.VersionHandler;
 import com.jcraft.jsch.JSchException;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.XMLConfiguration;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -23,6 +18,27 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException, JSchException {
+
+        //TODO:
+        // 1. compare local versions with one saved in db
+        // 2. send discord notif
+        // 3. upload down htaccess
+        // 4. rename powerbook folder to pb
+        // 5. start db update
+        // 6. execute update commands
+        // 7. dump the db
+        // 8. zip the dump
+        // 9. upload zip to ftp
+        // 10. unzip dump on server
+        // 11. execute source command
+        // 12. execute cache wipe
+        // 13. rename the folder back to powerbook
+        // 14. upload live htaccess
+        // 15. send discord notif
+        // 16. remove db files .sql and .zip
+        // 17. enclose everything in switch to force update or quit on no-new-version
+
+
         long startTime = System.nanoTime();
 
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
@@ -34,14 +50,26 @@ public class Main {
         ArrayList<String> ignoreList = new ArrayList<>();
 
 
+        /*
+        try {
+            FTPFunctions ftpobj = new FTPFunctions("host", 21, "user", "pass");
+            ftpobj.uploadFTPFile("P:\\2Q18_PT_ENG.pdf", "2Q18_PT_ENG.pdf", "/public_html/java/");
+            //ftpobj.uploadFTPFile("P:\\Coding\\AionPB\\htaccess\\down\\.htaccess", ".htaccess", "/public_html/java/");
+            //ftpobj.uploadFTPFile("P:\\Coding\\AionPB\\htaccess\\live\\.htaccess", ".htaccess", "/public_html/java/");
+            //ftpobj.uploadFTPFile("D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\26158902_db_1409.zip", "26158902_db_1409.zip", "/public_html/java/");
+            ftpobj.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+         */
+
 
         /*
         System.out.println("ssh wipe");
         UserAuthPubKey ssh = new UserAuthPubKey();
         ssh.executeSSH(ssh.getSession(), "find public_html/java/testdelete/ -type f -name \"*.html\" -delete");
         System.out.println("ssh wipe done");
-
-
          */
 
 
@@ -72,10 +100,16 @@ public class Main {
         // <Truncate></Truncate>
         // <consolidate></consolidate>
 
-
-
-
 /*
+        ignoreList.add("bound_radius");
+        handler.setIgnoreList(ignoreList);
+        handler.setTruncate(false);
+        handler.setInitialNode("client_familiars");
+        handler.setTableName("client_familiar");
+        saxParser.parse(new File("D:\\PB\\data\\func_pet\\familiars.xml"), handler);
+
+
+
         ignoreList.add("bonus_attrs");
         ignoreList.add("data");
         handler.setIgnoreList(ignoreList);
@@ -140,7 +174,7 @@ public class Main {
 
         /*
         Cmd.Backupdbtosql();
-         */
+
 
         try {
             Cmd.cmdExec();
@@ -148,8 +182,14 @@ public class Main {
             e.printStackTrace();
         }
 
-        long elapsedTime = System.nanoTime() - startTime;
-        long convert = TimeUnit.MINUTES.convert(elapsedTime, TimeUnit.NANOSECONDS);
-        System.out.println("Execution time = " + convert + "min");
+         */
+
+        long elapsedTime = (System.nanoTime() - startTime)/1000000;
+
+        System.out.println(
+                new SimpleDateFormat("mm:ss").format(new Date(elapsedTime))
+        );
+
+
     }
 }
