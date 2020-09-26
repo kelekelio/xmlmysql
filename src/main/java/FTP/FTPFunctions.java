@@ -12,7 +12,7 @@ import org.apache.commons.net.io.CopyStreamAdapter;
 
 import static Extra.Colors.ANSI_CYAN;
 import static Extra.Colors.ANSI_RESET;
-import static Extra.Configs.*;
+import static Extra.Configuration.*;
 
 
 public class FTPFunctions {

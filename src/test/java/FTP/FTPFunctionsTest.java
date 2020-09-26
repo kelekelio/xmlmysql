@@ -15,7 +15,7 @@ class FTPFunctionsTest {
     @Test
     void uploadFTPFile() throws Exception {
         FTPFunctions ftpobj = new FTPFunctions();
-        ftpobj.uploadFTPFile("D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\26158902_db_1409.zip", "26158902_db_1409.zip", "/public_html/java/");
+        ftpobj.uploadFTPFile("D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\java.sql", "java.sql", "/public_html/java/");
     }
 
     @Test

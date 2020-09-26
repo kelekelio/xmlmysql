@@ -9,22 +9,17 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static Extra.Configuration.*;
+
 /**
  * @author Grzegorz Nowakowski
  */
 public class GTEVDatabaseConnection extends JSch {
 
-    private static final String sshKey = "P:\\ssh_private_key.ppk";
+
     private final Channel channel;
     private final Session sshSession;
-    private static final int SSH_PORT = 22022;
-    private static final String DATABASE = "DATABASE",
-            DATABASE_USER = "DATABASE_USER",
-            DATABASE_PASSWORD = "DATABASE_PASSWORD",
-            DATABASE_HOST = "DATABASE_HOST",
-            SSH_HOST = "SSH_HOST",
-            SSH_USER = "SSH_USER",
-            SSH_PASS = "SSH_PASS";
+
 
     public GTEVDatabaseConnection() throws SQLException {
         try {
@@ -42,7 +37,7 @@ public class GTEVDatabaseConnection extends JSch {
         try {
             //((ChannelExec) channel).setCommand("mysql -u " + DATABASE_USER + " -p " + DATABASE_PASSWORD + " -h " + DATABASE_HOST + " -e '" + query + "' " + DATABASE);
             //((ChannelExec) channel).setCommand("mv public_html/java/powerbook public_html/java/pb");
-            ((ChannelExec) channel).setCommand("mysql --host="+DATABASE_HOST+" --port=3306 -u "+DATABASE_USER+" -p"+DATABASE_PASSWORD+" "+DATABASE+" < public_html/26158902_db_2309a.sql ");
+            ((ChannelExec) channel).setCommand("mysql --host="+DB_HOST+" --port="+DB_PORT+" -u "+DB_USER+" -p"+DB_PASS+" "+DB_NAME+" < public_html/26158902_db_2309a.sql ");
 
             InputStream in = channel.getInputStream();
             channel.connect();
@@ -86,7 +81,7 @@ public class GTEVDatabaseConnection extends JSch {
     private Session createSshSession() throws JSchException {
         UserInfo ui = new MyUserInfo();
         JSch jsch = new JSch();
-        jsch.addIdentity(sshKey);
+        jsch.addIdentity(SSH_KEY);
 
         Session session = jsch.getSession(SSH_USER, SSH_HOST, SSH_PORT);
         session.setUserInfo(ui);
