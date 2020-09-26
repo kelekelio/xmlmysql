@@ -14,12 +14,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import static Extra.Configuration.*;
+
 public class UserAuthPubKey{
 
-    private String sshKey = "P:\\ssh_private_key.ppk";
-    private String host = "host";
-    private String user = "user";
-    private int port = 22022;
+
+
     Session session;
     Channel channel;
 
@@ -32,11 +32,11 @@ public class UserAuthPubKey{
         try{
             JSch jsch=new JSch();
 
-            jsch.addIdentity(sshKey);
+            jsch.addIdentity(SSH_KEY);
 
-            session=jsch.getSession(user, host, port);
+            session=jsch.getSession(SSH_USER, SSH_HOST, SSH_PORT);
 
-            UserInfo ui = new MyUserInfo();
+            UserInfo ui = new GTEVDatabaseConnection.MyUserInfo();
 
             session.setUserInfo(ui);
 
@@ -90,31 +90,5 @@ public class UserAuthPubKey{
     }
 
 
-    public static class MyUserInfo implements UserInfo {
 
-        String passphrase = "passphrase";
-
-        public String getPassword() {
-            return null;
-        }
-
-        public boolean promptYesNo(String str) {
-            return true;
-        }
-
-        public String getPassphrase() {
-            return passphrase;
-        }
-
-        public boolean promptPassphrase(String message) {
-            return true;
-        }
-
-        public boolean promptPassword(String message) {
-            return true;
-        }
-
-        public void showMessage(String s) {
-        }
-    }
 }
