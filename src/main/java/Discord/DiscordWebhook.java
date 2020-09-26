@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static Extra.Configs.DISCORD_WEBHOOK;
+
 /**
  * Class used to execute Discord Webhooks with low effort
  */
@@ -29,8 +31,8 @@ public class DiscordWebhook {
      *
      * @param url The webhook URL obtained in Discord
      */
-    public DiscordWebhook(String url) {
-        this.url = url;
+    public DiscordWebhook() {
+        this.url = DISCORD_WEBHOOK;
     }
 
     public void setContent(String content) {

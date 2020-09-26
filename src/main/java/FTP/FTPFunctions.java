@@ -12,6 +12,7 @@ import org.apache.commons.net.io.CopyStreamAdapter;
 
 import static Extra.Colors.ANSI_CYAN;
 import static Extra.Colors.ANSI_RESET;
+import static Extra.Configs.*;
 
 
 public class FTPFunctions {
@@ -21,20 +22,21 @@ public class FTPFunctions {
     CopyStreamAdapter streamListener;
     String anim= "=====================";
 
+
     // Constructor to connect to the FTP Server
-    public FTPFunctions(String host, int port, String username, String password) throws Exception {
+    public FTPFunctions() throws Exception {
 
         ftp = new FTPClient();
         //ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
         int reply;
-        ftp.connect(host,port);
+        ftp.connect(FTP_HOST,FTP_PORT);
         //System.out.println("FTP URL is:"+ftp.getDefaultPort());
         reply = ftp.getReplyCode();
         if (!FTPReply.isPositiveCompletion(reply)) {
             ftp.disconnect();
             throw new Exception("Exception in connecting to FTP Server");
         }
-        ftp.login(username, password);
+        ftp.login(FTP_USER, FTP_PASS);
         ftp.setFileType(FTP.BINARY_FILE_TYPE);
         ftp.enterLocalPassiveMode();
 

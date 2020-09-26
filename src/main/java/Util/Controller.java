@@ -22,8 +22,8 @@ public class Controller {
 
 
     public static void InitApp() throws Exception {
-        FTPFunctions ftpobj = new FTPFunctions("host", 21, "user", "pass");
-        DiscordWebhook webhook = new DiscordWebhook("https://discordapp.com/api/webhooks/710484134773915648/VYvTlgWV-0hOIm04wbzpQg6o5vXmvYzegTvX0Ap1eqQjcRwuPBtHQ3nFDuQaE0dwqF_R");
+        FTPFunctions ftpobj = new FTPFunctions();
+        DiscordWebhook webhook = new DiscordWebhook();
         UserAuthPubKey ssh = new UserAuthPubKey();
 
         // 1. compare local versions with one saved in db
