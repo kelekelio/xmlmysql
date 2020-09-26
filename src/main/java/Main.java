@@ -1,5 +1,5 @@
 
-import SSH.GTEVDatabaseConnection;
+import SSH.SshConnection;
 import Util.Controller;
 
 import java.text.SimpleDateFormat;
@@ -20,7 +20,7 @@ public class Main {
         //      8. zip the dump (CMD)
         //      9. upload zip to ftp (FTP)
         //      10. unzip dump on server (SSH)
-        // 11. execute source command (DB)
+        //      11. execute source command (DB)
         //      12. execute cache wipe (SSH)
         //      13. rename the folder back to powerbook (SSH)
         //      14. upload live htaccess (FTP)
@@ -30,11 +30,7 @@ public class Main {
 
         long startTime = System.nanoTime();
 
-        //Controller.InitApp();
-
-        GTEVDatabaseConnection ssh = new GTEVDatabaseConnection();
-        ssh.execQuery("CREATE SCHEMA java;");
-        ssh.closeSSH();
+        Controller.InitApp();
 
 
         long elapsedTime = (System.nanoTime() - startTime)/1000000;

@@ -5,14 +5,17 @@ import DB.DB;
 import DLL.DLL;
 import Discord.DiscordWebhook;
 import FTP.FTPFunctions;
-import SSH.UserAuthPubKey;
+import SSH.SshConnection;
 import XML.XmlList;
 
 import java.awt.*;
-import java.io.IOException;
+import java.io.File;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Scanner;
+
+import static Extra.Colors.ANSI_RED;
+import static Extra.Colors.ANSI_RESET;
+import static Extra.Config.*;
 
 public class Controller {
     private static boolean krversion;
@@ -24,7 +27,22 @@ public class Controller {
     public static void InitApp() throws Exception {
         FTPFunctions ftpobj = new FTPFunctions();
         DiscordWebhook webhook = new DiscordWebhook();
-        UserAuthPubKey ssh = new UserAuthPubKey();
+        SshConnection sshConnection = new SshConnection();
+
+
+        // 0. Delete AlterTables.txt
+        try {
+            File f = new File("P:\\AlterTables.txt");
+            if (f.delete()) {
+                System.out.println(f.getName() + " deleted");
+            }
+            else {
+                System.out.println("failed");
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // 1. compare local versions with one saved in db
         ResultSet results = DB
@@ -67,6 +85,7 @@ public class Controller {
 
 
         if (operation.equals("y")) {
+
             // 2. send discord notif (Disc)
             webhook.setUsername("Aion is Dead");
             webhook.addEmbed(new DiscordWebhook.EmbedObject()
@@ -86,7 +105,7 @@ public class Controller {
             System.out.println("Down htaccess uploaded.");
 
             // 4. rename powerbook folder to pb (SSH)
-            ssh.executeSSH(ssh.getSession(), "mv public_html/java/powerbook public_html/java/pb");
+            sshConnection.execute( "mv public_html/java/powerbook public_html/java/pb");
             System.out.println("Folder: powerbook => pb");
 
             // 5. start db update (DB)
@@ -110,17 +129,18 @@ public class Controller {
 
             // 10. unzip dump on server (SSH)
             System.out.println("Unzipping DB dump...");
-            ssh.executeSSH(ssh.getSession(), "unzip public_html/java/26158902_db_2708.zip -d public_html/java/");
+            sshConnection.execute("unzip public_html/java/26158902_db_2708.zip -d public_html/java/");
 
             // 11. execute source command (DB)
             System.out.println("Restoring DB on the server...");
+            sshConnection.execute("mysql --host="+DB_HOST+" --port="+DB_PORT+" -u "+DB_USER+" -p"+DB_PASS+" "+DB_NAME+" < public_html/java/java.sql ");
 
             // 12. execute cache wipe (SSH)
-            ssh.executeSSH(ssh.getSession(), "find public_html/java/testdelete/ -type f -name \"*.html\" -delete");
+            sshConnection.execute("find public_html/java/testdelete/ -type f -name \"*.html\" -delete");
             System.out.println("Cache wiped");
 
             // 13. rename the folder back to powerbook (SSH)
-            ssh.executeSSH(ssh.getSession(), "mv public_html/java/pb public_html/java/powerbook");
+            sshConnection.execute("mv public_html/java/pb public_html/java/powerbook");
             System.out.println("Folder: pb => powerbook");
 
             // 14. upload live htaccess (FTP)
@@ -134,8 +154,11 @@ public class Controller {
 
 
 
-            ssh.closeSSH();
+            sshConnection.closeSSH();
             ftpobj.disconnect();
+
+            System.out.println(ANSI_RED + "There have been " + DB.getAlters() + " table alterations." + ANSI_RESET);
+
         } else if (operation.equals("n")) {
             System.out.println("Bye!");
         }

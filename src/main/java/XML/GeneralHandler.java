@@ -44,7 +44,7 @@ public class GeneralHandler extends DefaultHandler{
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
-        if (qName.equalsIgnoreCase(tableName)) {
+        if (qName.equalsIgnoreCase(initialNode)) {
             if (i == 0 && truncate) {
 
                 try {
@@ -57,7 +57,7 @@ public class GeneralHandler extends DefaultHandler{
             xmlMap.clear();
             i++;
         }
-        else if (qName.equalsIgnoreCase(initialNode)) {
+        else if (qName.equalsIgnoreCase(tableName)) {
             System.out.println(ANSI_PURPLE + "Settings: Ignore => " + ignoreList + ", DB Truncate => " + truncate + ANSI_RESET);
         }
         data = new StringBuilder();
@@ -71,7 +71,7 @@ public class GeneralHandler extends DefaultHandler{
             xmlMap.put("id", String.valueOf(data));
         }
         //end of a single XML object. Insert into DB
-        else if (qName.equalsIgnoreCase(tableName)) {
+        else if (qName.equalsIgnoreCase(initialNode)) {
             try {
                 DB.replace(xmlMap, tableName);
             } catch (IOException | SQLException ignored) {
@@ -80,7 +80,7 @@ public class GeneralHandler extends DefaultHandler{
             System.out.println("Inserted " + i + " objects into the " + tableName + " table.");
         }
         // end of xml. Set truncate to true; clear ignore list, start i from 0
-        else if (qName.equalsIgnoreCase(initialNode)) {
+        else if (qName.equalsIgnoreCase(tableName)) {
             truncate = true;
             ignoreList.clear();
             i = 0;

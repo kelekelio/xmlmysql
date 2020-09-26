@@ -1,13 +1,14 @@
 package DB;
 
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.sql.*;
 import java.util.*;
 import static Extra.Colors.*;
+import static Extra.Config.*;
 
 public class DB {
     // connect to DB +
@@ -16,16 +17,14 @@ public class DB {
     // truncate table before running =>  run method on initial xml node
     // on insert error, check available table columns, compare with keySet(), add missing columns (alter table)
 
-    private final String address = "localhost";
-    private String dbname = "java";
-    private final String user = "root";
-    private final String password = "";
+
 
     private static DB instance;
+    private static int alters;
     private Connection conn;
 
-    public void setDbname(String dbname) {
-        this.dbname = dbname;
+    public static int getAlters() {
+        return alters;
     }
 
     public static DB getInstance() {
@@ -40,11 +39,11 @@ public class DB {
     public DB() {
 
 
-        String url = "jdbc:mysql://" + address + ":3306/" + dbname;
+        String url = "jdbc:mysql://" + IDB_HOST + ":3306/" + IDB_NAME;
 
         Properties prop = new Properties();
-        prop.put("password", password);
-        prop.put("user", user);
+        prop.put("password", IDB_PASS);
+        prop.put("user", IDB_USER);
         prop.put("serverTimezone", "Europe/Warsaw");
         prop.put("useUnicode", true);
         prop.put("characterEncoding", "utf-8");
@@ -119,7 +118,7 @@ public class DB {
                 }
 
                 for (String column : tempColumns) {
-                    execute("ALTER TABLE " + tableName + " ADD COLUMN " + column + " TEXT NULL;");
+                    alterTable(tableName, column, sqlArray.get(column));
                 }
                 results.close();
 
@@ -197,7 +196,8 @@ public class DB {
                 }
 
                 for (String column : tempColumns) {
-                    execute("ALTER TABLE " + tableName + " ADD COLUMN " + column + " TEXT NULL;");
+                    //execute("ALTER TABLE " + tableName + " ADD COLUMN " + column + " TEXT NULL;");
+                    alterTable(tableName, column, sqlArray.get(column));
                 }
                 results.close();
 
@@ -239,6 +239,29 @@ public class DB {
                 loadTableCreate(tableName);
             }
         }
+    }
+
+    public static void alterTable (String tableName, String columnName, String columnValue) {
+
+        String textToFile = tableName + " => " + columnName + " : " + columnValue + "\n";
+
+
+            try {
+                File myObj = new File("P:\\AlterTables.txt");
+                if (myObj.createNewFile()) {
+                    System.out.println("File created: " + myObj.getName());
+                } else {
+                    Files.write(Paths.get("P:\\AlterTables.txt"), textToFile.getBytes(), StandardOpenOption.APPEND);
+                    alters++;
+                }
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+        execute("ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " TEXT NULL;");
+
+
+
     }
 
     public static void execute (String sqlStatement) {

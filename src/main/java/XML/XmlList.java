@@ -1,5 +1,6 @@
 package XML;
 
+import DB.DB;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class XmlList {
+
 
     public static void XmlFileList () throws ParserConfigurationException, SAXException, IOException {
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
@@ -23,10 +25,13 @@ public class XmlList {
         ignoreList.add("bound_radius");
         handler.setIgnoreList(ignoreList);
         handler.setTruncate(false);
-        handler.setInitialNode("client_familiars");
-        handler.setTableName("client_familiar");
+        handler.setInitialNode("client_familiar");
+        handler.setTableName("client_familiars");
         saxParser.parse(new File("D:\\PB\\data\\func_pet\\familiars.xml"), handler);
 
+
+
+        /*
         ignoreList.add("bonus_attrs");
         ignoreList.add("data");
         handler.setIgnoreList(ignoreList);
@@ -51,6 +56,8 @@ public class XmlList {
         handler.setTableName("client_ride_data");
         saxParser.parse(new File("D:\\PB\\data\\rides\\rides.xml"), handler);
 
+
+
         versionHandler.setRegion("kr");
         versionHandler.setInitialNode("client_ride_datas");
         versionHandler.setTableName("client_ride_data");
@@ -61,7 +68,7 @@ public class XmlList {
         versionHandler.setTableName("client_ride_data");
         saxParser.parse(new File("D:\\PB\\data\\rides\\rides.xml"), versionHandler);
 
-        /*
+
         versionHandler.setRegion("kr");
         versionHandler.setInitialNode("client_items");
         versionHandler.setTableName("client_item");
@@ -71,6 +78,8 @@ public class XmlList {
         saxParser.parse(new File("D:/PB/data_eu/items/client_items_etc_2.xml"), versionHandler);
 
          */
+
+
 
     }
 }
