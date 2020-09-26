@@ -15,7 +15,7 @@ class UserAuthPubKeyTest {
 
     @Test
     void executeSSH() throws IOException, JSchException {
-        ssh.executeSSH(ssh.getSession(), "mysql --host=192.168.101.144 --port=3306 -u kele01_db -p \"r.Wva-]p]ns+\" ");
+        ssh.executeSSH(ssh.getSession(), "");
         ssh.closeSSH();
     }
 }
