@@ -9,9 +9,9 @@ public class Configuration {
     public static final String FTP_USER = "FTP_USER";
     public static final String FTP_PASS = "FTP_PASS";
     public static final int FTP_PORT = 21;
-    
+
     //SSH
-    public static final String SSH_KEY = "C:\ssh_private_key.ppk";
+    public static final String SSH_KEY = "C:\\ssh_private_key.ppk";
     public static final int SSH_PORT = 1;
     public static final String SSH_USER = "SSH_USER";
     public static final String SSH_PASS = "SSH_PASS";
