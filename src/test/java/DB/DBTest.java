@@ -42,7 +42,7 @@ class DBTest {
                 .getConn()
                 .createStatement();
 
-        delete.execute("delete from testaion where id = 2");
+        delete.execute("delete from client_goods_icon where id = 2");
         delete.close();
 
     }

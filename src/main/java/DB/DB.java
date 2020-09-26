@@ -67,6 +67,84 @@ public class DB {
         Collection<String> SQLvalues = sqlArray.values();
         //System.out.println(SQLvalues);
 
+        String SQLStatement = "INSERT INTO " + tableName + " "+ SQLkeys +" VALUES "+ SQLvalues +";";
+
+
+        //replace into [id, id2, name, desc, desc1, desc2] values ["133345", "1133345", "dev_name", "description", "description1", "description2"]
+
+        SQLStatement = SQLStatement
+                .replaceAll("\\[", "(")
+                .replaceAll("]", ")");
+
+        System.out.println(ANSI_GREEN + ">> " + SQLStatement + ANSI_RESET);
+
+        try {
+            Statement st = DB
+                    .getInstance()
+                    .getConn()
+                    .createStatement();
+
+            st.execute(SQLStatement);
+            st.close();
+        } catch (SQLException throwables) {
+            //if error, check columns
+
+            // 1062 => DUPLICATE KEY
+            if (throwables.getErrorCode() == 1062) {
+                System.out.println(ANSI_RED + "ID already exists. Error: " + throwables.getErrorCode() + ANSI_RESET);
+            }
+            // 1146 Table doesn't exist
+            else if (throwables.getErrorCode() == 1146) {
+                System.out.println(ANSI_RED + "Table doesn't exist. Creating the table from a new. Error " + throwables.getErrorCode() + ANSI_RESET);
+                loadTableCreate(tableName);
+                System.out.println("Inserting data again.");
+                insert(sqlArray, tableName);
+            }
+            // 1054 => UNKNOWN COLUMN
+            else if (throwables.getErrorCode() == 1054) {
+                //todo: on column missing, initiate creation of new table
+                //todo: output missing columns to an "error" report file
+                // Create column compare method
+                System.out.println(ANSI_RED + "Unknown column. Error " + throwables.getErrorCode() + ANSI_RESET);
+                Set<String> tempColumns = new HashSet<>(SQLkeys);
+
+                ResultSet results = DB
+                        .getInstance()
+                        .getConn()
+                        .createStatement()
+                        .executeQuery("SHOW COLUMNS FROM " + tableName);
+
+                while (results.next()) {
+                    tempColumns.remove(results.getString("Field"));
+                }
+
+                for (String column : tempColumns) {
+                    execute("ALTER TABLE " + tableName + " ADD COLUMN " + column + " TEXT NULL;");
+                }
+                results.close();
+
+                System.out.println("Inserting data again.");
+                insert(sqlArray, tableName);
+
+            }
+
+            else {
+                System.out.println(ANSI_RED + "Error " + throwables.getErrorCode() + ANSI_RESET);
+            }
+
+        }
+    }
+
+    public static void replace (LinkedHashMap<String, String> sqlArray, String tableName) throws IOException, SQLException {
+
+        //keys => [id, id2, name, desc, desc1, desc2]
+        Set<String> SQLkeys = sqlArray.keySet();
+        //System.out.println(SQLkeys);
+
+        //values => ["133345", "1133345", "dev_name", "description", "description1", "description2"]
+        Collection<String> SQLvalues = sqlArray.values();
+        //System.out.println(SQLvalues);
+
         String SQLStatement = "REPLACE INTO " + tableName + " "+ SQLkeys +" VALUES "+ SQLvalues +";";
 
 

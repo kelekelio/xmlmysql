@@ -10,6 +10,9 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 import org.apache.commons.net.io.CopyStreamAdapter;
 
+import static Extra.Colors.ANSI_CYAN;
+import static Extra.Colors.ANSI_RESET;
+
 
 public class FTPFunctions {
 
@@ -41,6 +44,32 @@ public class FTPFunctions {
 
     }
 
+    public static void progressPercentage(int remain, int total) {
+        //13 100
+        if (remain > total) {
+            throw new IllegalArgumentException();
+        }
+        int maxBareSize = 20; // 10unit for 100%
+        int remainProcent = ((400 * remain) / total) / maxBareSize;
+        char defaultChar = ' ';
+        String icon = "=";
+        String bare = new String(new char[maxBareSize]).replace('\0', defaultChar) + "]";
+        StringBuilder bareDone = new StringBuilder();
+        bareDone.append("[");
+        for (int i = 0; i < remainProcent; i++) {
+            bareDone.append(icon);
+        }
+        String bareRemain = bare.substring(remainProcent, bare.length());
+        //System.out.print("\r" + bareDone + bareRemain + " " + remain + "% ");
+
+        System.out.print(ANSI_CYAN + "\rUploading "
+                + remain
+                + "% "
+                + bareDone
+                + bareRemain
+                + ANSI_RESET);
+    }
+
 
 
     // Method to upload the File on the FTP Server
@@ -67,11 +96,8 @@ public class FTPFunctions {
                 int percent = (int) (totalBytesTransferred * 100 / file.length());
                 //System.out.println(percent + "%");
 
-                System.out.print("\r Uploading "
-                        + percent
-                        + "% ["
-                        + anim.substring(0, (percent / 5) % anim.length())
-                        + "> ");
+
+                progressPercentage(percent, 100);
 
                 if (totalBytesTransferred == file.length()) {
                     System.out.println("\n100% transfered");
@@ -101,6 +127,15 @@ public class FTPFunctions {
             this.ftp.retrieveFile(source, fos);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void deleteFTPFile(String destination) {
+        try {
+            this.ftp.deleteFile(destination);
+            System.out.println(destination + " has been deleted.");
+        } catch (IOException e) {
+            System.out.println("File doesn't exist");
         }
     }
 

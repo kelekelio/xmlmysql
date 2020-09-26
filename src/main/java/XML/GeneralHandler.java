@@ -73,7 +73,7 @@ public class GeneralHandler extends DefaultHandler{
         //end of a single XML object. Insert into DB
         else if (qName.equalsIgnoreCase(tableName)) {
             try {
-                DB.insert(xmlMap, tableName);
+                DB.replace(xmlMap, tableName);
             } catch (IOException | SQLException ignored) {
 
             }

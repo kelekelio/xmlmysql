@@ -386,6 +386,8 @@ public class DiscordWebhook {
         private String quote(String string) {
             return "\"" + string + "\"";
         }
+
+
     }
 
 }

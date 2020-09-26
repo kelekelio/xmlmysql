@@ -17,10 +17,11 @@ import java.io.InputStreamReader;
 public class UserAuthPubKey{
 
     private String sshKey = "P:\\ssh_private_key.ppk";
-    private String host = "wn24.webd.pl";
-    private String user = "kele01";
+    private String host = "host";
+    private String user = "user";
     private int port = 22022;
     Session session;
+    Channel channel;
 
 
     public Session getSession() {
@@ -50,7 +51,7 @@ public class UserAuthPubKey{
     }
 
     public void executeSSH (Session session, String command) throws JSchException, IOException {
-        Channel channel = session.openChannel("exec");
+        channel = session.openChannel("exec");
         ((ChannelExec)channel).setCommand(command);
         channel.setInputStream(null);
         ((ChannelExec)channel).setErrStream(System.err);
@@ -78,15 +79,20 @@ public class UserAuthPubKey{
         }
 
 
-        channel.disconnect();
-        session.disconnect();
-        System.out.println("Cache has been wiped!");
+
+    }
+
+    public void closeSSH () {
+        if (this.session.isConnected()) {
+            this.channel.disconnect();
+            this.session.disconnect();
+        }
     }
 
 
     public static class MyUserInfo implements UserInfo {
 
-        String passphrase = "lugia0";
+        String passphrase = "passphrase";
 
         public String getPassword() {
             return null;
