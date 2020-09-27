@@ -290,6 +290,24 @@ public class DB {
     }
 
 
+    public static String returnValue (String table, String columnBy, String value, String columnLook) {
+        try {
+            String statement = "SELECT "+columnLook+" FROM "+table+" WHERE "+columnBy+" = \""+value+"\" ";
+            ResultSet resultseu = DB
+                    .getInstance()
+                    .getConn()
+                    .createStatement()
+                    .executeQuery(statement);
+            if (resultseu.next()) {
+                return resultseu.getString(columnLook);
+            }
+        } catch (SQLException e) {
+
+        }
+        return "";
+    }
+
+
 
 
 

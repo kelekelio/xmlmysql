@@ -74,4 +74,10 @@ class DBTest {
     void loadTableCreate() throws IOException {
         DB.loadTableCreate("tuuuj");
     }
+
+    @Test
+    void returnValue() {
+        String test = DB.returnValue("client_familiars", "id", "981022", "evolve_item");
+        System.out.println(test);
+    }
 }

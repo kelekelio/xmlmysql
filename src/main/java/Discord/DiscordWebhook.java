@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static Extra.Configuration.DISCORD_WEBHOOK;
+import static Extra.Config.DISCORD_WEBHOOK;
 
 /**
  * Class used to execute Discord Webhooks with low effort
