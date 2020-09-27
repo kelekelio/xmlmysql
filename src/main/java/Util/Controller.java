@@ -18,10 +18,6 @@ import static Extra.Colors.ANSI_RESET;
 import static Extra.Config.*;
 
 public class Controller {
-    private static boolean krversion;
-    private static boolean euversion;
-    private static String krvalue;
-    private static String euvalue;
 
 
     public static void InitApp() throws Exception {
@@ -45,34 +41,17 @@ public class Controller {
         }
 
         // 1. compare local versions with one saved in db
-        ResultSet results = DB
-                .getInstance()
-                .getConn()
-                .createStatement()
-                .executeQuery("select value from appdata where name = \"kr_version\" ");
-        if (results.next()) {
-            krvalue = results.getString("value");
-        }
-        if (krvalue.equals(DLL.DllVersionCheck("kr"))) {
-            krversion = true;
-        }
+        String krDbRecord = DB.returnValue("appdata", "name", "krversion", "data");
+        String euDbRecord = DB.returnValue("appdata", "name", "euversion", "data");
 
-        ResultSet resultseu = DB
-                .getInstance()
-                .getConn()
-                .createStatement()
-                .executeQuery("select value from appdata where name = \"eu_version\" ");
-        if (resultseu.next()) {
-            euvalue = resultseu.getString("value");
-        }
-        if (euvalue.equals(DLL.DllVersionCheck("eu"))) {
-            euversion = true;
-        }
+        String krDllRecord = DLL.DllVersionCheck("kr");
+        String euDllRecord = DLL.DllVersionCheck("eu");
 
-        if (krversion && euversion) {
+
+        if (krDbRecord.equals(krDllRecord) && euDbRecord.equals(euDllRecord)) {
             System.out.println("both versions are the same");
         }else {
-            System.out.println("one of the versions does not macth");
+            System.out.println("one of the versions does not match");
         }
 
 

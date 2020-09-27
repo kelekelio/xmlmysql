@@ -55,7 +55,6 @@ public class DB {
         }
     }
 
-    //TODO: either create a new replace method or add another parameter that will create either an insert or replace statement
     public static void insert(LinkedHashMap<String, String> sqlArray, String tableName) throws IOException, SQLException {
 
         //keys => [id, id2, name, desc, desc1, desc2]
@@ -101,9 +100,6 @@ public class DB {
             }
             // 1054 => UNKNOWN COLUMN
             else if (throwables.getErrorCode() == 1054) {
-                //todo: on column missing, initiate creation of new table
-                //todo: output missing columns to an "error" report file
-                // Create column compare method
                 System.out.println(ANSI_RED + "Unknown column. Error " + throwables.getErrorCode() + ANSI_RESET);
                 Set<String> tempColumns = new HashSet<>(SQLkeys);
 
@@ -179,9 +175,6 @@ public class DB {
             }
             // 1054 => UNKNOWN COLUMN
             else if (throwables.getErrorCode() == 1054) {
-                //todo: on column missing, initiate creation of new table
-                //todo: output missing columns to an "error" report file
-                // Create column compare method
                 System.out.println(ANSI_RED + "Unknown column. Error " + throwables.getErrorCode() + ANSI_RESET);
                 Set<String> tempColumns = new HashSet<>(SQLkeys);
 
@@ -299,7 +292,9 @@ public class DB {
                     .createStatement()
                     .executeQuery(statement);
             if (resultseu.next()) {
-                return resultseu.getString(columnLook);
+                String result = resultseu.getString(columnLook);
+                resultseu.close();
+                return result;
             }
         } catch (SQLException e) {
 
@@ -312,9 +307,6 @@ public class DB {
 
 
     public static void loadTableCreate (String tableName) throws IOException {
-
-
-
 
         String s;
         StringBuilder sb = new StringBuilder();

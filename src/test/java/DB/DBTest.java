@@ -23,17 +23,13 @@ class DBTest {
         DB.insert(xml, "client_goods_icon");
 
         //Check if ID was inserted
-        ResultSet results = DB
-                .getInstance()
-                .getConn()
-                .createStatement()
-                .executeQuery("select id, name from client_goods_icon where id = 2");
+        String test = DB.returnValue("client_goods_icon", "id", "2", "id");
+        int testInt = Integer.parseInt(test);
 
-        if (results.next()) {
-            assertEquals(2, results.getInt("id"));
-            assertEquals("\"icon_shop_item_preset_default\"", "\"" + results.getString("name") + "\"");
-        }
-        results.close();
+
+
+        assertEquals(2, testInt);
+
 
 
         // Delete inserted test ID
