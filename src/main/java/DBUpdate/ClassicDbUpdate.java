@@ -54,6 +54,7 @@ public class ClassicDbUpdate {
         try {
             saxParser.parse(new File("D:\\PB\\data\\func_pet\\familiars.xml"), handler);
         } catch(Exception ignored){}
+        ignoreList.clear();
 
 
         /*
