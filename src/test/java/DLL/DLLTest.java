@@ -20,6 +20,14 @@ class DLLTest {
     }
 
     @Test
+    public void dllVersionCheckClassic() {
+        String expected = "1.20.1030";
+        String version = DLL.DllVersionCheck("classic");
+        System.out.println(version);
+        Assert.assertEquals(expected, version);
+    }
+
+    @Test
     void dllVersionCheckKR() {
         String expected = "77.20.0806";
         String version = DLL.DllVersionCheck("kr");

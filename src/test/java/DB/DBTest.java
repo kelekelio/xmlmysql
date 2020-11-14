@@ -76,4 +76,12 @@ class DBTest {
         String test = DB.returnValue("client_familiars", "id", "981022", "evolve_item");
         System.out.println(test);
     }
+
+    @Test
+    void getInternalDBName() {
+
+        DB.setiDbName("aion_eu");
+        System.out.println(DB.getiDbName());
+
+    }
 }

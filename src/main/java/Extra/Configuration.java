@@ -24,6 +24,17 @@ public class Configuration {
     public static final String DB_HOST = "localhost";
     public static final int DB_PORT = 3306;
 
+    //Internal DB
+    public static final String  IDB_HOST = "localhost";
+    public static final String  IDB_NAME = "aion";
+    public static final String  IDB_USER = "root";
+    public static final String  IDB_PASS = "";
+
+    //DLL
+    public static final String DLL_LOCATION_KR = "P:/PlayNC/AION_KOR_TEST/bin64/Game.dll";
+    public static final String DLL_LOCATION_EU = "P:/Program Files (x86)/AION QA1/bin64/Game.dll";
+    public static final String DLL_LOCATION_CLASSIC = "P:/PlayNC/AION_CLASSIC/bin64/Game.dll";
+
     //Discord
     public static final String DISCORD_WEBHOOK = "DISCORD_WEBHOOK";
 }

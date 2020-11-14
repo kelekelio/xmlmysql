@@ -10,7 +10,7 @@ class CmdTest {
 
     @Test
     void backupdbtosql() {
-        Cmd.Backupdbtosql("1");
+        Cmd.Backupdbtosql("1028a", "aion");
     }
 
     @Test

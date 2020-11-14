@@ -10,7 +10,7 @@ public class Cmd {
 
     public static void cmdExec(String fileName) throws Exception {
         ProcessBuilder builder = new ProcessBuilder(
-                "cmd.exe", "/c", "\"C:\\Program Files\\7-Zip\\7z.exe\" a \"D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\26158902_db_" + fileName + ".zip\" \"D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\26158902_db_" + fileName + ".sql\" ");
+                "cmd.exe", "/c", "\"C:\\Program Files\\7-Zip\\7z.exe\" a \"D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\" + fileName + ".zip\" \"D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\" + fileName + ".sql\" ");
         builder.redirectErrorStream(true);
         Process p = builder.start();
         BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -24,12 +24,12 @@ public class Cmd {
 
     //todo: combine cmdExec & Backupdbtosql into one method
 
-    public static void Backupdbtosql(String fileName) {
+    public static void Backupdbtosql(String fileName, String db) {
         try {
 
-            String savePath = "D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\26158902_db_" + fileName + ".sql";
+            String savePath = "D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\" + fileName + ".sql";
 
-            String executeCmd = "D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\mysqldump -u root --password= 26158902_db -r " + savePath;
+            String executeCmd = "D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\mysqldump -u root --password= " + db + " -r " + savePath;
 
             System.out.println(executeCmd);
 

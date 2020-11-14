@@ -22,6 +22,15 @@ public class DB {
     private static DB instance;
     private static int alters;
     private Connection conn;
+    private static String iDbName = IDB_NAME;
+
+    public static String getiDbName() {
+        return iDbName;
+    }
+
+    public static void setiDbName(String iDbName) {
+        DB.iDbName = iDbName;
+    }
 
     public static int getAlters() {
         return alters;
@@ -35,11 +44,16 @@ public class DB {
         return instance;
     }
 
+    public static DB newInstance() {
+        instance = new DB();
+        return instance;
+    }
+
 
     public DB() {
 
 
-        String url = "jdbc:mysql://" + IDB_HOST + ":3306/" + IDB_NAME;
+        String url = "jdbc:mysql://" + IDB_HOST + ":3306/" + iDbName;
 
         Properties prop = new Properties();
         prop.put("password", IDB_PASS);

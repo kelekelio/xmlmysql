@@ -1,5 +1,6 @@
 package DLL;
 
+import Extra.Config;
 import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.VerRsrc;
@@ -13,8 +14,7 @@ import java.io.File;
 public class DLL {
 
 
-    final private static String krDLL = "P:/PlayNC/AION_KOR_TEST/bin64/Game.dll";
-    final private static String euDLL = "P:/Program Files (x86)/AION QA1/bin64/Game.dll";
+
 
 
 
@@ -22,9 +22,11 @@ public class DLL {
         File fileToCheck;
 
         if (region.equals("eu")){
-            fileToCheck = new File(euDLL);
+            fileToCheck = new File(Config.DLL_LOCATION_EU);
+        }else if (region.equals("classic")) {
+            fileToCheck = new File(Config.DLL_LOCATION_CLASSIC);
         }else {
-            fileToCheck = new File(krDLL);
+            fileToCheck = new File(Config.DLL_LOCATION_KR);
         }
 
         short[] rtnData = new short[4];

@@ -25,6 +25,9 @@ class XmlListTest {
     GeneralHandler handler = new GeneralHandler();
     VersionHandler versionHandler = new VersionHandler();
 
+
+
+
     XmlListTest() throws ParserConfigurationException, SAXException {
     }
 

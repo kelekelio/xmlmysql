@@ -19,7 +19,7 @@ public class Main {
         //      7. dump the db (CMD)
         //      8. zip the dump (CMD)
         //      9. upload zip to ftp (FTP)
-        //      10. unzip dump on server (SSH)
+        //      10. unzip dump on server (SSH)3
         //      11. execute source command (DB)
         //      12. execute cache wipe (SSH)
         //      13. rename the folder back to powerbook (SSH)

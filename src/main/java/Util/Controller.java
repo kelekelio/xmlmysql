@@ -2,6 +2,9 @@ package Util;
 
 import CMD.Cmd;
 import DB.DB;
+import DBUpdate.ClassicDbUpdate;
+import DBUpdate.EuDbUpdate;
+import DBUpdate.KrDbUpdate;
 import DLL.DLL;
 import Discord.DiscordWebhook;
 import FTP.FTPFunctions;
@@ -19,8 +22,14 @@ import static Extra.Config.*;
 
 public class Controller {
 
+    private static boolean updateKR = false;
+    private static boolean updateEU = false;
+    private static boolean updateClassic = false;
+
 
     public static void InitApp() throws Exception {
+
+
         FTPFunctions ftpobj = new FTPFunctions();
         DiscordWebhook webhook = new DiscordWebhook();
         SshConnection sshConnection = new SshConnection();
@@ -43,19 +52,44 @@ public class Controller {
         // 1. compare local versions with one saved in db
         String krDbRecord = DB.returnValue("appdata", "name", "krversion", "data");
         String euDbRecord = DB.returnValue("appdata", "name", "euversion", "data");
+        String classicDbRecord = DB.returnValue("appdata", "name", "classicversion", "data");
 
         String krDllRecord = DLL.DllVersionCheck("kr");
         String euDllRecord = DLL.DllVersionCheck("eu");
+        String classicDllRecord = DLL.DllVersionCheck("classic");
 
 
-        if (krDbRecord.equals(krDllRecord) && euDbRecord.equals(euDllRecord)) {
-            System.out.println("both versions are the same");
-        }else {
-            System.out.println("one of the versions does not match");
-        }
+
+
+        System.out.println("1: " + krDbRecord       + " => " + krDllRecord);
+        System.out.println("2: " + euDbRecord       + " => " + euDllRecord);
+        System.out.println("3: " + classicDbRecord  + " => " + classicDllRecord);
 
 
         Scanner scanner = new Scanner(System.in);
+        int updateDB;
+        System.out.println("Which DB would you like to update? [1], [2], [3], [4] for all");
+        updateDB = scanner.nextInt();
+
+        switch (updateDB) {
+            case 1:
+                updateKR = true;
+                break;
+            case 2:
+                updateEU = true;
+                break;
+            case 3:
+                updateClassic = true;
+                break;
+            case 4:
+                updateKR = true;
+                updateEU = true;
+                updateClassic = true;
+                break;
+            default:
+                break;
+        }
+
         String operation;
 
         System.out.println("Initiate Update? [y]es / [n]o");
@@ -71,9 +105,9 @@ public class Controller {
                     .setTitle("Version Update")
                     .setDescription("New game version detected!")
                     .setColor(Color.RED)
-                    .addField("KR", DLL.DllVersionCheck("kr"), true)
-                    .addField("EU", DLL.DllVersionCheck("eu"), true)
-                    .setThumbnail("https://kryptongta.com/images/kryptonlogo.png")
+                    .addField("KR", krDllRecord, true)
+                    .addField("EU", euDllRecord, true)
+                    .addField("Classic", classicDllRecord, true)
                     .setFooter("Update initiated. Estimated downtime: 5min", "")
                     .setUrl("https://aionpowerbook.com/powerbook/Version"));
             webhook.execute(); //Handle exception
@@ -87,9 +121,40 @@ public class Controller {
             sshConnection.execute( "mv public_html/java/powerbook public_html/java/pb");
             System.out.println("Folder: powerbook => pb");
 
+
+
             // 5. start db update (DB)
-            System.out.println("Updateing the DB...");
-            XmlList.XmlFileList();
+            if (updateKR) {
+                System.out.println("Updating the Korean DB...");
+                KrDbUpdate.KrDbUpdateList();
+            }
+
+            if (updateEU) {
+
+                System.out.println("Updating the European DB...");
+                EuDbUpdate.EuDbUpdateList();
+            }
+
+            if (updateClassic) {
+                System.out.println("Updating the Classic DB...");
+                ClassicDbUpdate.ClassicDbUpdateList();
+            }
+
+
+            // 12. execute cache wipe (SSH)
+            sshConnection.execute("find public_html/java/testdelete/ -type f -name \"*.html\" -delete");
+            System.out.println("Cache wiped");
+
+            // 13. rename the folder back to powerbook (SSH)
+            sshConnection.execute("mv public_html/java/pb public_html/java/powerbook");
+            System.out.println("Folder: pb => powerbook");
+
+            // 14. upload live htaccess (FTP)
+            ftpobj.uploadFTPFile("P:\\Coding\\AionPB\\htaccess\\live\\.htaccess", ".htaccess", "/public_html/java/");
+            System.out.println("Live htaccess uploaded.");
+
+
+            /*
 
             // 6. execute update commands (DB)
             System.out.println("Updating tables...");
@@ -97,11 +162,11 @@ public class Controller {
 
             // 7. dump the db (CMD)
             System.out.println("Creating DB dump...");
-            Cmd.Backupdbtosql(DLL.DllVersionCheck("kr"));
+            Cmd.Backupdbtosql(krDllRecord);
 
             // 8. zip the dump (CMD)
             System.out.println("Zipping DB dump...");
-            Cmd.cmdExec(DLL.DllVersionCheck("kr"));
+            Cmd.cmdExec(krDllRecord);
 
             // 9. upload zip to ftp (FTP)
             ftpobj.uploadFTPFile("D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\26158902_db_1409.zip", "26158902_db_1409.zip", "/public_html/java/");
@@ -130,6 +195,8 @@ public class Controller {
             System.out.println("Removing .zip and .sql files...");
             ftpobj.deleteFTPFile("/public_html/java/26158902_db_1409.zip");
             ftpobj.deleteFTPFile("/public_html/java/26158902_db_2708.sql");
+
+             */
 
 
 
