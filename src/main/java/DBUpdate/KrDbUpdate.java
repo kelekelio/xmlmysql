@@ -6,6 +6,7 @@ import DLL.DLL;
 import FTP.FTPFunctions;
 import SSH.Exec;
 import SSH.SshConnection;
+import Util.*;
 import XML.GeneralHandler;
 import XML.VersionHandler;
 import org.xml.sax.SAXException;
@@ -96,34 +97,27 @@ public class KrDbUpdate {
          */
 
         // 6. execute update commands (DB)
-        System.out.println(ANSI_BLUE + "Updating tables..." + ANSI_RESET);
-        DB.loadTableCreate("updateTables");
+        TableUpdate.ExecuteTableUpdate();
 
         // 7. dump the db (CMD)
-        System.out.println(ANSI_BLUE + "Creating DB dump..." + ANSI_RESET);
-        Cmd.Backupdbtosql("aion_" + version, "aion");
+        DumpDb.ExecuteDbDump("aion_" + version, "aion");
 
         // 8. zip the dump (CMD)
-        System.out.println(ANSI_BLUE + "Zipping DB dump..." + ANSI_RESET);
-        Cmd.cmdExec("aion_" + version);
+        ZipDump.ExecuteDumpZip("aion_" + version);
 
         // 9. upload zip to ftp (FTP)
-        ftpobj.uploadFTPFile("D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\aion_" + version + ".zip", "aion_" + version + ".zip", "/public_html/java/");
+        UploadDbZip.executeDbZipUpload("aion_" + version);
 
         // 10. unzip dump on server (SSH)
-        System.out.println("Unzipping DB dump...");
-        Exec.SshCommand("unzip -o public_html/java/aion_" + version + ".zip -d public_html/java/");
+        UnzipDump.ExecuteDumpUnzip("aion_" + version);
 
         // 11. execute source command (DB)
-        TimeUnit.SECONDS.sleep(2);
-        System.out.println("Restoring DB on the server...");
-        Exec.SshCommand("mysql --host="+DB_HOST+" --port="+DB_PORT+" -u "+DB_USER+" -p"+DB_PASS+" "+DB_NAME+" < public_html/java/aion_" + version + ".sql");
-
+        RestoreDbOnServer.ExecuteDbRestorationOnServer("kele01_java", "aion_" + version);
 
         // 15. remove db files .sql and .zip (FTP)
-        System.out.println("Removing .zip and .sql files...");
-        ftpobj.deleteFTPFile("/public_html/java/aion_" + version + ".zip");
-        ftpobj.deleteFTPFile("/public_html/java/aion_" + version + ".sql");
+        RemoveZipSql.ExecuteSqlZipRemoval("aion_" + version);
+
+        DB.execute("UPDATE `aion`.`appdata` SET `data` = '" + version + "' WHERE (`name` = 'krversion');");
 
     }
 }
