@@ -4,6 +4,7 @@ import CMD.Cmd;
 import DB.DB;
 import DLL.DLL;
 import FTP.FTPFunctions;
+import SSH.Exec;
 import SSH.SshConnection;
 import XML.GeneralHandler;
 import XML.VersionHandler;
@@ -18,8 +19,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import static Extra.Colors.ANSI_RED;
-import static Extra.Colors.ANSI_RESET;
+import static Extra.Colors.*;
 import static Extra.Config.*;
 
 /**
@@ -31,7 +31,6 @@ public class KrDbUpdate {
         String version = DLL.DllVersionCheck("kr");
 
         FTPFunctions ftpobj = new FTPFunctions();
-        SshConnection ssh = new SshConnection();
 
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
@@ -97,15 +96,15 @@ public class KrDbUpdate {
          */
 
         // 6. execute update commands (DB)
-        System.out.println("Updating tables...");
+        System.out.println(ANSI_BLUE + "Updating tables..." + ANSI_RESET);
         DB.loadTableCreate("updateTables");
 
         // 7. dump the db (CMD)
-        System.out.println("Creating DB dump...");
+        System.out.println(ANSI_BLUE + "Creating DB dump..." + ANSI_RESET);
         Cmd.Backupdbtosql("aion_" + version, "aion");
 
         // 8. zip the dump (CMD)
-        System.out.println("Zipping DB dump...");
+        System.out.println(ANSI_BLUE + "Zipping DB dump..." + ANSI_RESET);
         Cmd.cmdExec("aion_" + version);
 
         // 9. upload zip to ftp (FTP)
@@ -113,15 +112,13 @@ public class KrDbUpdate {
 
         // 10. unzip dump on server (SSH)
         System.out.println("Unzipping DB dump...");
-        ssh.execute("unzip public_html/java/aion_" + version + ".zip -d public_html/java/");
+        Exec.SshCommand("unzip -o public_html/java/aion_" + version + ".zip -d public_html/java/");
 
         // 11. execute source command (DB)
         TimeUnit.SECONDS.sleep(2);
         System.out.println("Restoring DB on the server...");
-        System.out.println("mysql --host="+DB_HOST+" --port="+DB_PORT+" -u "+DB_USER+" -p"+DB_PASS+" "+DB_NAME+" < public_html/java/aion_" + version + ".sql");
-        ssh.execute("mysql --host="+DB_HOST+" --port="+DB_PORT+" -u "+DB_USER+" -p"+DB_PASS+" "+DB_NAME+" < public_html/java/aion_" + version + ".sql");
+        Exec.SshCommand("mysql --host="+DB_HOST+" --port="+DB_PORT+" -u "+DB_USER+" -p"+DB_PASS+" "+DB_NAME+" < public_html/java/aion_" + version + ".sql");
 
-        ssh.closeSSH();
 
         // 15. remove db files .sql and .zip (FTP)
         System.out.println("Removing .zip and .sql files...");

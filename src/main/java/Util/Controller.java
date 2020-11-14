@@ -8,6 +8,7 @@ import DBUpdate.KrDbUpdate;
 import DLL.DLL;
 import Discord.DiscordWebhook;
 import FTP.FTPFunctions;
+import SSH.Exec;
 import SSH.SshConnection;
 import XML.XmlList;
 
@@ -32,7 +33,6 @@ public class Controller {
 
         FTPFunctions ftpobj = new FTPFunctions();
         DiscordWebhook webhook = new DiscordWebhook();
-        SshConnection sshConnection = new SshConnection();
 
 
         // 0. Delete AlterTables.txt
@@ -118,7 +118,7 @@ public class Controller {
             System.out.println("Down htaccess uploaded.");
 
             // 4. rename powerbook folder to pb (SSH)
-            sshConnection.execute( "mv public_html/java/powerbook public_html/java/pb");
+            Exec.SshCommand( "mv public_html/java/powerbook public_html/java/pb");
             System.out.println("Folder: powerbook => pb");
 
 
@@ -142,11 +142,11 @@ public class Controller {
 
 
             // 12. execute cache wipe (SSH)
-            sshConnection.execute("find public_html/java/testdelete/ -type f -name \"*.html\" -delete");
+            Exec.SshCommand("find public_html/java/testdelete/ -type f -name \"*.html\" -delete");
             System.out.println("Cache wiped");
 
             // 13. rename the folder back to powerbook (SSH)
-            sshConnection.execute("mv public_html/java/pb public_html/java/powerbook");
+            Exec.SshCommand("mv public_html/java/pb public_html/java/powerbook");
             System.out.println("Folder: pb => powerbook");
 
             // 14. upload live htaccess (FTP)
@@ -200,7 +200,6 @@ public class Controller {
 
 
 
-            sshConnection.closeSSH();
             ftpobj.disconnect();
 
             System.out.println(ANSI_RED + "There have been " + DB.getAlters() + " table alterations." + ANSI_RESET);

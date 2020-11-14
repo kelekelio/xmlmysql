@@ -4,6 +4,7 @@ import CMD.Cmd;
 import DB.DB;
 import DLL.DLL;
 import FTP.FTPFunctions;
+import SSH.Exec;
 import SSH.SshConnection;
 import XML.GeneralHandler;
 import XML.VersionHandler;
@@ -33,7 +34,6 @@ public class ClassicDbUpdate {
 
         DB.setiDbName("aion_c");
         DB.newInstance().getConn().createStatement();
-        SshConnection sshConnection = new SshConnection();
 
         FTPFunctions ftpobj = new FTPFunctions();
 
@@ -51,7 +51,7 @@ public class ClassicDbUpdate {
         handler.setInitialNode("client_familiar");
         handler.setTableName("client_familiars");
         try {
-            saxParser.parse(new File("D:\\PB\\data_classic\\func_pet\\familiars.xml"), handler);
+            saxParser.parse(new File("D:\\PB\\data\\func_pet\\familiars.xml"), handler);
         } catch(Exception ignored){}
 
 
@@ -110,23 +110,23 @@ public class ClassicDbUpdate {
 
         // 7. dump the db (CMD)
         System.out.println("Creating DB dump...");
-        Cmd.Backupdbtosql("aion_c_" + version, "aion_c");
+        Cmd.Backupdbtosql("aion_classic_" + version, "aion_c");
 
         // 8. zip the dump (CMD)
         System.out.println("Zipping DB dump...");
-        Cmd.cmdExec("aion_c_" + version);
+        Cmd.cmdExec("aion_classic_" + version);
 
         // 9. upload zip to ftp (FTP)
         ftpobj.uploadFTPFile("D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\aion_classic_" + version + ".zip", "aion_classic_" + version + ".zip", "/public_html/java/");
 
         // 10. unzip dump on server (SSH)
         System.out.println("Unzipping DB dump...");
-        sshConnection.execute("unzip public_html/java/aion_classic_" + version + ".zip -d public_html/java/");
+        Exec.SshCommand("unzip -o public_html/java/aion_classic_" + version + ".zip -d public_html/java/");
 
         // 11. execute source command (DB)
         TimeUnit.SECONDS.sleep(2);
         System.out.println("Restoring DB on the server...");
-        sshConnection.execute("mysql --host="+DB_HOST+" --port="+DB_PORT+" -u "+DB_USER+" -p"+DB_PASS+" kele01_java_classic < public_html/java/aion_classic_" + version + ".sql ");
+        Exec.SshCommand("mysql --host="+DB_HOST+" --port="+DB_PORT+" -u "+DB_USER+" -p"+DB_PASS+" kele01_java_classic < public_html/java/aion_classic_" + version + ".sql ");
 
         // 15. remove db files .sql and .zip (FTP)
         System.out.println("Removing .zip and .sql files...");

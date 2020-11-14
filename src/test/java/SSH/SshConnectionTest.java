@@ -22,6 +22,7 @@ class SshConnectionTest {
         SshConnection ssh = new SshConnection();
         ssh.execute("ls -la");
 
+
         ssh.execute("unzip -o public_html/java/aion_79.20.1109.zip -d public_html/java/");
         ssh.execute("ls -la\n");
         System.out.println("wait");

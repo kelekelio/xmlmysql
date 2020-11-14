@@ -4,6 +4,7 @@ import CMD.Cmd;
 import DB.DB;
 import DLL.DLL;
 import FTP.FTPFunctions;
+import SSH.Exec;
 import SSH.SshConnection;
 import XML.GeneralHandler;
 import XML.VersionHandler;
@@ -33,7 +34,6 @@ public class EuDbUpdate {
 
         DB.setiDbName("aion_eu");
         DB.newInstance().getConn().createStatement();
-        SshConnection sshConnection = new SshConnection();
 
         FTPFunctions ftpobj = new FTPFunctions();
 
@@ -117,12 +117,13 @@ public class EuDbUpdate {
 
         // 10. unzip dump on server (SSH)
         System.out.println("Unzipping DB dump...");
-        sshConnection.execute("unzip public_html/java/aion_eu_" + version + ".zip -d public_html/java/");
+        Exec.SshCommand("unzip -o public_html/java/aion_eu_" + version + ".zip -d public_html/java/");
 
         // 11. execute source command (DB)
         TimeUnit.SECONDS.sleep(2);
         System.out.println("Restoring DB on the server...");
-        sshConnection.execute("mysql --host="+DB_HOST+" --port="+DB_PORT+" -u "+DB_USER+" -p"+DB_PASS+" kele01_java_eu < public_html/java/aion_eu_" + version + ".sql ");
+        Exec.SshCommand("mysql --host="+DB_HOST+" --port="+DB_PORT+" -u "+DB_USER+" -p"+DB_PASS+" kele01_java_eu < public_html/java/aion_eu_" + version + ".sql");
+
 
         // 15. remove db files .sql and .zip (FTP)
         System.out.println("Removing .zip and .sql files...");
