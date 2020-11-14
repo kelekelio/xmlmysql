@@ -17,14 +17,22 @@ import java.util.stream.Collectors;
  */
 public class CSVReader {
 
-    public static void main(String[] args) {
+    public static void readCSV (String csvFile) {
+
+        int i = 0;
 
         final LinkedHashMap<String, String> xmlMap = new LinkedHashMap<>();
 
-        String csvFile = "D:/PB/data/world/source_sphere.csv";
+
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
+
+        try {
+            DB.truncate("source_sphere");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         try {
 
@@ -43,16 +51,14 @@ public class CSVReader {
                 xmlMap.put("r", "\"" + npcData[7] + "\"");
 
                 DB.replace(xmlMap, "source_sphere");
+                i++;
+                System.out.println("Inserted " + i + " objects into the source_sphere table.");
 
             }
 
 
-        }  catch (FileNotFoundException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally {
             if (br != null) {
                 try {
@@ -64,4 +70,57 @@ public class CSVReader {
         }
 
     }
+
+    public static void readCSVClassic (String csvFile) {
+
+        int i = 0;
+        final LinkedHashMap<String, String> xmlMap = new LinkedHashMap<>();
+
+
+        BufferedReader br = null;
+        String line = "";
+        String cvsSplitBy = ",";
+
+        try {
+            DB.truncate("source_sphere");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+
+            br = new BufferedReader(new FileReader(csvFile));
+            while ((line = br.readLine()) != null) {
+
+                String[] npcData = line.split(cvsSplitBy);
+
+                xmlMap.put("name", "\"" + npcData[0] + "\"");
+                xmlMap.put("type", "\"" + npcData[1] + "\"");
+                xmlMap.put("zone", "\"" + npcData[2] + "\"");
+                xmlMap.put("x", "\"" + npcData[3] + "\"");
+                xmlMap.put("y", "\"" + npcData[4] + "\"");
+                xmlMap.put("z", "\"" + npcData[5] + "\"");
+                xmlMap.put("r", "\"" + npcData[6] + "\"");
+
+                DB.replace(xmlMap, "source_sphere");i++;
+                System.out.println("Inserted " + i + " objects into the source_sphere table.");
+
+            }
+
+
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+
 }

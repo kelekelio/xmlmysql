@@ -1,6 +1,7 @@
-package XML;
+package DBUpdate;
 
-import DB.DB;
+import XML.GeneralHandler;
+import XML.VersionHandler;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -10,10 +11,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class XmlList {
+/**
+ * @author Grzegorz Nowakowski
+ */
+public class EuFileList {
 
+    public static void selectedFiles() throws IOException, SAXException, ParserConfigurationException {
 
-    public static void XmlFileList () throws ParserConfigurationException, SAXException, IOException {
+        String folderName = "data_eu";
+
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         SAXParser saxParser = saxParserFactory.newSAXParser();
 
@@ -27,9 +33,15 @@ public class XmlList {
         handler.setTruncate(false);
         handler.setInitialNode("client_familiar");
         handler.setTableName("client_familiars");
-        saxParser.parse(new File("D:\\PB\\data\\func_pet\\familiars.xml"), handler);
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\func_pet\\familiars.xml"), handler);
+        ignoreList.clear();
 
 
+        handler.setTruncate(false);
+        handler.setInitialNode("client_ride_data");
+        handler.setTableName("client_ride_datas");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\rides\\rides.xml"), handler);
+        ignoreList.clear();
 
         /*
         ignoreList.add("bonus_attrs");
@@ -78,8 +90,5 @@ public class XmlList {
         saxParser.parse(new File("D:/PB/data_eu/items/client_items_etc_2.xml"), versionHandler);
 
          */
-
-
-
     }
 }

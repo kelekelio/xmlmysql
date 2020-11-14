@@ -1,24 +1,15 @@
 package Util;
 
-import CMD.Cmd;
 import DB.DB;
 import DBUpdate.ClassicDbUpdate;
 import DBUpdate.EuDbUpdate;
 import DBUpdate.KrDbUpdate;
 import DLL.DLL;
-import Discord.DiscordWebhook;
-import FTP.FTPFunctions;
-import SSH.Exec;
-import SSH.SshConnection;
-import XML.XmlList;
 
-import java.awt.*;
 import java.io.File;
-import java.sql.ResultSet;
 import java.util.Scanner;
 
 import static Extra.Colors.*;
-import static Extra.Config.*;
 
 public class Controller {
 
