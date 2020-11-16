@@ -73,6 +73,8 @@ public class CSVReader {
 
     public static void readCSVClassic (String csvFile) {
 
+        //TODO: delete once classic has layers in the file.
+
         int i = 0;
         final LinkedHashMap<String, String> xmlMap = new LinkedHashMap<>();
 

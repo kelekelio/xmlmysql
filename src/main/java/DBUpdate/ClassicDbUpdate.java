@@ -34,7 +34,7 @@ public class ClassicDbUpdate {
         String version = DLL.DllVersionCheck("classic");
 
         DB.setiDbName("aion_c");
-        DB.newInstance().getConn().createStatement();
+        DB.newInstance();
 
         String db = "aion_classic";
 

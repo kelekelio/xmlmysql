@@ -2,6 +2,7 @@ package Util;
 
 import DB.DB;
 import DBUpdate.ClassicDbUpdate;
+import DBUpdate.DbUpdate;
 import DBUpdate.EuDbUpdate;
 import DBUpdate.KrDbUpdate;
 import DLL.DLL;
@@ -51,9 +52,9 @@ public class Controller {
 
 
 
-        System.out.println("1: " + krDbRecord       + " => " + krDllRecord);
-        System.out.println("2: " + euDbRecord       + " => " + euDllRecord);
-        System.out.println("3: " + classicDbRecord  + " => " + classicDllRecord);
+        System.out.println("1. KR: " + krDbRecord       + " => " + krDllRecord);
+        System.out.println("2. EU: " + euDbRecord       + " => " + euDllRecord);
+        System.out.println("3. Cl: " + classicDbRecord  + " => " + classicDllRecord);
 
 
         Scanner scanner = new Scanner(System.in);
@@ -104,17 +105,20 @@ public class Controller {
             if (updateKR) {
                 System.out.println(ANSI_BLUE + ">> Updating the Korean DB..." + ANSI_RESET);
                 KrDbUpdate.KrDbUpdateList();
+                //DbUpdate.execute("aion", krDllRecord);
             }
 
             if (updateEU) {
 
                 System.out.println(ANSI_BLUE + ">> Updating the European DB..." + ANSI_RESET);
                 EuDbUpdate.EuDbUpdateList();
+                //DbUpdate.execute("aion_eu", euDllRecord);
             }
 
             if (updateClassic) {
                 System.out.println(ANSI_BLUE + ">> Updating the Classic DB..." + ANSI_RESET);
                 ClassicDbUpdate.ClassicDbUpdateList();
+                //DbUpdate.execute("aion_classic", classicDllRecord);
             }
 
 

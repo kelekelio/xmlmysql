@@ -2,15 +2,7 @@ package DBUpdate;
 
 import DB.DB;
 import DLL.DLL;
-import FTP.FTPFunctions;
 import Util.*;
-import XML.GeneralHandler;
-import XML.VersionHandler;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import java.io.File;
-import java.util.ArrayList;
 
 /**
  * @author Grzegorz Nowakowski

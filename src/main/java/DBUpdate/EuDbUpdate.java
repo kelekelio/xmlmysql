@@ -34,7 +34,7 @@ public class EuDbUpdate {
         String version = DLL.DllVersionCheck("eu");
 
         DB.setiDbName("aion_eu");
-        DB.newInstance().getConn().createStatement();
+        DB.newInstance();
 
         String db = "aion_eu";
 

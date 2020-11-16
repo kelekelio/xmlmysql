@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import DB.DB;
+import com.google.common.base.Joiner;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -16,11 +17,18 @@ public class GeneralHandler extends DefaultHandler{
     private final LinkedHashMap<String, String> xmlMap = new LinkedHashMap<>();
     private String tableName;
     private ArrayList<String> ignoreList = new ArrayList<>();
+    private ArrayList<String> consolidateList = new ArrayList<>();
     private String initialNode;
     private StringBuilder data = null;
     private boolean truncate = true;
+    private ArrayList<String> consolidateTemp = new ArrayList<String>();
+
 
     int i = 0;
+
+    public void setConsolidateList(ArrayList<String> consolidateList) {
+        this.consolidateList = consolidateList;
+    }
 
     public void setIgnoreList(ArrayList<String> ignoreList) {
         this.ignoreList = ignoreList;
@@ -60,6 +68,7 @@ public class GeneralHandler extends DefaultHandler{
         else if (qName.equalsIgnoreCase(tableName)) {
             System.out.println(ANSI_PURPLE + "Settings: Ignore => " + ignoreList + ", DB Truncate => " + truncate + ANSI_RESET);
         }
+
         data = new StringBuilder();
     }
 
@@ -83,11 +92,23 @@ public class GeneralHandler extends DefaultHandler{
         else if (qName.equalsIgnoreCase(tableName)) {
             truncate = true;
             ignoreList.clear();
+            consolidateList.clear();
             i = 0;
         }
         // Node appears in the ignore list. Do nothing
-        else if (ignoreList.contains(qName)) {
+        else if (ignoreList.contains(qName) || "data".equals(qName)) {
 
+
+            if (ignoreList.contains(qName)) {
+                consolidateTemp.clear();
+            }
+        }
+        else if (consolidateList.contains(qName)) {
+            consolidateTemp.add(data.toString());
+
+            String res = Joiner.on(";").join(consolidateTemp);
+
+            xmlMap.put(qName, "\"" + res + "\"");
         }
         else {
             //TODO: list of MYSQL reserved words
