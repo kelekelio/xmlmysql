@@ -9,6 +9,8 @@ import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
  */
 public class MediaWiki {
 
+
+
     public static void createArticle(String title, String text, String summary) {
         MediaWikiBot wikiBot = new MediaWikiBot(Config.WIKI_URL);
         wikiBot.login(Config.WIKI_USER, Config.WIKI_PASS);
@@ -16,6 +18,10 @@ public class MediaWiki {
         Article article = new Article(wikiBot, title);
         article.addText(text);
         article.save(summary);
+    }
+
+    static void applyChangesTo(Article article) {
+        // edits the article...
     }
 
 }
