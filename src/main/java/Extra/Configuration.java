@@ -37,4 +37,9 @@ public class Configuration {
 
     //Discord
     public static final String DISCORD_WEBHOOK = "DISCORD_WEBHOOK";
+
+    //MediaWiki
+    public static final String WIKI_URL = "https://wiki.com/w/";
+    public static final String WIKI_USER = "user";
+    public static final String WIKI_PASS = "pass";
 }

@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `source_sphere` (
 -- Indexes for table `source_sphere`
 --
 ALTER TABLE `source_sphere`
-  ADD PRIMARY KEY (`name`,`zpne`,`x`,`y`,`z`);
+  ADD PRIMARY KEY (`name`,`zone`,`x`,`y`,`z`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

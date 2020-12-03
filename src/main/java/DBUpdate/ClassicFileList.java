@@ -66,6 +66,7 @@ public class ClassicFileList {
 
 
 
+        /*
         ignoreList.add("bound_radius");
         handler.setIgnoreList(ignoreList);
         handler.setTruncate(false);
@@ -81,6 +82,8 @@ public class ClassicFileList {
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\rides\\rides.xml"), handler);
         ignoreList.clear();
 
+
+         */
 
 
         CSVReader.readCSVClassic("D:\\PB\\" + folderName + "\\world\\source_sphere.csv");
