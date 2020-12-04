@@ -46,8 +46,7 @@ public class MediaWiki {
         article.setMinorEdit(true);
         article.save();
 
-
-        System.out.println(text);
+        System.out.println(ANSI_GREEN + ">> The Main Page has been updated." + ANSI_RESET);
     }
 
     static void applyChangesTo(Article article) {
