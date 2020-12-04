@@ -17,25 +17,25 @@ public class KrDbUpdate {
         KrFileList.selectedFiles();
 
         // 6. execute update commands (DB)
-        TableUpdate.ExecuteTableUpdate();
+        TableUpdate.execute();
 
         // 7. dump the db (CMD)
-        DumpDb.ExecuteDbDump("aion_" + version, "aion");
+        DumpDb.execute("aion_" + version, "aion");
 
         // 8. zip the dump (CMD)
-        ZipDump.ExecuteDumpZip("aion_" + version);
+        ZipDump.execute("aion_" + version);
 
         // 9. upload zip to ftp (FTP)
-        UploadDbZip.executeDbZipUpload("aion_" + version);
+        UploadDbZip.execute("aion_" + version);
 
         // 10. unzip dump on server (SSH)
-        UnzipDump.ExecuteDumpUnzip("aion_" + version);
+        UnzipDump.execute("aion_" + version);
 
         // 11. execute source command (DB)
-        RestoreDbOnServer.ExecuteDbRestorationOnServer("kele01_java", "aion_" + version);
+        RestoreDbOnServer.execute("kele01_java", "aion_" + version);
 
         // 15. remove db files .sql and .zip (FTP)
-        RemoveZipSql.ExecuteSqlZipRemoval("aion_" + version);
+        RemoveZipSql.execute("aion_" + version);
 
         DB.execute("UPDATE `aion`.`appdata` SET `data` = '" + version + "' WHERE (`name` = 'krversion');");
 

@@ -14,7 +14,7 @@ import static Extra.Config.DB_PASS;
  */
 public class RestoreDbOnServer {
 
-    public static void ExecuteDbRestorationOnServer(String dbName, String fileName) throws InterruptedException {
+    public static void execute(String dbName, String fileName) throws InterruptedException {
         TimeUnit.SECONDS.sleep(2);
         System.out.println(ANSI_BLUE + ">> Restoring DB on the server..." + ANSI_RESET);
         Exec.SshCommand("mysql --host=" + DB_HOST + " --port=" + DB_PORT + " -u " + DB_USER + " -p" + DB_PASS + " " + dbName + " < public_html/java/" + fileName + ".sql ");

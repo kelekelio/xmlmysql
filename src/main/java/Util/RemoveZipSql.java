@@ -10,7 +10,7 @@ import static Extra.Colors.ANSI_RESET;
  */
 public class RemoveZipSql {
 
-    public static void ExecuteSqlZipRemoval (String fileName) throws Exception {
+    public static void execute(String fileName) throws Exception {
         FTPFunctions ftpobj = new FTPFunctions();
 
         System.out.println(ANSI_BLUE + ">> Removing .zip and .sql files..." + ANSI_RESET);

@@ -10,7 +10,7 @@ import static Extra.Colors.ANSI_RESET;
  */
 public class UploadHtaccess {
 
-    public static void executeHtaccessUpload (String type) throws Exception {
+    public static void execute(String type) throws Exception {
 
         FTPFunctions ftpobj = new FTPFunctions();
 

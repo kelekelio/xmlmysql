@@ -1,11 +1,9 @@
 package Util;
 
 import DB.DB;
-import DBUpdate.ClassicDbUpdate;
 import DBUpdate.DbUpdate;
-import DBUpdate.EuDbUpdate;
-import DBUpdate.KrDbUpdate;
 import DLL.DLL;
+import MediaWiki.MediaWiki;
 
 import java.io.File;
 import java.util.Scanner;
@@ -59,7 +57,9 @@ public class Controller {
 
         Scanner scanner = new Scanner(System.in);
         int updateDB;
-        System.out.println("Which DB would you like to update? [1], [2], [3], [4] for all");
+        int extraCommands = 999;
+        boolean initiate = true;
+        System.out.println("Which DB would you like to update? [1], [2], [3], [4] for all, [5] extra");
         updateDB = scanner.nextInt();
 
         switch (updateDB) {
@@ -77,59 +77,90 @@ public class Controller {
                 updateEU = true;
                 updateClassic = true;
                 break;
+            case 5:
+
+                while (extraCommands != 0) {
+                    System.out.println("Following actions can be performed:");
+                    System.out.println("[1] Send discord notification");
+                    System.out.println("[2] upload down htaccess (FTP)");
+                    System.out.println("[3] rename powerbook folder to pb (SSH)");
+                    System.out.println("[4] execute cache wipe (SSH)");
+                    System.out.println("[5] rename the folder back to powerbook (SSH)");
+                    System.out.println("[6] upload live htaccess (FTP)");
+                    System.out.println("[7] create wiki page for Live version");
+                    System.out.println("[8] create wiki page for Classic version");
+                    System.out.println("[0] to exit");
+                    extraCommands = scanner.nextInt();
+                    scanner.nextLine();
+
+                    switch (extraCommands) {
+                        case 1 -> DiscordNotification.sendDiscordNotification(krDllRecord, euDllRecord, classicDllRecord);
+                        case 2 -> UploadHtaccess.execute("down");
+                        case 3 -> RenamePbFolder.execute(0);
+                        case 4 -> CacheWipe.execute();
+                        case 5 -> RenamePbFolder.execute(1);
+                        case 6 -> UploadHtaccess.execute("live");
+                        case 7 -> MediaWiki.createArticle(krDllRecord, "aion");
+                        case 8 -> MediaWiki.createArticle(classicDllRecord, "aion_classic");
+                        default -> initiate = false;
+                    }
+                }
+
             default:
                 break;
         }
 
-        String operation;
+        String operation = "";
 
-        System.out.println("Initiate Update? [y]es / [n]o");
-        operation = scanner.next().toLowerCase();
+        if (initiate) {
+            System.out.println("Initiate Update? [y]es / [n]o");
+            operation = scanner.next().toLowerCase();
+        }
 
 
 
-        if (operation.equals("y")) {
+        if (operation.equals("y") && initiate) {
 
             // 2. send discord notif (Disc)
             DiscordNotification.sendDiscordNotification(krDllRecord, euDllRecord, classicDllRecord);
 
             // 3. upload down htaccess (FTP)
-            UploadHtaccess.executeHtaccessUpload("down");
+            UploadHtaccess.execute("down");
 
             // 4. rename powerbook folder to pb (SSH)
-            RenamePbFolder.executeFolderRename(0);
+            RenamePbFolder.execute(0);
 
 
 
             // 5. start db update (DB)
             if (updateKR) {
                 System.out.println(ANSI_BLUE + ">> Updating the Korean DB..." + ANSI_RESET);
-                KrDbUpdate.KrDbUpdateList();
-                //DbUpdate.execute("aion", krDllRecord);
+                //KrDbUpdate.KrDbUpdateList();
+                DbUpdate.execute("aion", krDllRecord);
             }
 
             if (updateEU) {
 
                 System.out.println(ANSI_BLUE + ">> Updating the European DB..." + ANSI_RESET);
-                EuDbUpdate.EuDbUpdateList();
-                //DbUpdate.execute("aion_eu", euDllRecord);
+                //EuDbUpdate.EuDbUpdateList();
+                DbUpdate.execute("aion_eu", euDllRecord);
             }
 
             if (updateClassic) {
                 System.out.println(ANSI_BLUE + ">> Updating the Classic DB..." + ANSI_RESET);
-                ClassicDbUpdate.ClassicDbUpdateList();
-                //DbUpdate.execute("aion_classic", classicDllRecord);
+                //ClassicDbUpdate.ClassicDbUpdateList();
+                DbUpdate.execute("aion_classic", classicDllRecord);
             }
 
 
             // 12. execute cache wipe (SSH)
-            CacheWipe.executeCacheWipe();
+            CacheWipe.execute();
 
             // 13. rename the folder back to powerbook (SSH)
-            RenamePbFolder.executeFolderRename(1);
+            RenamePbFolder.execute(1);
 
             // 14. upload live htaccess (FTP)
-            UploadHtaccess.executeHtaccessUpload("live");
+            UploadHtaccess.execute("live");
 
 
             System.out.println(ANSI_RED + "There have been " + DB.getAlters() + " table alterations." + ANSI_RESET);

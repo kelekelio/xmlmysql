@@ -10,7 +10,7 @@ import static Extra.Colors.ANSI_RESET;
  */
 public class UploadDbZip {
 
-    public static void executeDbZipUpload(String fileName) throws Exception {
+    public static void execute(String fileName) throws Exception {
         FTPFunctions ftpobj = new FTPFunctions();
 
         String localFile = "D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\" + fileName + ".zip";

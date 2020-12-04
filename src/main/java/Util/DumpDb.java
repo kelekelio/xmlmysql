@@ -10,7 +10,7 @@ import static Extra.Colors.ANSI_RESET;
  */
 public class DumpDb {
 
-    public static void ExecuteDbDump (String fileName, String dbName) {
+    public static void execute(String fileName, String dbName) {
         System.out.println(ANSI_BLUE + ">> Creating DB dump..." + ANSI_RESET);
         Cmd.Backupdbtosql(fileName, dbName);
     }

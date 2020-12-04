@@ -1,7 +1,6 @@
 package DBUpdate;
 
 import DB.DB;
-import DLL.DLL;
 import Util.*;
 
 /**
@@ -35,25 +34,25 @@ public class DbUpdate {
 
 
         // 6. execute update commands (DB)
-        TableUpdate.ExecuteTableUpdate();
+        TableUpdate.execute();
 
         // 7. dump the db (CMD)
-        DumpDb.ExecuteDbDump(db + "_" + version, db);
+        DumpDb.execute(db + "_" + version, db);
 
         // 8. zip the dump (CMD)
-        ZipDump.ExecuteDumpZip(db + "_" + version);
+        ZipDump.execute(db + "_" + version);
 
         // 9. upload zip to ftp (FTP)
-        UploadDbZip.executeDbZipUpload(db + "_" + version);
+        UploadDbZip.execute(db + "_" + version);
 
         // 10. unzip dump on server (SSH)
-        UnzipDump.ExecuteDumpUnzip(db +"_" + version);
+        UnzipDump.execute(db +"_" + version);
 
         // 11. execute source command (DB)
-        RestoreDbOnServer.ExecuteDbRestorationOnServer("kele01_" + db, db + "_" + version);
+        RestoreDbOnServer.execute("kele01_" + db, db + "_" + version);
 
         // 15. remove db files .sql and .zip (FTP)
-        RemoveZipSql.ExecuteSqlZipRemoval(db + "_" + version);
+        RemoveZipSql.execute(db + "_" + version);
 
 
         DB.execute("UPDATE `aion`.`appdata` SET `data` = '" + version + "' WHERE (`name` = '" + db + "');");

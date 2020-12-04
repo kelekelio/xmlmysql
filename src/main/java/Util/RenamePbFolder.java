@@ -10,7 +10,7 @@ import static Extra.Colors.ANSI_RESET;
  */
 public class RenamePbFolder {
 
-    public static void executeFolderRename(int type) {
+    public static void execute(int type) {
         if (type == 0) {
             Exec.SshCommand( "mv public_html/java/powerbook public_html/java/pb");
             System.out.println(ANSI_BLUE + ">> Folder: powerbook => pb" + ANSI_RESET);

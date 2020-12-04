@@ -12,7 +12,7 @@ import static Extra.Colors.ANSI_RESET;
  */
 public class TableUpdate {
 
-    public static void ExecuteTableUpdate() throws IOException {
+    public static void execute() throws IOException {
         System.out.println(ANSI_BLUE + ">> Updating tables..." + ANSI_RESET);
         DB.loadTableCreate("updateTables");
     }

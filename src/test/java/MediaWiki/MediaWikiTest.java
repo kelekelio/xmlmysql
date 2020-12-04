@@ -1,5 +1,7 @@
 package MediaWiki;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -7,8 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class MediaWikiTest {
 
+    @Test
     public void createMediawikiArticle() {
-        MediaWiki.createArticle("Version:79.20.1201", "{{#Version:79.20.1201}}", "Version:79.20.1201");
+        MediaWiki.createArticle("79.20.1266", "aion");
     }
 
 }

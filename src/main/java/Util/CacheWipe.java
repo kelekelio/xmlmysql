@@ -10,7 +10,7 @@ import static Extra.Colors.ANSI_RESET;
  */
 public class CacheWipe {
 
-    public static void executeCacheWipe() {
+    public static void execute() {
         Exec.SshCommand("find public_html/java/testdelete/ -type f -name \"*.html\" -delete");
         System.out.println(ANSI_BLUE + ">> Cache wiped" + ANSI_RESET);
     }
