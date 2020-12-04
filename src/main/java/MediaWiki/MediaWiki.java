@@ -35,6 +35,21 @@ public class MediaWiki {
 
     }
 
+    public static void editMainPage (String krVersion, String classicVersion, String previousKrVersion, String previousClassicVersion ) {
+        MediaWikiBot wikiBot = new MediaWikiBot(Config.WIKI_URL);
+        wikiBot.login(Config.WIKI_USER, Config.WIKI_PASS);
+
+        Article article = new Article(wikiBot, "Main Page");
+        String text = article.getText().replaceAll(previousKrVersion, krVersion).replaceAll(previousClassicVersion, classicVersion);
+
+        article.setText(text);
+        article.setMinorEdit(true);
+        article.save();
+
+
+        System.out.println(text);
+    }
+
     static void applyChangesTo(Article article) {
         // edits the article...
     }

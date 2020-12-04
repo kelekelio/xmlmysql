@@ -89,6 +89,7 @@ public class Controller {
                     System.out.println("[6] upload live htaccess (FTP)");
                     System.out.println("[7] create wiki page for Live version");
                     System.out.println("[8] create wiki page for Classic version");
+                    System.out.println("[9] update the version on the Main Page");
                     System.out.println("[0] to exit");
                     extraCommands = scanner.nextInt();
                     scanner.nextLine();
@@ -102,6 +103,7 @@ public class Controller {
                         case 6 -> UploadHtaccess.execute("live");
                         case 7 -> MediaWiki.createArticle(krDllRecord, "aion");
                         case 8 -> MediaWiki.createArticle(classicDllRecord, "aion_classic");
+                        case 9 -> MediaWiki.editMainPage(krDllRecord, classicDllRecord, krDbRecord, classicDbRecord);
                         default -> initiate = false;
                     }
                 }
