@@ -41,7 +41,7 @@ public class VersionHandler extends GeneralHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         if (qName.equalsIgnoreCase(initialNode)) {
-            System.out.println(ANSI_PURPLE + "Settings: Ignore => , DB Truncate => " + truncate + ANSI_RESET);
+            //declare to maintain order
             xmlMap.put("id", null);
             xmlMap.put("name", null);
             xmlMap.put("client_version", "\"" + version + "\"");
