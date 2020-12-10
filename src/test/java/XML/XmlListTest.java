@@ -32,7 +32,7 @@ class XmlListTest {
     }
 
     @Test
-    void updateFromASingleXML () throws SAXException, IOException, ParserConfigurationException {
+    void updateFromQuestXML () throws SAXException, IOException, ParserConfigurationException {
 
 
         String folderName = "data_classic";
@@ -70,7 +70,7 @@ class XmlListTest {
     }
 
     @Test
-    void updateItemXML () throws SAXException, IOException, ParserConfigurationException {
+    void updateFromSingleXML () throws SAXException, IOException, ParserConfigurationException {
 
 
         String folderName = "data_classic";
@@ -82,13 +82,19 @@ class XmlListTest {
 
         GeneralHandler handler = new GeneralHandler();
         VersionHandler versionHandler = new VersionHandler();
+        LanguageHandler languageHandler = new LanguageHandler();
 
         ArrayList<String> ignoreList = new ArrayList<>();
         ArrayList<String> consolidateList = new ArrayList<>();
 
 
+        versionHandler.setRegion("classic");
+        versionHandler.setInitialNode("client_item");
+        versionHandler.setTableName("client_items");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_items.xml"), versionHandler);
 
 
+        /*
         consolidateList.add("trade_in_item_list");
         handler.setConsolidateList(consolidateList);
         //ignoreList.add("data");
@@ -97,7 +103,8 @@ class XmlListTest {
         handler.setInitialNode("client_item");
         handler.setTableName("client_items");
         saxParser.parse(new File("D:\\Aion PKG\\data_1.20.1203\\items\\client_items.xml"), handler);
-        ignoreList.clear();
+
+         */
     }
 
 }

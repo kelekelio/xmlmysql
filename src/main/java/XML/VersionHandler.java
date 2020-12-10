@@ -43,6 +43,7 @@ public class VersionHandler extends GeneralHandler {
         if (qName.equalsIgnoreCase(initialNode)) {
             System.out.println(ANSI_PURPLE + "Settings: Ignore => , DB Truncate => " + truncate + ANSI_RESET);
             xmlMap.put("id", null);
+            xmlMap.put("name", null);
             xmlMap.put("client_version", "\"" + version + "\"");
         }
         else if (qName.equalsIgnoreCase("id")) {
@@ -57,6 +58,9 @@ public class VersionHandler extends GeneralHandler {
         if (qName.equalsIgnoreCase("id")) {
 
             xmlMap.put("id", String.valueOf(data));
+
+        }
+        else if (qName.equalsIgnoreCase(initialNode)) {
             try {
                 DB.insert(xmlMap, tableName);
             } catch (IOException | SQLException e) {
@@ -64,8 +68,8 @@ public class VersionHandler extends GeneralHandler {
             }
             System.out.println("Inserted " + i + " objects into the " + tableName + " table.");
         }
-        else if (qName.equalsIgnoreCase(initialNode)) {
-            i = 0;
+        else if (qName.equalsIgnoreCase("name")) {
+            xmlMap.put("name", "\"" + String.valueOf(data) + "\"");
         }
     }
 

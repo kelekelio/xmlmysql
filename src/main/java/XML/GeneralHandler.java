@@ -130,7 +130,7 @@ public class GeneralHandler extends DefaultHandler{
                 xmlMap.put("description", "\"" + data + "\"");
             }
             // inside consolidated node. put each node value into a temporary string
-            else if (insideConsolidated) {
+            else if (insideConsolidated && !qName.equalsIgnoreCase("buy_price_rate")) {
                 temporaryArrayNode = temporaryArrayNode + data + " ";
             }
             else {

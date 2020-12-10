@@ -220,6 +220,38 @@ public class DB {
         }
     }
 
+    public static void updateOnDupliacteKey (LinkedHashMap<String, String> sqlArray, String columnName) throws IOException, SQLException {
+        //keys => [id, id2, name, desc, desc1, desc2]
+        Set<String> SQLkeys = sqlArray.keySet();
+        String stringSQLkeys = String.join(",", SQLkeys);
+        //System.out.println(SQLkeys);
+
+        //values => ["133345", "1133345", "dev_name", "description", "description1", "description2"]
+        Collection<String> SQLvalues = sqlArray.values();
+        String stringSQLvalues = String.join(",", SQLvalues);
+
+        //System.out.println(SQLvalues);
+
+        //String SQLStatement = "REPLACE INTO " + tableName + " "+ SQLkeys +" VALUES "+ SQLvalues +";";
+
+        String SQLStatement = "INSERT INTO translation (" + stringSQLkeys + ") VALUES (" + stringSQLvalues + ") ON DUPLICATE KEY UPDATE " + columnName + " = " + sqlArray.get("body") + ";";
+
+        System.out.println(ANSI_GREEN + ">> " + SQLStatement + ANSI_RESET);
+
+        try {
+            Statement st = DB
+                    .getInstance()
+                    .getConn()
+                    .createStatement();
+
+            st.execute(SQLStatement);
+            st.close();
+        } catch (SQLException throwables) {
+            System.out.println(ANSI_RED + "Error " + throwables.getErrorCode() + "(" + SQLStatement + ")" + ANSI_RESET);
+        }
+
+    }
+
     public static void truncate (String tableName) throws IOException {
         // execute on initial xml tag (or 1st ID)
 

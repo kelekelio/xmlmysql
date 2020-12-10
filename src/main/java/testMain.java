@@ -2,9 +2,7 @@ import net.sourceforge.jwbf.core.bots.WikiBot;
 import net.sourceforge.jwbf.core.contentRep.Article;
 import net.sourceforge.jwbf.mediawiki.bots.MediaWikiBot;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Grzegorz Nowakowski
@@ -15,14 +13,25 @@ public class testMain {
 
     public static void main(String[] args) {
 
-        MediaWikiBot wikiBot = new MediaWikiBot("https://aionpowerbook.com/powerbook/");
-        wikiBot.login("Kelekelio", "pdc3wav9mlog");
-        Article article = new Article(wikiBot, "Version:79.20.1201");
+        LinkedHashMap<String, String> xmlMap = new LinkedHashMap<>();
 
-        //System.out.println(wikiBot.getVersion());
+        xmlMap.put("id", "1");
+        xmlMap.put("name", "\"STR_F2P_SHOP_LINK003\"");
+        xmlMap.put("body", "\"[%shoplink]\"");
 
-        article.addText("{{#Version:79.20.1201}}");
-        article.save("Version:79.20.1201");
+
+        Set<String> SQLkeys = xmlMap.keySet();
+        String joined = String.join(",", SQLkeys);
+
+
+        Collection<String> SQLvalues = xmlMap.values();
+
+        String joinedv = String.join(",", SQLvalues);
+
+        System.out.println(SQLkeys);
+        System.out.println(SQLvalues);
+        System.out.println(joined);
+        System.out.println(joinedv);
 
 
 
