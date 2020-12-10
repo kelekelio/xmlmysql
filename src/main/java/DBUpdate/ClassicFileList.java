@@ -31,39 +31,32 @@ public class ClassicFileList {
         ArrayList<String> consolidateList = new ArrayList<>();
 
 
-        //Quest
-        consolidateList.add("fighter_selectable_item");
-        consolidateList.add("knight_selectable_item");
-        consolidateList.add("ranger_selectable_item");
-        consolidateList.add("assassin_selectable_item");
-        consolidateList.add("wizard_selectable_item");
-        consolidateList.add("elementalist_selectable_item");
-        consolidateList.add("priest_selectable_item");
-        consolidateList.add("chanter_selectable_item");
-        consolidateList.add("gunner_selectable_item");
-        consolidateList.add("rider_selectable_item");
-        consolidateList.add("painter_selectable_item");
+        //Items
+        consolidateList.add("trade_in_item_list");
         handler.setConsolidateList(consolidateList);
-        //ignoreList.add("data");
-        ignoreList.add("fighter_selectable_reward");
-        ignoreList.add("knight_selectable_reward");
-        ignoreList.add("ranger_selectable_reward");
-        ignoreList.add("assassin_selectable_reward");
-        ignoreList.add("wizard_selectable_reward");
-        ignoreList.add("elementalist_selectable_reward");
-        ignoreList.add("priest_selectable_reward");
-        ignoreList.add("chanter_selectable_reward");
-        ignoreList.add("gunner_selectable_reward");
-        ignoreList.add("rider_selectable_reward");
-        ignoreList.add("painter_selectable_reward");
-        handler.setIgnoreList(ignoreList);
+        handler.setTruncate(false);
+        handler.setInitialNode("client_item");
+        handler.setTableName("client_items");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_items.xml"), handler);
+
+
+        //Quests
+        consolidateList.add("fighter_selectable_reward");
+        consolidateList.add("knight_selectable_reward");
+        consolidateList.add("ranger_selectable_reward");
+        consolidateList.add("assassin_selectable_reward");
+        consolidateList.add("wizard_selectable_reward");
+        consolidateList.add("elementalist_selectable_reward");
+        consolidateList.add("priest_selectable_reward");
+        consolidateList.add("chanter_selectable_reward");
+        consolidateList.add("gunner_selectable_reward");
+        consolidateList.add("rider_selectable_reward");
+        consolidateList.add("painter_selectable_reward");
+        handler.setConsolidateList(consolidateList);
         handler.setTruncate(true);
         handler.setInitialNode("quest");
         handler.setTableName("quests");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\Quest\\quest.xml"), handler);
-        ignoreList.clear();
-        consolidateList.clear();
-
 
 
         /*

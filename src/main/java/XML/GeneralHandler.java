@@ -22,6 +22,9 @@ public class GeneralHandler extends DefaultHandler{
     private StringBuilder data = null;
     private boolean truncate = true;
     private ArrayList<String> consolidateTemp = new ArrayList<String>();
+    private String temporaryArrayNode = "";
+    private boolean insideConsolidated = false;
+    private String tempConsolidatedNodeName = "";
 
 
     int i = 0;
@@ -68,6 +71,10 @@ public class GeneralHandler extends DefaultHandler{
         else if (qName.equalsIgnoreCase(tableName)) {
             System.out.println(ANSI_PURPLE + "Settings: Ignore => " + ignoreList + ", DB Truncate => " + truncate + ANSI_RESET);
         }
+        else if (consolidateList.contains(qName)) {
+            tempConsolidatedNodeName = qName;
+            insideConsolidated = true;
+        }
 
         data = new StringBuilder();
     }
@@ -93,30 +100,40 @@ public class GeneralHandler extends DefaultHandler{
             truncate = true;
             ignoreList.clear();
             consolidateList.clear();
+
             i = 0;
         }
-        // Node appears in the ignore list. Do nothing
-        else if (ignoreList.contains(qName) || "data".equals(qName)) {
 
-
-            if (ignoreList.contains(qName)) {
-                consolidateTemp.clear();
-            }
-        }
+        //
         else if (consolidateList.contains(qName)) {
-            consolidateTemp.add(data.toString());
-
-            String res = Joiner.on(";").join(consolidateTemp);
-
-            xmlMap.put(qName, "\"" + res + "\"");
+            xmlMap.put(tempConsolidatedNodeName, "\"" + Joiner.on(";").join(consolidateTemp) + "\"");
+            insideConsolidated = false;
+            consolidateTemp.clear();
         }
+
+        //end of data node. push temporary string to consolidate array
+        else if (qName.equalsIgnoreCase("data")) {
+            consolidateTemp.add(temporaryArrayNode);
+            temporaryArrayNode = "";
+        }
+
+        // Node appears in the ignore list. Do nothing
+        else if (ignoreList.contains(qName) || qName.equalsIgnoreCase("dev_name")) {
+
+        }
+
         else {
             //TODO: list of MYSQL reserved words
             if ("condition".equalsIgnoreCase(qName)) {
                 xmlMap.put("conditions", "\"" + data + "\"");
             } else if ("desc".equalsIgnoreCase(qName)) {
                 xmlMap.put("description", "\"" + data + "\"");
-            }else {
+            }
+            // inside consolidated node. put each node value into a temporary string
+            else if (insideConsolidated) {
+                temporaryArrayNode = temporaryArrayNode + data + " ";
+            }
+            else {
                 xmlMap.put(qName, "\"" + data + "\"");
             }
         }

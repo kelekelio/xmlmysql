@@ -51,35 +51,52 @@ class XmlListTest {
 
         //Quest
 
-        consolidateList.add("fighter_selectable_item");
-        consolidateList.add("knight_selectable_item");
-        consolidateList.add("ranger_selectable_item");
-        consolidateList.add("assassin_selectable_item");
-        consolidateList.add("wizard_selectable_item");
-        consolidateList.add("elementalist_selectable_item");
-        consolidateList.add("priest_selectable_item");
-        consolidateList.add("chanter_selectable_item");
-        consolidateList.add("gunner_selectable_item");
-        consolidateList.add("rider_selectable_item");
-        consolidateList.add("painter_selectable_item");
+        consolidateList.add("fighter_selectable_reward");
+        consolidateList.add("knight_selectable_reward");
+        consolidateList.add("ranger_selectable_reward");
+        consolidateList.add("assassin_selectable_reward");
+        consolidateList.add("wizard_selectable_reward");
+        consolidateList.add("elementalist_selectable_reward");
+        consolidateList.add("priest_selectable_reward");
+        consolidateList.add("chanter_selectable_reward");
+        consolidateList.add("gunner_selectable_reward");
+        consolidateList.add("rider_selectable_reward");
+        consolidateList.add("painter_selectable_reward");
         handler.setConsolidateList(consolidateList);
-        //ignoreList.add("data");
-        ignoreList.add("fighter_selectable_reward");
-        ignoreList.add("knight_selectable_reward");
-        ignoreList.add("ranger_selectable_reward");
-        ignoreList.add("assassin_selectable_reward");
-        ignoreList.add("wizard_selectable_reward");
-        ignoreList.add("elementalist_selectable_reward");
-        ignoreList.add("priest_selectable_reward");
-        ignoreList.add("chanter_selectable_reward");
-        ignoreList.add("gunner_selectable_reward");
-        ignoreList.add("rider_selectable_reward");
-        ignoreList.add("painter_selectable_reward");
-        handler.setIgnoreList(ignoreList);
         handler.setTruncate(true);
         handler.setInitialNode("quest");
         handler.setTableName("quests");
-        saxParser.parse(new File("D:\\PB\\" + folderName + "\\Quest\\quest.xml"), handler);
+        saxParser.parse(new File("D:\\Aion PKG\\data_1.20.1203\\quest\\quest.xml"), handler);
+    }
+
+    @Test
+    void updateItemXML () throws SAXException, IOException, ParserConfigurationException {
+
+
+        String folderName = "data_classic";
+        DB.setiDbName("aion_c");
+        DB.newInstance();
+
+        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+        SAXParser saxParser = saxParserFactory.newSAXParser();
+
+        GeneralHandler handler = new GeneralHandler();
+        VersionHandler versionHandler = new VersionHandler();
+
+        ArrayList<String> ignoreList = new ArrayList<>();
+        ArrayList<String> consolidateList = new ArrayList<>();
+
+
+
+
+        consolidateList.add("trade_in_item_list");
+        handler.setConsolidateList(consolidateList);
+        //ignoreList.add("data");
+        handler.setIgnoreList(ignoreList);
+        handler.setTruncate(false);
+        handler.setInitialNode("client_item");
+        handler.setTableName("client_items");
+        saxParser.parse(new File("D:\\Aion PKG\\data_1.20.1203\\items\\client_items.xml"), handler);
         ignoreList.clear();
     }
 
