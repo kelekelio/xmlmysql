@@ -19,7 +19,6 @@ public class VersionHandler extends GeneralHandler {
     private String tableName;
     private String version = DLL.DllVersionCheck(region);
     private String initialNode;
-    private boolean truncate = false;
     int i = 0;
     private StringBuilder data = null;
 
@@ -28,18 +27,16 @@ public class VersionHandler extends GeneralHandler {
         version = DLL.DllVersionCheck(region);
     }
 
-    @Override
     public void setTableName(String tableName) {
         this.tableName = tableName + "_version";
     }
 
-    @Override
     public void setInitialNode(String initialNode) {
         this.initialNode = initialNode;
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
         if (qName.equalsIgnoreCase(initialNode)) {
             //declare to maintain order
             xmlMap.put("id", null);
@@ -54,7 +51,7 @@ public class VersionHandler extends GeneralHandler {
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         if (qName.equalsIgnoreCase("id")) {
 
             xmlMap.put("id", String.valueOf(data));
