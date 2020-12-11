@@ -33,7 +33,8 @@ public class ClassicFileList {
         ArrayList<String> consolidateList = new ArrayList<>();
 
 
-        //Items
+        /*
+        //TODO: Items
         consolidateList.add("trade_in_item_list");
         handler.setConsolidateList(consolidateList);
         handler.setTruncate(false);
@@ -50,7 +51,7 @@ public class ClassicFileList {
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_setitem.xml"), handler);
 
 
-        //npcs
+        //TODO: npcs
         consolidateList.add("goods_list");
         handler.setConsolidateList(consolidateList);
         //handler.setTruncate(false);
@@ -73,6 +74,7 @@ public class ClassicFileList {
         consolidateList.add("trade_info");
         consolidateList.add("trade_in_trade_info");
         consolidateList.add("abyss_trade_info");
+        consolidateList.add("coupon_trade_info");
         handler.setIgnoreList(ignoreList);
         handler.setConsolidateList(consolidateList);
         //handler.setTruncate(true);
@@ -83,7 +85,7 @@ public class ClassicFileList {
 
 
 
-        //Quests
+        //TODO: Quests
         consolidateList.add("fighter_selectable_reward");
         consolidateList.add("knight_selectable_reward");
         consolidateList.add("ranger_selectable_reward");
@@ -102,38 +104,156 @@ public class ClassicFileList {
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\Quest\\quest.xml"), handler);
 
 
-        //Skills
+        //TODO: Skills
         //handler.setTruncate(true); default
         handler.setInitialNode("client_skill_learn");
         handler.setTableName("client_skill_learns");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\skills\\client_skill_learns.xml"), handler);
 
-        //handler.setTruncate(true); default
+        ignoreList.add("fire_fx_bone");
+        ignoreList.add("hit_fx");
+        ignoreList.add("hit_fx_bone");
+        ignoreList.add("fire_fx");
+        ignoreList.add("cast_fx_bone");
+        ignoreList.add("cast_fx");
+        ignoreList.add("remaining_fx");
+        ignoreList.add("need_fx");
+        ignoreList.add("ammo_fxc");
+        ignoreList.add("hit_camera_work");
+        ignoreList.add("cast_camera_work");
+        ignoreList.add("hit_fx_ex1");
+        ignoreList.add("ammo_fx");
+        ignoreList.add("ammo_fx_type");
+        ignoreList.add("ammo_bone");
+        ignoreList.add("ammo_speed");
+        ignoreList.add("hit_fx_attacker_oriented");
+        ignoreList.add("status_fx");
+        ignoreList.add("status_fx_slot");
+        ignoreList.add("status_fx_bone");
+        ignoreList.add("hit_fx_ex3");
+        ignoreList.add("interval_hit_fx_bone");
+        ignoreList.add("interval_hit_fx");
+        ignoreList.add("pre_fx_delay");
+        ignoreList.add("pre_fx_bone");
+        ignoreList.add("pre_fx");
+        ignoreList.add("hit_fx_ex5");
+        ignoreList.add("hit_fx_ex4");
+        ignoreList.add("hit_fx_ex2");
+        ignoreList.add("reflect_fx");
+        ignoreList.add("status_shader");
+        ignoreList.add("aura_fx_bone");
+        ignoreList.add("aura_fx");
+        ignoreList.add("aura_fx_slot");
+        ignoreList.add("status_sfx1");
+        ignoreList.add("sfx1");
+        ignoreList.add("castcancel_fx");
+        ignoreList.add("castcancel_fx_bone");
+        ignoreList.add("fire_fxc");
+        ignoreList.add("cast_fxc");
+        ignoreList.add("hit_fxc");
+        ignoreList.add("trail_tex");
+        ignoreList.add("hit_target_camera_shake");
+        ignoreList.add("hit_camera_shake");
+        handler.setIgnoreList(ignoreList);
         handler.setInitialNode("skill_base_client");
         handler.setTableName("skill_base_clients");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\skills\\client_skills.xml"), handler);
 
 
 
-        //func_pet
-        consolidateList.add("ui_colors");
+        //TODO: func_pet
+        ignoreList.add("react_praise_d_better_desc02");
+        ignoreList.add("react_praise_d_better_desc01");
+        ignoreList.add("react_train_b_better_desc02");
+        ignoreList.add("react_train_b_better_desc01");
+        ignoreList.add("react_praise_b_better_desc01");
+        ignoreList.add("react_praise_b_better_desc02");
+        ignoreList.add("ask_whining_desc");
+        ignoreList.add("react_play_d_better_desc01");
+        ignoreList.add("react_care_b_better_desc01");
+        ignoreList.add("react_play_d_better_desc02");
+        ignoreList.add("react_care_b_better_desc02");
+        ignoreList.add("react_praise_a_better_desc02");
+        ignoreList.add("react_praise_a_better_desc01");
+        ignoreList.add("react_train_a_better_desc01");
+        ignoreList.add("react_care_a_better_desc02");
+        ignoreList.add("react_train_a_better_desc02");
+        ignoreList.add("react_care_a_better_desc01");
+        ignoreList.add("react_train_a_good_desc02");
+        ignoreList.add("react_train_b_good_desc02");
+        ignoreList.add("react_train_b_good_desc01");
+        ignoreList.add("react_care_a_good_desc02");
+        ignoreList.add("react_train_d_good_desc02");
+        ignoreList.add("react_care_a_good_desc01");
+        ignoreList.add("react_train_c_good_desc01");
+        ignoreList.add("react_train_d_good_desc01");
+        ignoreList.add("react_train_c_good_desc02");
+        ignoreList.add("react_care_c_good_desc02");
+        ignoreList.add("react_praise_critical_desc01");
+        ignoreList.add("react_care_b_good_desc01");
+        ignoreList.add("react_care_c_good_desc01");
+        ignoreList.add("react_care_b_good_desc02");
+        ignoreList.add("react_train_critical_desc01");
+        ignoreList.add("react_train_critical_desc02");
+        ignoreList.add("react_play_d_good_desc01");
+        ignoreList.add("react_play_d_good_desc02");
+        ignoreList.add("react_play_c_good_desc01");
+        ignoreList.add("react_play_c_good_desc02");
+        ignoreList.add("react_play_b_good_desc02");
+        ignoreList.add("react_play_a_good_desc01");
+        ignoreList.add("react_play_b_good_desc01");
+        ignoreList.add("react_care_d_good_desc01");
+        ignoreList.add("react_praise_critical_desc02");
+        ignoreList.add("react_play_a_good_desc02");
+        ignoreList.add("react_care_d_good_desc02");
+        ignoreList.add("react_praise_c_better_desc02");
+        ignoreList.add("react_praise_c_better_desc01");
+        ignoreList.add("react_play_critical_desc02");
+        ignoreList.add("react_train_c_better_desc01");
+        ignoreList.add("react_train_c_better_desc02");
+        ignoreList.add("react_care_critical_desc02");
+        ignoreList.add("react_care_critical_desc01");
+        ignoreList.add("react_play_critical_desc01");
+        ignoreList.add("react_praise_a_good_desc02");
+        ignoreList.add("react_care_c_better_desc01");
+        ignoreList.add("react_praise_a_good_desc01");
+        ignoreList.add("react_praise_d_good_desc02");
+        ignoreList.add("react_praise_d_good_desc01");
+        ignoreList.add("react_praise_b_good_desc01");
+        ignoreList.add("react_praise_b_good_desc02");
+        ignoreList.add("react_praise_c_good_desc02");
+        ignoreList.add("react_praise_c_good_desc01");
+        ignoreList.add("react_play_c_better_desc02");
+        ignoreList.add("react_care_c_better_desc02");
+        ignoreList.add("react_play_c_better_desc01");
+        ignoreList.add("react_train_a_good_desc01");
+        ignoreList.add("react_play_a_better_desc01");
+        ignoreList.add("react_play_a_better_desc02");
+        ignoreList.add("react_train_d_better_desc01");
+        ignoreList.add("react_play_b_better_desc02");
+        ignoreList.add("react_play_b_better_desc01");
+        ignoreList.add("react_train_d_better_desc02");
+        ignoreList.add("react_care_d_better_desc02");
+        ignoreList.add("react_care_d_better_desc01");
+        handler.setIgnoreList(ignoreList);
         ignoreList.add("bound_radius");
-        handler.setIgnoreList(consolidateList);
-        handler.setConsolidateList(ignoreList);
+        consolidateList.add("ui_colors");
+        handler.setConsolidateList(consolidateList);
+        handler.setIgnoreList(ignoreList);
         //handler.setTruncate(true); default
         handler.setInitialNode("client_toypet");
         handler.setTableName("client_toypets");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\func_pet\\toypets.xml"), handler);
 
 
-        //Gather
+        //TODO: Gather
         //handler.setTruncate(true); default
         handler.setInitialNode("gather_src");
         handler.setTableName("gather_srcs");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\Gather\\gather_src.xml"), handler);
 
 
-        //pc
+        //TODO: pc
         //handler.setTruncate(true); default
         handler.setInitialNode("client_achievement_action");
         handler.setTableName("client_achievement_actions");
@@ -162,7 +282,7 @@ public class ClassicFileList {
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\pc\\client_titles.xml"), handler);
 
 
-        //World
+        //TODO: World
         handler.setInitialNode("client_instance_cooltime");
         handler.setTableName("client_instance_cooltimes");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\world\\client_instance_cooltime.xml"), handler);
@@ -171,7 +291,7 @@ public class ClassicFileList {
         handler.setTableName("zonemaps");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\world\\zonemap.xml"), handler);
 
-        //Strings
+        //TODO: Strings
         languageHandler.setColumnName("body");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\Strings\\client_strings_bm.xml"), languageHandler);
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\Strings\\client_strings_bmrestrict.xml"), languageHandler);
@@ -197,11 +317,13 @@ public class ClassicFileList {
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\Strings\\stringtable_tip.xml"), languageHandler);
 
 
-        //CSV
+        //TODO: CSV
         CSVReader.readCSVClassic("D:\\PB\\" + folderName + "\\world\\source_sphere.csv");
 
 
-        //Versions
+
+         */
+        //TODO: Versions
         versionHandler.setRegion("classic");
         versionHandler.setInitialNode("client_item");
         versionHandler.setTableName("client_items");

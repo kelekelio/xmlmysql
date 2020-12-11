@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.sql.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 import static Extra.Colors.*;
 import static Extra.Config.*;
 
@@ -215,6 +217,11 @@ public class DB {
 
             else {
                 System.out.println(ANSI_RED + "Error " + throwables.getErrorCode() + ANSI_RESET);
+                try {
+                    TimeUnit.SECONDS.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
         }

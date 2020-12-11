@@ -24,7 +24,7 @@ public class DbUpdate {
             case "aion_eu":
                 EuFileList.selectedFiles();
                 break;
-            case "aion_classic":
+            case "aion_c":
                 ClassicFileList.selectedFiles();
                 break;
             default:

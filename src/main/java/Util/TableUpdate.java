@@ -14,6 +14,6 @@ public class TableUpdate {
 
     public static void execute() throws IOException {
         System.out.println(ANSI_BLUE + ">> Updating tables..." + ANSI_RESET);
-        DB.loadTableCreate("updateTables");
+        //DB.loadTableCreate("updateTables");
     }
 }

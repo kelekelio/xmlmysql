@@ -107,6 +107,7 @@ public class GeneralHandler extends DefaultHandler{
         //
         else if (consolidateList.contains(qName)) {
             xmlMap.put(tempConsolidatedNodeName, "\"" + Joiner.on(";").join(consolidateTemp) + "\"");
+            tempConsolidatedNodeName = "";
             insideConsolidated = false;
             consolidateTemp.clear();
         }
@@ -130,11 +131,17 @@ public class GeneralHandler extends DefaultHandler{
                 xmlMap.put("description", "\"" + data + "\"");
             }
             // inside consolidated node. put each node value into a temporary string
-            else if (insideConsolidated && !qName.equalsIgnoreCase("buy_price_rate")) {
+            else if (insideConsolidated && !qName.equalsIgnoreCase("buy_price_rate")&& !qName.equalsIgnoreCase("sell_price_rate")) {
                 temporaryArrayNode = temporaryArrayNode + data + " ";
             }
             else {
-                xmlMap.put(qName, "\"" + data + "\"");
+                if (data.toString().equalsIgnoreCase("true")) {
+                    xmlMap.put(qName, "1");
+                } else if (data.toString().equalsIgnoreCase("false")) {
+                    xmlMap.put(qName, "0");
+                }else {
+                    xmlMap.put(qName, "\"" + data + "\"");
+                }
             }
         }
     }

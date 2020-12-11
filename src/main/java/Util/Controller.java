@@ -151,7 +151,7 @@ public class Controller {
             if (updateClassic) {
                 System.out.println(ANSI_BLUE + ">> Updating the Classic DB..." + ANSI_RESET);
                 //ClassicDbUpdate.ClassicDbUpdateList();
-                DbUpdate.execute("aion_classic", classicDllRecord);
+                DbUpdate.execute("aion_c", classicDllRecord);
             }
 
 
