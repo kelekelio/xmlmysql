@@ -129,9 +129,18 @@ public class GeneralHandler extends DefaultHandler{
                 xmlMap.put("conditions", "\"" + data + "\"");
             } else if ("desc".equalsIgnoreCase(qName)) {
                 xmlMap.put("description", "\"" + data + "\"");
+            } else if ("dir".equalsIgnoreCase(qName)) {
+                xmlMap.put("dir", "\"" + data.toString().replaceAll("\\\\", "/") + "\"");
             }
             // inside consolidated node. put each node value into a temporary string
-            else if (insideConsolidated && !qName.equalsIgnoreCase("buy_price_rate")&& !qName.equalsIgnoreCase("sell_price_rate")) {
+            else if (insideConsolidated
+                    && !qName.equalsIgnoreCase("buy_price_rate")
+                    && !qName.equalsIgnoreCase("buy_price_rate2")
+                    && !qName.equalsIgnoreCase("sell_price_rate")
+                    && !qName.equalsIgnoreCase("sell_price_rate2")
+                    && !qName.equalsIgnoreCase("ap_buy_price_rate")
+                    && !qName.equalsIgnoreCase("ap_buy_price_rate2")
+                ) {
                 temporaryArrayNode = temporaryArrayNode + data + " ";
             }
             else {
