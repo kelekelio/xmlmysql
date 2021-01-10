@@ -14,10 +14,15 @@ import static Extra.Colors.*;
 
 public class GeneralHandler extends DefaultHandler{
 
+    IgnoreXmlNodeList ignoreXmlNodeList = new IgnoreXmlNodeList();
+    private final ArrayList<String> ignoreList = ignoreXmlNodeList.getIgnoreList();
+
+    ConsolidateXmlNodeList consolidateXmlNodeList = new ConsolidateXmlNodeList();
+    private final ArrayList<String> consolidateList = consolidateXmlNodeList.getConsolidateList();
+
+
     private final LinkedHashMap<String, String> xmlMap = new LinkedHashMap<>();
     private String tableName;
-    private ArrayList<String> ignoreList = new ArrayList<>();
-    private ArrayList<String> consolidateList = new ArrayList<>();
     private String initialNode;
     private StringBuilder data = null;
     private boolean truncate = true;
@@ -28,14 +33,6 @@ public class GeneralHandler extends DefaultHandler{
 
 
     int i = 0;
-
-    public void setConsolidateList(ArrayList<String> consolidateList) {
-        this.consolidateList = consolidateList;
-    }
-
-    public void setIgnoreList(ArrayList<String> ignoreList) {
-        this.ignoreList = ignoreList;
-    }
 
     public void setInitialNode(String initialNode) {
         this.initialNode = initialNode;

@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 06, 2021 at 08:11 PM
--- Server version: 5.7.21
--- PHP Version: 5.6.35
+-- Generation Time: Jan 09, 2021 at 08:25 PM
+-- Server version: 8.0.21
+-- PHP Version: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -30,19 +29,19 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `npc_clients`;
 CREATE TABLE IF NOT EXISTS `npc_clients` (
-  `id` int(15) NOT NULL,
+  `id` int NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `hpgauge_level` int(2) DEFAULT NULL,
+  `hpgauge_level` int DEFAULT NULL,
   `dir` text,
-  `attack_delay` int(4) DEFAULT NULL,
+  `attack_delay` int DEFAULT NULL,
   `ui_type` varchar(50) DEFAULT NULL,
   `mesh` text,
   `hide_path` tinyint(1) DEFAULT NULL,
-  `magical_skill_boost` int(4) DEFAULT NULL,
+  `magical_skill_boost` int DEFAULT NULL,
   `tribe` text,
   `attack_range` decimal(9,6) DEFAULT NULL,
-  `attack_rate` int(4) DEFAULT NULL,
+  `attack_rate` int DEFAULT NULL,
   `npc_type` varchar(50) DEFAULT NULL,
   `race_type` varchar(20) DEFAULT NULL,
   `disk_type` text,
@@ -51,28 +50,28 @@ CREATE TABLE IF NOT EXISTS `npc_clients` (
   `ui_race_type` text,
   `undetectable` tinyint(1) DEFAULT NULL,
   `pc_type` text,
-  `buy_price_rate` int(4) DEFAULT NULL,
+  `buy_price_rate` int DEFAULT NULL,
   `npc_function_type` text,
   `tab_list` text,
-  `recovery_opt2` int(4) DEFAULT NULL,
-  `recovery_opt1` int(4) DEFAULT NULL,
+  `recovery_opt2` int DEFAULT NULL,
+  `recovery_opt1` int DEFAULT NULL,
   `recovery` tinyint(1) DEFAULT NULL,
   `extra_currency_trade_info` text,
-  `extendcharwarehouse_end` int(1) DEFAULT NULL,
-  `extendcharwarehouse_start` int(1) DEFAULT NULL,
+  `extendcharwarehouse_end` int DEFAULT NULL,
+  `extendcharwarehouse_start` int DEFAULT NULL,
   `give_item_proc` tinyint(1) DEFAULT NULL,
   `remove_item_option` tinyint(1) DEFAULT NULL,
   `change_item_skin` tinyint(1) DEFAULT NULL,
   `gather_skill_levelup` text,
-  `extendinventory_end` int(1) DEFAULT NULL,
-  `extendinventory_start` int(1) DEFAULT NULL,
-  `package_permitted` int(1) DEFAULT NULL,
-  `extendaccountwarehouse_start` int(1) DEFAULT NULL,
-  `extendaccountwarehouse_end` int(1) DEFAULT NULL,
+  `extendinventory_end` int DEFAULT NULL,
+  `extendinventory_start` int DEFAULT NULL,
+  `package_permitted` int DEFAULT NULL,
+  `extendaccountwarehouse_start` int DEFAULT NULL,
+  `extendaccountwarehouse_end` int DEFAULT NULL,
   `npcfaction_name` text,
   `abyss_trade_info` text,
   `guide_func` text,
-  `sell_price_rate` int(10) DEFAULT NULL,
+  `sell_price_rate` int DEFAULT NULL,
   `pvpzone_world_name` text,
   `pvpzone` text,
   `pvpzone_location_alias` text,
@@ -83,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `npc_clients` (
   `object_type` text,
   `str_type` text,
   `huge_mob` text,
-  `visible_range` int(4) DEFAULT NULL,
+  `visible_range` int DEFAULT NULL,
   `hide_pc_fx_shader` text,
   `spawn_animation` text,
   `artifact_id` text,
@@ -98,10 +97,10 @@ CREATE TABLE IF NOT EXISTS `npc_clients` (
   `bindstone_usecount` text,
   `check_can_see` text,
   `html_bg` varchar(255) DEFAULT NULL,
-  `instance_entry` int(9) DEFAULT NULL,
-  `compound_weapon` int(1) DEFAULT NULL,
+  `instance_entry` int DEFAULT NULL,
+  `compound_weapon` int DEFAULT NULL,
   `coupon_trade_info` text,
-  `func_pet_manage` int(1) DEFAULT NULL,
+  `func_pet_manage` int DEFAULT NULL,
   `arrange_rotation_side` tinyint(1) DEFAULT NULL,
   `arrange_rotation_updown` tinyint(1) DEFAULT NULL,
   `arrange_place` text,
@@ -109,15 +108,15 @@ CREATE TABLE IF NOT EXISTS `npc_clients` (
   `furniture_category` text,
   `trade_info` text,
   `ctab` text,
-  `magical_skill_boost_resist` int(10) DEFAULT NULL,
+  `magical_skill_boost_resist` int DEFAULT NULL,
   `hide_map` tinyint(1) DEFAULT NULL,
   `except_autohunt` tinyint(1) DEFAULT NULL,
   `exclusion_list` tinyint(1) DEFAULT NULL,
   `scaling_drop` text,
   `massive_looting_item` text,
-  `massive_looting_num` int(5) DEFAULT NULL,
-  `massive_looting_min_level` int(3) DEFAULT NULL,
-  `massive_looting_max_level` int(3) DEFAULT NULL,
+  `massive_looting_num` int DEFAULT NULL,
+  `massive_looting_min_level` int DEFAULT NULL,
+  `massive_looting_max_level` int DEFAULT NULL,
   `can_talk_invisible` tinyint(1) DEFAULT NULL,
   `unrotatable` tinyint(1) DEFAULT NULL,
   `func_giveup_craftskill` text,
@@ -147,9 +146,36 @@ CREATE TABLE IF NOT EXISTS `npc_clients` (
   `vip_grade_max` text,
   `vip_grade_min` text,
   `event_tool_trade_info` text,
+  `stare_distance` decimal(9,6) DEFAULT NULL,
+  `search_ko` text,
+  `search_en` text,
+  `search_de` text,
+  `search_fr` text,
+  `search_it` text,
+  `search_pl` text,
+  `search_es` text,
+  `search_us` text,
+  `client_version` char(25) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `name` (`name`)
+  KEY `name` (`name`),
+  KEY `idx_client_version` (`client_version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `npc_clients`
+--
+ALTER TABLE `npc_clients` ADD FULLTEXT KEY `idx_search_us` (`search_us`);
+ALTER TABLE `npc_clients` ADD FULLTEXT KEY `idx_search_es` (`search_es`);
+ALTER TABLE `npc_clients` ADD FULLTEXT KEY `idx_search_pl` (`search_pl`);
+ALTER TABLE `npc_clients` ADD FULLTEXT KEY `idx_search_it` (`search_it`);
+ALTER TABLE `npc_clients` ADD FULLTEXT KEY `idx_search_fr` (`search_fr`);
+ALTER TABLE `npc_clients` ADD FULLTEXT KEY `idx_search_de` (`search_de`);
+ALTER TABLE `npc_clients` ADD FULLTEXT KEY `idx_search_en` (`search_en`);
+ALTER TABLE `npc_clients` ADD FULLTEXT KEY `idx_search_ko` (`search_ko`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
