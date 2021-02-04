@@ -1,5 +1,6 @@
 package DBUpdate;
 
+import DB.DB;
 import XML.GeneralHandler;
 import XML.LanguageHandler;
 import XML.VersionHandler;
@@ -17,18 +18,9 @@ import java.util.ArrayList;
  */
 public class KrFileList {
 
-    public static void selectedFiles() throws IOException, SAXException, ParserConfigurationException {
+    public static void selectedFiles(SAXParser saxParser, GeneralHandler handler, VersionHandler versionHandler, LanguageHandler languageHandler) throws IOException, SAXException, ParserConfigurationException {
 
         String folderName = "data";
-
-        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-        SAXParser saxParser = saxParserFactory.newSAXParser();
-
-        GeneralHandler handler = new GeneralHandler();
-        VersionHandler versionHandler = new VersionHandler();
-        LanguageHandler languageHandler = new LanguageHandler();
-
-
 
         //TODO: Items
         handler.setTruncate(false);
@@ -56,13 +48,21 @@ public class KrFileList {
         handler.setTableName("client_items");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_items_misc.xml"), handler);
 
-        handler.setInitialNode("client_combine_recipe");
+        DB.truncate("client_combine_recipe_expansion");
+        handler.setTruncate(true);
         handler.setTableName("client_combine_recipes");
+        handler.setInitialNode("client_combine_recipe");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_combine_recipe.xml"), handler);
 
         handler.setInitialNode("client_setitem");
         handler.setTableName("client_setitems");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_setitem.xml"), handler);
+
+        DB.truncate("client_assemble_parts");
+        handler.setTruncate(true);
+        handler.setTableName("client_assembly_items");
+        handler.setInitialNode("client_assembly_item");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_assembly_items.xml"), handler);
 
         //TODO: NPC
         //handler.setTruncate(true);
@@ -99,6 +99,25 @@ public class KrFileList {
         handler.setInitialNode("client_npc_trade_in_list");
         handler.setTableName("client_npc_trade_in_lists");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\npcs\\client_npc_trade_in_list.xml"), handler);
+
+
+        //TODO: Achievements
+        handler.setTruncate(true);
+        handler.setTableName("client_achievements");
+        handler.setInitialNode("client_achievement");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\pc\\client_achievement.xml"), handler);
+
+        handler.setTruncate(true);
+        handler.setTableName("client_achievement_actions");
+        handler.setInitialNode("client_achievement_action");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\pc\\client_achievement_action.xml"), handler);
+
+        handler.setTruncate(true);
+        handler.setTableName("client_achievement_events");
+        handler.setInitialNode("client_achievement_event");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\pc\\client_achievement_event.xml"), handler);
+
+
 
 
     }

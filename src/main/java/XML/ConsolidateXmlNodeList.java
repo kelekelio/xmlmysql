@@ -49,6 +49,19 @@ public class ConsolidateXmlNodeList {
         //client_titles
         consolidateList.add("bonus_attrs");
 
+        //client_achievements
+        consolidateList.add("item_list");
+        consolidateList.add("action_list");
+
+        //client_achievement_events
+        consolidateList.add("item_list_1");
+        consolidateList.add("item_list_2");
+        consolidateList.add("item_list_3");
+        consolidateList.add("item_list_4");
+
+        //client_assembly_items
+
+
 
     }
 

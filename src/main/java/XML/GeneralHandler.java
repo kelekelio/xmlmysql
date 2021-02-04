@@ -20,8 +20,12 @@ public class GeneralHandler extends DefaultHandler{
     ConsolidateXmlNodeList consolidateXmlNodeList = new ConsolidateXmlNodeList();
     private final ArrayList<String> consolidateList = consolidateXmlNodeList.getConsolidateList();
 
+    ExtractXmlNodes extractXmlNodes = new ExtractXmlNodes();
+    private final ArrayList<String> extractList = extractXmlNodes.getExtractList();
+
 
     private final LinkedHashMap<String, String> xmlMap = new LinkedHashMap<>();
+    private final LinkedHashMap<String, String> xmlExtractedMap = new LinkedHashMap<>();
     private String tableName;
     private String initialNode;
     private StringBuilder data = null;
@@ -30,6 +34,9 @@ public class GeneralHandler extends DefaultHandler{
     private String temporaryArrayNode = "";
     private boolean insideConsolidated = false;
     private String tempConsolidatedNodeName = "";
+    private boolean insideCombineRecipeExpansion = false;
+    private boolean insideExtractedNodes = false;
+    private String tempExtractedNodeName = "";
 
 
     int i = 0;
@@ -72,6 +79,12 @@ public class GeneralHandler extends DefaultHandler{
             tempConsolidatedNodeName = qName;
             insideConsolidated = true;
         }
+        else if (extractList.contains(qName)) {
+            tempExtractedNodeName = qName;
+            insideExtractedNodes = true;
+            //xmlMap.put(qName, xmlMap.get("name"));
+            xmlExtractedMap.put("name", xmlMap.get("name"));
+        }
 
         data = new StringBuilder();
     }
@@ -92,16 +105,36 @@ public class GeneralHandler extends DefaultHandler{
             }
             System.out.println("Inserted " + i + " objects into the " + tableName + " table.");
         }
-        // end of xml. Set truncate to true; clear ignore list, start i from 0
+        // end of xml. Set truncate to true, start i from 0
         else if (qName.equalsIgnoreCase(tableName)) {
             truncate = true;
-            ignoreList.clear();
-            consolidateList.clear();
-
             i = 0;
         }
 
-        //
+        //end of all child nodes but inside the combine_recipe_expansion node
+        else if (insideExtractedNodes) {
+            //we are inside combine_recipe_expansion node.
+            //every time a child is closed, </component_quantity>, push value to a new xmlCraftMap
+            // after </data> child, insert xmlCraftMap into DB
+            //on </combine_recipe_expansion> insideCombineRecipeExpansion = false
+            if (qName.equalsIgnoreCase("data")) {
+                try {
+                    DB.insert(xmlExtractedMap, "client_" + tempExtractedNodeName);
+                } catch (IOException | SQLException ignored) {
+
+                }
+                System.out.println("Inserted " + i + " objects into the client_" + tempExtractedNodeName + " table.");
+            } else if (qName.equalsIgnoreCase(tempExtractedNodeName)) {
+                tempExtractedNodeName = "";
+                insideExtractedNodes = false;
+            } else {
+                xmlExtractedMap.put(qName, "\"" + data + "\"");
+            }
+
+
+        }
+
+        //the end of consolidated nodes
         else if (consolidateList.contains(qName)) {
             xmlMap.put(tempConsolidatedNodeName, "\"" + Joiner.on(";").join(consolidateTemp) + "\"");
             tempConsolidatedNodeName = "";
@@ -110,7 +143,7 @@ public class GeneralHandler extends DefaultHandler{
         }
 
         //end of data node. push temporary string to consolidate array
-        else if (qName.equalsIgnoreCase("data")) {
+        else if (qName.equalsIgnoreCase("data") && !insideCombineRecipeExpansion ) {
             consolidateTemp.add(temporaryArrayNode);
             temporaryArrayNode = "";
         }
@@ -124,6 +157,8 @@ public class GeneralHandler extends DefaultHandler{
             //TODO: list of MYSQL reserved words
             if ("condition".equalsIgnoreCase(qName)) {
                 xmlMap.put("conditions", "\"" + data + "\"");
+            }if ("repeat".equalsIgnoreCase(qName)) {
+                xmlMap.put("repeats", "\"" + data + "\"");
             } else if ("desc".equalsIgnoreCase(qName)) {
                 xmlMap.put("description", "\"" + data + "\"");
             } else if ("dir".equalsIgnoreCase(qName)) {

@@ -28,18 +28,18 @@ SET time_zone = "+00:00";
 --
 
 DROP TABLE IF EXISTS `client_familiars`;
-CREATE TABLE IF NOT EXISTS `client_familiars` (
+CREATE TABLE `client_familiars` (
   `id` int NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `desc_long` varchar(255) DEFAULT NULL,
-  `desc_story` varchar(255) DEFAULT NULL,
+  `description` text,
+  `desc_long` text,
+  `desc_story` text,
   `dir` text,
   `mesh` text,
-  `tier_grade` text,
-  `star_grade` text,
-  `is_only_feeds` text,
-  `use_func_option` text,
+  `tier_grade` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `star_grade` int DEFAULT NULL,
+  `is_only_feeds` tinyint(1) DEFAULT NULL,
+  `use_func_option` tinyint(1) DEFAULT NULL,
   `physical_bonus_attr1` text,
   `physical_bonus_attr2` text,
   `physical_bonus_attr3` text,
@@ -49,37 +49,27 @@ CREATE TABLE IF NOT EXISTS `client_familiars` (
   `magical_bonus_attr3` text,
   `magical_bonus_attr4` text,
   `icon_name` text,
-  `growth_pt` text,
-  `max_growth_value` text,
-  `growth_cost` text,
-  `evolve_item` text,
-  `evolve_item_num` text,
-  `evolve_cost` text,
+  `growth_pt` int DEFAULT NULL,
+  `max_growth_value` int DEFAULT NULL,
+  `growth_cost` int DEFAULT NULL,
+  `evolve_item` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `evolve_item_num` int DEFAULT NULL,
+  `evolve_cost` int DEFAULT NULL,
   `fskill01` text,
   `usefskill01_energy` text,
   `fskill02` text,
   `usefskill02_energy` text,
-  `altitude` text,
-  `ui_star_grade` text,
-  `upper` text,
-  `scale` text,
-  `can_authorize` text,
-  `target_sound` text,
-  `art_org_move_speed_normal_walk` text,
-  `growth_point_from_pc_kill` text,
-  `skill_point_from_pc_kill` text,
+  `ui_star_grade` int DEFAULT NULL,
+  `can_authorize` tinyint(1) DEFAULT NULL,
+  `growth_point_from_pc_kill` int DEFAULT NULL,
+  `skill_point_from_pc_kill` int DEFAULT NULL,
   `sub_group_set` text,
-  `authorize_grade` text,
-  `camera` text,
+  `authorize_grade` int DEFAULT NULL,
   `fgroup_set` text,
-  `is_only_authorize_feed` text,
-  `side` text,
-  `skill_point_rate_from_exp` text,
-  `iserect` text,
-  `skill_point_max` text,
-  `art_org_speed_normal_run` text,
-  `growth_point_rate_from_exp` text,
-  `front` text,
+  `is_only_authorize_feed` tinyint(1) DEFAULT NULL,
+  `skill_point_rate_from_exp` int DEFAULT NULL,
+  `skill_point_max` int DEFAULT NULL,
+  `growth_point_rate_from_exp` int DEFAULT NULL,
   `wing` text,
   `sub_physical_bonus_attr1` text,
   `sub_physical_bonus_attr3` text,
@@ -91,18 +81,18 @@ CREATE TABLE IF NOT EXISTS `client_familiars` (
   `sub_magical_bonus_attr3` text,
   `sub_equal_physical_bonus_attr1` text,
   `sub_equal_physical_bonus_attr2` text,
-  `evolve_type` text,
-  `evolve_success_prob` text,
-  `evolve_fail_add_prob` text,
+  `evolve_type` int DEFAULT NULL,
+  `evolve_success_prob` int DEFAULT NULL,
+  `evolve_fail_add_prob` int DEFAULT NULL,
   `physical_bonus_attr5` text,
-  `can_evolve` text,
+  `can_evolve` tinyint(1) DEFAULT NULL,
   `sub_equal_magical_bonus_attr1` text,
   `sub_equal_magical_bonus_attr2` text,
   `magical_bonus_attr5` text,
   `sub_physical_bonus_attr5` text,
   `sub_magical_bonus_attr5` text,
-  `authorize_minion_num` text,
-  `authorize_cost` text,
+  `authorize_minion_num` int DEFAULT NULL,
+  `authorize_cost` int DEFAULT NULL,
   `sub_equal_physical_bonus_attr3` text,
   `sub_equal_physical_bonus_attr4` text,
   `sub_equal_physical_bonus_attr5` text,
@@ -117,26 +107,15 @@ CREATE TABLE IF NOT EXISTS `client_familiars` (
   `search_fr` text,
   `search_de` text,
   `search_en` text,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`),
+  FULLTEXT KEY `idx_search_de` (`search_de`),
+  FULLTEXT KEY `idx_search_fr` (`search_fr`),
+  FULLTEXT KEY `idx_search_it` (`search_it`),
+  FULLTEXT KEY `idx_search_pl` (`search_pl`),
+  FULLTEXT KEY `idx_search_es` (`search_es`),
+  FULLTEXT KEY `idx_search_us` (`search_us`),
+  FULLTEXT KEY `idx_search_ko` (`search_ko`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `client_familiars`
---
-ALTER TABLE `client_familiars` ADD FULLTEXT KEY `idx_search_en` (`search_en`);
-ALTER TABLE `client_familiars` ADD FULLTEXT KEY `idx_search_de` (`search_de`);
-ALTER TABLE `client_familiars` ADD FULLTEXT KEY `idx_search_fr` (`search_fr`);
-ALTER TABLE `client_familiars` ADD FULLTEXT KEY `idx_search_it` (`search_it`);
-ALTER TABLE `client_familiars` ADD FULLTEXT KEY `idx_search_pl` (`search_pl`);
-ALTER TABLE `client_familiars` ADD FULLTEXT KEY `idx_search_es` (`search_es`);
-ALTER TABLE `client_familiars` ADD FULLTEXT KEY `idx_search_us` (`search_us`);
-ALTER TABLE `client_familiars` ADD FULLTEXT KEY `idx_search_ko` (`search_ko`);
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -13,7 +13,7 @@ public class UploadDbZip {
     public static void execute(String fileName) throws Exception {
         FTPFunctions ftpobj = new FTPFunctions();
 
-        String localFile = "D:\\wamp64\\bin\\mysql\\mysql5.7.21\\bin\\" + fileName + ".zip";
+        String localFile = "P:\\wamp64\\bin\\mysql\\mysql8.0.21\\bin\\" + fileName + ".zip";
         String zipName = fileName + ".zip";
         String hostDir = "/public_html/java/";
 

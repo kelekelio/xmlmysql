@@ -23,16 +23,32 @@ class KrFileListTest {
 
     @Test
     void updateClassicDB () throws ParserConfigurationException, SAXException, IOException {
+
+        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+        SAXParser saxParser = saxParserFactory.newSAXParser();
+
+        GeneralHandler handler = new GeneralHandler();
+        VersionHandler versionHandler = new VersionHandler();
+        LanguageHandler languageHandler = new LanguageHandler();
+
         DB.setiDbName("aion_c");
         DB.newInstance();
-        ClassicFileList.selectedFiles();
+        ClassicFileList.selectedFiles(saxParser, handler, versionHandler, languageHandler);
     }
 
     @Test
     void updateKrDB () throws ParserConfigurationException, SAXException, IOException {
+
+        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+        SAXParser saxParser = saxParserFactory.newSAXParser();
+
+        GeneralHandler handler = new GeneralHandler();
+        VersionHandler versionHandler = new VersionHandler();
+        LanguageHandler languageHandler = new LanguageHandler();
+
         DB.setiDbName("aion");
         DB.newInstance();
-        KrFileList.selectedFiles();
+        KrFileList.selectedFiles(saxParser, handler, versionHandler, languageHandler);
     }
 
 }

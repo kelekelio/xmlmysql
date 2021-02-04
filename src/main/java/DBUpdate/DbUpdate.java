@@ -2,6 +2,12 @@ package DBUpdate;
 
 import DB.DB;
 import Util.*;
+import XML.GeneralHandler;
+import XML.LanguageHandler;
+import XML.VersionHandler;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 /**
  * @author Grzegorz Nowakowski
@@ -14,18 +20,25 @@ public class DbUpdate {
         DB.setiDbName(db);
         DB.newInstance();
 
+        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+        SAXParser saxParser = saxParserFactory.newSAXParser();
+
+        GeneralHandler handler = new GeneralHandler();
+        VersionHandler versionHandler = new VersionHandler();
+        LanguageHandler languageHandler = new LanguageHandler();
+
 
 
         // 2. File list
         switch (db) {
             case "aion":
-                KrFileList.selectedFiles();
+                KrFileList.selectedFiles(saxParser, handler, versionHandler, languageHandler);
                 break;
             case "aion_eu":
-                EuFileList.selectedFiles();
+                EuFileList.selectedFiles(saxParser, handler, versionHandler, languageHandler);
                 break;
             case "aion_c":
-                ClassicFileList.selectedFiles();
+                ClassicFileList.selectedFiles(saxParser, handler, versionHandler, languageHandler);
                 break;
             default:
                 break;

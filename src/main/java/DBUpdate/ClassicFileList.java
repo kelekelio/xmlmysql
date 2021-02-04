@@ -1,6 +1,7 @@
 package DBUpdate;
 
 import CSV.CSVReader;
+import DB.DB;
 import XML.GeneralHandler;
 import XML.LanguageHandler;
 import XML.VersionHandler;
@@ -18,16 +19,11 @@ import java.util.ArrayList;
  */
 public class ClassicFileList {
 
-    public static void selectedFiles() throws IOException, SAXException, ParserConfigurationException {
+    public static void selectedFiles(SAXParser saxParser, GeneralHandler handler, VersionHandler versionHandler, LanguageHandler languageHandler) throws IOException, SAXException, ParserConfigurationException {
 
         String folderName = "data_classic";
 
-        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-        SAXParser saxParser = saxParserFactory.newSAXParser();
 
-        GeneralHandler handler = new GeneralHandler();
-        VersionHandler versionHandler = new VersionHandler();
-        LanguageHandler languageHandler = new LanguageHandler();
 
         //TODO: Items
         handler.setTruncate(false);
@@ -36,9 +32,10 @@ public class ClassicFileList {
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_items.xml"), handler);
 
 
+        DB.truncate("client_combine_recipe_expansion");
         handler.setTruncate(true);
-        handler.setInitialNode("client_combine_recipe");
         handler.setTableName("client_combine_recipes");
+        handler.setInitialNode("client_combine_recipe");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_combine_recipe.xml"), handler);
 
 

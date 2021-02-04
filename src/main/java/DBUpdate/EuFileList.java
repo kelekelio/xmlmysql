@@ -17,16 +17,11 @@ import java.util.ArrayList;
  */
 public class EuFileList {
 
-    public static void selectedFiles() throws IOException, SAXException, ParserConfigurationException {
+    public static void selectedFiles(SAXParser saxParser, GeneralHandler handler, VersionHandler versionHandler, LanguageHandler languageHandler) throws IOException, SAXException, ParserConfigurationException {
 
         String folderName = "data_eu";
 
-        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-        SAXParser saxParser = saxParserFactory.newSAXParser();
 
-        GeneralHandler handler = new GeneralHandler();
-        VersionHandler versionHandler = new VersionHandler();
-        LanguageHandler languageHandler = new LanguageHandler();
 
 
     }

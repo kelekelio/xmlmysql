@@ -113,6 +113,8 @@ public class IgnoreXmlNodeList {
         ignoreList.add("move_speed_normal_run");
         ignoreList.add("ammo_fx");
         ignoreList.add("art_org_move_speed_normal_walk");
+        ignoreList.add("iserect");
+        ignoreList.add("art_org_speed_normal_run");
         ignoreList.add("stare_angle");
         ignoreList.add("spine_angle");
         ignoreList.add("out_time");
@@ -237,6 +239,8 @@ public class IgnoreXmlNodeList {
         ignoreList.add("trail_tex");
         ignoreList.add("hit_target_camera_shake");
         ignoreList.add("hit_camera_shake");
+        ignoreList.add("camera");
+        ignoreList.add("target_sound");
 
         //client_toypets
         ignoreList.add("react_praise_d_better_desc02");

@@ -19,11 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Grzegorz Nowakowski
  */
 class XmlListTest {
-    SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-    SAXParser saxParser = saxParserFactory.newSAXParser();
 
-    GeneralHandler handler = new GeneralHandler();
-    VersionHandler versionHandler = new VersionHandler();
 
 
 
@@ -128,8 +124,8 @@ class XmlListTest {
 
     @Test
     void updateFromSingleXML () throws SAXException, IOException, ParserConfigurationException {
-        String folderName = "data_classic";
-        DB.setiDbName("aion_c");
+        String folderName = "data";
+        DB.setiDbName("aion");
         DB.newInstance();
 
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
@@ -140,11 +136,12 @@ class XmlListTest {
         LanguageHandler languageHandler = new LanguageHandler();
 
         //TODO: Gather
-        handler.setTruncate(false);
-        handler.setInitialNode("client_item");
-        handler.setTableName("client_items");
-        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_items.xml"), handler);
 
+
+        handler.setTruncate(true);
+        handler.setTableName("client_toypet_merchants");
+        handler.setInitialNode("client_toypet_merchant");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\func_pet\\toypet_merchant.xml"), handler);
     }
 
 
@@ -228,6 +225,7 @@ class XmlListTest {
         GeneralHandler handler = new GeneralHandler();
         VersionHandler versionHandler = new VersionHandler();
         LanguageHandler languageHandler = new LanguageHandler();
+
 
         //TODO: Strings
         languageHandler.setColumnName("body");
