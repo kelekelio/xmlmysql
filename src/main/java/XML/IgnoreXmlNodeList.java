@@ -317,6 +317,18 @@ public class IgnoreXmlNodeList {
         ignoreList.add("react_care_d_better_desc02");
         ignoreList.add("react_care_d_better_desc01");
         ignoreList.add("bound_radius");
+        ignoreList.add("ui_colors");
+        ignoreList.add("ui_color");
+        ignoreList.add("cam_pos");
+        ignoreList.add("ask_cute_desc");
+        ignoreList.add("art_org_speed_normal_run");
+        ignoreList.add("foot_mat");
+        ignoreList.add("ask_lone_desc");
+        ignoreList.add("wing");
+        ignoreList.add("customize_color");
+        ignoreList.add("attach_mesh_size");
+        ignoreList.add("customize_attach");
+        ignoreList.add("cam_angle");
     }
 
     public ArrayList<String> getIgnoreList() {

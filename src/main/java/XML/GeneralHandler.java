@@ -71,6 +71,9 @@ public class GeneralHandler extends DefaultHandler{
             }
             xmlMap.clear();
             i++;
+            if (qName.equalsIgnoreCase("level") && tableName.equalsIgnoreCase("client_sacred_stone_levels")) {
+                xmlMap.put("level", attributes.getValue("level"));
+            }
         }
         else if (qName.equalsIgnoreCase(tableName)) {
             System.out.println(ANSI_PURPLE + "Settings: Ignore => " + ignoreList + ", DB Truncate => " + truncate + ANSI_RESET);

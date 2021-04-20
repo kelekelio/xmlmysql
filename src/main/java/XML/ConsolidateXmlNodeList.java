@@ -44,7 +44,6 @@ public class ConsolidateXmlNodeList {
         consolidateList.add("painter_selectable_reward");
 
         //client_toypets
-        consolidateList.add("ui_colors");
 
         //client_titles
         consolidateList.add("bonus_attrs");

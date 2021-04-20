@@ -1,0 +1,20 @@
+CREATE TABLE `client_toypet_feeds` (
+  `id` int NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `love_flavor_id_1` int DEFAULT NULL,
+  `love_flavor_id_2` int DEFAULT NULL,
+  `description` text,
+  `favorite_flavor_desc` text,
+  `love_flavor_desc_1` text,
+  `love_flavor_desc_2` text,
+  `feeding_count` int DEFAULT NULL,
+  `feeding_cooltime` int DEFAULT NULL,
+  `limit_love_count` int DEFAULT NULL,
+  `favorite_flavor_id` int DEFAULT NULL,
+  `love_flavor_id_3` int DEFAULT NULL,
+  `love_flavor_id_4` int DEFAULT NULL,
+  `love_flavor_desc_3` text,
+  `love_flavor_desc_4` text,
+  PRIMARY KEY (`id`),
+  KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -139,9 +139,9 @@ class XmlListTest {
 
 
         handler.setTruncate(true);
-        handler.setTableName("client_toypet_merchants");
-        handler.setInitialNode("client_toypet_merchant");
-        saxParser.parse(new File("D:\\PB\\" + folderName + "\\func_pet\\toypet_merchant.xml"), handler);
+        handler.setTableName("client_sacred_stone_levels");
+        handler.setInitialNode("level");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\SacredStone\\client_sacred_stone_level.xml"), handler);
     }
 
 

@@ -22,6 +22,7 @@ public class KrFileList {
 
         String folderName = "data";
 
+
         //TODO: Items
         handler.setTruncate(false);
         handler.setInitialNode("client_item");
@@ -117,7 +118,50 @@ public class KrFileList {
         handler.setInitialNode("client_achievement_event");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\pc\\client_achievement_event.xml"), handler);
 
+        //TODO: Toypet
+        handler.setTruncate(true);
+        handler.setTableName("client_toypet_warehouses");
+        handler.setInitialNode("client_toypet_warehouse");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\func_pet\\toypet_warehouse.xml"), handler);
 
+        handler.setTruncate(true);
+        handler.setTableName("client_toypet_merchants");
+        handler.setInitialNode("client_toypet_merchant");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\func_pet\\toypet_merchant.xml"), handler);
+
+        handler.setTruncate(true);
+        handler.setTableName("client_toypet_lootings");
+        handler.setInitialNode("client_toypet_looting");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\func_pet\\toypet_looting.xml"), handler);
+
+        handler.setTruncate(true);
+        handler.setTableName("client_toypet_items");
+        handler.setInitialNode("client_toypet_item");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\func_pet\\toypet_item.xml"), handler);
+
+        handler.setTruncate(true);
+        handler.setTableName("client_toypet_feeds");
+        handler.setInitialNode("client_toypet_feed");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\func_pet\\toypet_feed.xml"), handler);
+
+        handler.setTruncate(true);
+        handler.setTableName("client_toypet_dopings");
+        handler.setInitialNode("client_toypet_doping");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\func_pet\\toypet_doping.xml"), handler);
+
+        handler.setTruncate(true);
+        handler.setTableName("client_toypet_buffs");
+        handler.setInitialNode("client_toypet_buff");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\func_pet\\toypet_buff.xml"), handler);
+
+
+
+
+        //TODO: 8.0 Lord's Relic
+        handler.setTruncate(true);
+        handler.setTableName("client_sacred_stone_levels");
+        handler.setInitialNode("level");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\SacredStone\\client_sacred_stone_level.xml"), handler);
 
 
     }
