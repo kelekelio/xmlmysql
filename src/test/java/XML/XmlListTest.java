@@ -140,19 +140,11 @@ class XmlListTest {
         //handler.setInitialNode("client_equipment_skill");
         //saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_equipment_skill.xml"), handler);
 
-        DB.truncate("item_enchants_enchant_attr_list");
-        DB.truncate("item_enchants_limitless_attr_list");
+        DB.truncate("client_assembly_items_assemble_parts");
         handler.setTruncate(true);
-        handler.setTableName("item_enchants");
-        handler.setInitialNode("item_enchant");
-        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_item_enchanttable.xml"), handler);
-
-        DB.truncate("item_authorizes_enchant_attr_list");
-        DB.truncate("item_authorizes_limitless_attr_list");
-        handler.setTruncate(true);
-        handler.setTableName("item_authorizes");
-        handler.setInitialNode("item_authorize");
-        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_item_authorizetable.xml"), handler);
+        handler.setTableName("client_assembly_items");
+        handler.setInitialNode("client_assembly_item");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_assembly_items.xml"), handler);
     }
 
 
