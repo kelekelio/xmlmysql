@@ -62,6 +62,12 @@ public class ConsolidateXmlNodeList {
 
 
 
+        //client_equipment_skill
+        consolidateList.add("skill_list");
+
+
+
+
     }
 
     public ArrayList<String> getConsolidateList() {

@@ -1,32 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.0.2
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1:3306
--- Generation Time: Jan 09, 2021 at 12:37 PM
--- Server version: 8.0.21
--- PHP Version: 7.4.9
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `aion`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `gather_srcs`
---
-
 DROP TABLE IF EXISTS `gather_srcs`;
 CREATE TABLE IF NOT EXISTS `gather_srcs` (
   `id` int NOT NULL,
@@ -45,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `gather_srcs` (
   `source_color` text,
   `source_upper` decimal(8,6) DEFAULT NULL,
   `source_fx` text,
-  `material1` varchar(50) DEFAULT NULL,
+  `material1` varchar(255) DEFAULT NULL,
   `failure_adj` int DEFAULT NULL,
   `captcha_rate` int DEFAULT NULL,
   `motion_name` text,
@@ -53,37 +24,37 @@ CREATE TABLE IF NOT EXISTS `gather_srcs` (
   `mesh` text,
   `char_level_limit` int DEFAULT NULL,
   `normal_rate2` int DEFAULT NULL,
-  `material2` varchar(50) DEFAULT NULL,
-  `required_item` varchar(50) DEFAULT NULL,
+  `material2` varchar(255) DEFAULT NULL,
+  `required_item` varchar(255) DEFAULT NULL,
   `normal_rate3` int DEFAULT NULL,
   `extra_normal_rate3` int DEFAULT NULL,
-  `material3` varchar(50) DEFAULT NULL,
+  `material3` varchar(255) DEFAULT NULL,
   `extra_normal_rate4` int DEFAULT NULL,
   `extra_normal_rate1` int DEFAULT NULL,
   `extra_normal_rate2` int DEFAULT NULL,
-  `extra_material1` varchar(50) DEFAULT NULL,
+  `extra_material1` varchar(255) DEFAULT NULL,
   `erase_value` tinyint(1) DEFAULT NULL,
-  `extra_material4` varchar(50) DEFAULT NULL,
-  `extra_material3` varchar(50) DEFAULT NULL,
-  `extra_material2` varchar(50) DEFAULT NULL,
+  `extra_material4` varchar(255) DEFAULT NULL,
+  `extra_material3` varchar(255) DEFAULT NULL,
+  `extra_material2` varchar(255) DEFAULT NULL,
   `normal_rate5` int DEFAULT NULL,
   `normal_rate4` int DEFAULT NULL,
-  `material4` varchar(50) DEFAULT NULL,
-  `material5` varchar(50) DEFAULT NULL,
+  `material4` varchar(255) DEFAULT NULL,
+  `material5` varchar(255) DEFAULT NULL,
   `normal_rate6` int DEFAULT NULL,
-  `material6` varchar(50) DEFAULT NULL,
+  `material6` varchar(255) DEFAULT NULL,
   `normal_rate7` int DEFAULT NULL,
-  `material7` varchar(50) DEFAULT NULL,
-  `extra_material7` varchar(50) DEFAULT NULL,
-  `extra_material6` varchar(50) DEFAULT NULL,
+  `material7` varchar(255) DEFAULT NULL,
+  `extra_material7` varchar(255) DEFAULT NULL,
+  `extra_material6` varchar(255) DEFAULT NULL,
   `extra_normal_rate7` int DEFAULT NULL,
   `extra_normal_rate5` int DEFAULT NULL,
   `extra_normal_rate6` int DEFAULT NULL,
-  `extra_material5` varchar(50) DEFAULT NULL,
-  `extra_material8` varchar(50) DEFAULT NULL,
+  `extra_material5` varchar(255) DEFAULT NULL,
+  `extra_material8` varchar(255) DEFAULT NULL,
   `extra_normal_rate8` int DEFAULT NULL,
   `normal_rate8` int DEFAULT NULL,
-  `material8` varchar(50) DEFAULT NULL,
+  `material8` varchar(255) DEFAULT NULL,
   `search_ko` varchar(255) DEFAULT NULL,
   `search_en` varchar(255) DEFAULT NULL,
   `search_de` varchar(255) DEFAULT NULL,

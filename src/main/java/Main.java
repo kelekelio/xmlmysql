@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         //TODO:
-        //      1. compare local versions with one saved in db
+        //      1. compare local versions with the ones saved in db
         //      2. send discord notif (Disc)
         //      3. upload down htaccess (FTP)
         //      4. rename powerbook folder to pb (SSH)
@@ -25,7 +25,7 @@ public class Main {
         //      13. rename the folder back to powerbook (SSH)
         //      14. upload live htaccess (FTP)
         //      15. remove db files .sql and .zip (FTP)
-        // 16. enclose everything in switch to force update or quit on no-new-version
+        //      16. enclose everything in switch to force update or quit on no-new-version
 
 
         long startTime = System.nanoTime();

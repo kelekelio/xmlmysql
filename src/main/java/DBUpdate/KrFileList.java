@@ -49,7 +49,7 @@ public class KrFileList {
         handler.setTableName("client_items");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_items_misc.xml"), handler);
 
-        DB.truncate("client_combine_recipe_expansion");
+        DB.truncate("client_combine_recipes_combine_recipe_expansion");
         handler.setTruncate(true);
         handler.setTableName("client_combine_recipes");
         handler.setInitialNode("client_combine_recipe");
@@ -59,11 +59,58 @@ public class KrFileList {
         handler.setTableName("client_setitems");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_setitem.xml"), handler);
 
-        DB.truncate("client_assemble_parts");
+        DB.truncate("client_assembly_items_assemble_parts");
         handler.setTruncate(true);
         handler.setTableName("client_assembly_items");
         handler.setInitialNode("client_assembly_item");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_assembly_items.xml"), handler);
+
+        DB.truncate("client_disassemblyitemsetlists_disassembly_create_item_list");
+        handler.setTruncate(true);
+        handler.setTableName("client_disassemblyitemsetlists");
+        handler.setInitialNode("client_disassemblyitemsetlist");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_disassembly_item_SetList.xml"), handler);
+
+        DB.truncate("client_disassemblyitemsets_disassemble_set_list");
+        handler.setTruncate(true);
+        handler.setTableName("client_disassemblyitemsets");
+        handler.setInitialNode("client_disassemblyitemset");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_disassembly_item.xml"), handler);
+
+        DB.truncate("item_random_options_random_attr_group_list");
+        handler.setTruncate(true);
+        handler.setTableName("item_random_options");
+        handler.setInitialNode("item_random_option");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_item_random_option.xml"), handler);
+
+        DB.truncate("real_item_random_options_random_option_list");
+        handler.setTruncate(true);
+        handler.setTableName("real_item_random_options");
+        handler.setInitialNode("real_item_random_option");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_real_item_random_option.xml"), handler);
+
+        DB.truncate("item_enchants_enchant_attr_list");
+        DB.truncate("item_enchants_limitless_attr_list");
+        handler.setTruncate(true);
+        handler.setTableName("item_enchants");
+        handler.setInitialNode("item_enchant");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_item_enchanttable.xml"), handler);
+
+        DB.truncate("item_authorizes_enchant_attr_list");
+        DB.truncate("item_authorizes_limitless_attr_list");
+        handler.setTruncate(true);
+        handler.setTableName("item_authorizes");
+        handler.setInitialNode("item_authorize");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_item_authorizetable.xml"), handler);
+
+        DB.truncate("client_item_upgrades_upgrade_list");
+        handler.setTruncate(true);
+        handler.setTableName("client_item_upgrades");
+        handler.setInitialNode("client_item_upgrade");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_item_upgrade.xml"), handler);
+
+
+
 
         //TODO: NPC
         //handler.setTruncate(true);
@@ -118,7 +165,18 @@ public class KrFileList {
         handler.setInitialNode("client_achievement_event");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\pc\\client_achievement_event.xml"), handler);
 
-        //TODO: Toypet
+
+        //TODO: func_pet
+        handler.setTruncate(true);
+        handler.setTableName("client_familiars");
+        handler.setInitialNode("client_familiar");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\func_pet\\familiars.xml"), handler);
+
+        handler.setTruncate(true);
+        handler.setTableName("client_toypets");
+        handler.setInitialNode("client_toypet");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\func_pet\\toypets.xml"), handler);
+
         handler.setTruncate(true);
         handler.setTableName("client_toypet_warehouses");
         handler.setInitialNode("client_toypet_warehouse");
@@ -153,6 +211,26 @@ public class KrFileList {
         handler.setTableName("client_toypet_buffs");
         handler.setInitialNode("client_toypet_buff");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\func_pet\\toypet_buff.xml"), handler);
+
+
+        //TODO: Gather
+        handler.setTruncate(true);
+        handler.setTableName("gather_srcs");
+        handler.setInitialNode("gather_src");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\Gather\\gather_src.xml"), handler);
+
+
+        //TODO: Housing
+        handler.setTruncate(true);
+        handler.setTableName("client_housing_objects");
+        handler.setInitialNode("client_housing_object");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\Housing\\client_housing_object.xml"), handler);
+
+        handler.setTruncate(true);
+        handler.setTableName("client_housing_custom_parts");
+        handler.setInitialNode("client_housing_custom_part");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\Housing\\client_housing_custom_part.xml"), handler);
+
 
 
 

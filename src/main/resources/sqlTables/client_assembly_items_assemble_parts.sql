@@ -1,4 +1,4 @@
-CREATE TABLE `client_assemble_parts` (
+CREATE TABLE `client_assembly_items_assemble_parts` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `part_item` text,

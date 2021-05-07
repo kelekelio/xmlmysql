@@ -71,12 +71,16 @@ public class GeneralHandler extends DefaultHandler{
             }
             xmlMap.clear();
             i++;
+
+            /*
+            client_sacred_stone_levels has level attribute (value) inside the <level> tag, as this is the only occurrence of such tag, if was used
+             */
             if (qName.equalsIgnoreCase("level") && tableName.equalsIgnoreCase("client_sacred_stone_levels")) {
                 xmlMap.put("level", attributes.getValue("level"));
             }
         }
         else if (qName.equalsIgnoreCase(tableName)) {
-            System.out.println(ANSI_PURPLE + "Settings: Ignore => " + ignoreList + ", DB Truncate => " + truncate + ANSI_RESET);
+            System.out.println(ANSI_PURPLE + "Settings: DB Truncate => " + truncate + ANSI_RESET);
         }
         else if (consolidateList.contains(qName)) {
             tempConsolidatedNodeName = qName;
@@ -122,16 +126,25 @@ public class GeneralHandler extends DefaultHandler{
             //on </combine_recipe_expansion> insideCombineRecipeExpansion = false
             if (qName.equalsIgnoreCase("data")) {
                 try {
-                    DB.insert(xmlExtractedMap, "client_" + tempExtractedNodeName);
+                    DB.insert(xmlExtractedMap, tableName + "_" + tempExtractedNodeName);
                 } catch (IOException | SQLException ignored) {
 
                 }
                 System.out.println("Inserted " + i + " objects into the client_" + tempExtractedNodeName + " table.");
+
             } else if (qName.equalsIgnoreCase(tempExtractedNodeName)) {
                 tempExtractedNodeName = "";
-                insideExtractedNodes = false;
+                insideExtractedNodes = false; // we are exiting extracted nodes
+                xmlExtractedMap.clear();    // clearing the temporary extracted map
             } else {
-                xmlExtractedMap.put(qName, "\"" + data + "\"");
+
+                // mysql reserved words
+                if ("index".equalsIgnoreCase(qName)) {
+                    xmlExtractedMap.put("idx", "\"" + data + "\"");
+                } else {
+                    xmlExtractedMap.put(qName, "\"" + data + "\"");
+                }
+
             }
 
 
@@ -160,8 +173,10 @@ public class GeneralHandler extends DefaultHandler{
             //TODO: list of MYSQL reserved words
             if ("condition".equalsIgnoreCase(qName)) {
                 xmlMap.put("conditions", "\"" + data + "\"");
-            }if ("repeat".equalsIgnoreCase(qName)) {
+            } else if ("repeat".equalsIgnoreCase(qName)) {
                 xmlMap.put("repeats", "\"" + data + "\"");
+            } else if ("index".equalsIgnoreCase(qName)) {
+                xmlMap.put("index_", "\"" + data + "\"");
             } else if ("desc".equalsIgnoreCase(qName)) {
                 xmlMap.put("description", "\"" + data + "\"");
             } else if ("dir".equalsIgnoreCase(qName)) {

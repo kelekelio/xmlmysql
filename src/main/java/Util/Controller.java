@@ -29,7 +29,7 @@ public class Controller {
                 System.out.println(f.getName() + " deleted");
             }
             else {
-                System.out.println("failed");
+                System.out.println("Failed to delete AlterTables.txt");
             }
         }
         catch (Exception e) {

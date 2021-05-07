@@ -1,4 +1,4 @@
-CREATE TABLE `client_combine_recipe_expansion` (
+CREATE TABLE `client_combine_recipes_combine_recipe_expansion` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `component_quantity` int DEFAULT NULL,

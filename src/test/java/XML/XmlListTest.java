@@ -135,13 +135,24 @@ class XmlListTest {
         VersionHandler versionHandler = new VersionHandler();
         LanguageHandler languageHandler = new LanguageHandler();
 
-        //TODO: Gather
+        //handler.setTruncate(true);
+        //handler.setTableName("client_equipment_skills");
+        //handler.setInitialNode("client_equipment_skill");
+        //saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_equipment_skill.xml"), handler);
 
-
+        DB.truncate("item_enchants_enchant_attr_list");
+        DB.truncate("item_enchants_limitless_attr_list");
         handler.setTruncate(true);
-        handler.setTableName("client_sacred_stone_levels");
-        handler.setInitialNode("level");
-        saxParser.parse(new File("D:\\PB\\" + folderName + "\\SacredStone\\client_sacred_stone_level.xml"), handler);
+        handler.setTableName("item_enchants");
+        handler.setInitialNode("item_enchant");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_item_enchanttable.xml"), handler);
+
+        DB.truncate("item_authorizes_enchant_attr_list");
+        DB.truncate("item_authorizes_limitless_attr_list");
+        handler.setTruncate(true);
+        handler.setTableName("item_authorizes");
+        handler.setInitialNode("item_authorize");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_item_authorizetable.xml"), handler);
     }
 
 
