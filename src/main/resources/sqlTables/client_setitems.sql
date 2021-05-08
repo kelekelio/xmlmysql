@@ -2,6 +2,7 @@ CREATE TABLE `client_setitems` (
   `id` int(15) NOT NULL,
   `name` varchar(255) NOT NULL,
   `piece_bonus5` text,
+  `piece_bonus6` text,
   `piece_bonus3` text,
   `description` varchar(255) DEFAULT NULL,
   `item7` varchar(255) DEFAULT NULL,

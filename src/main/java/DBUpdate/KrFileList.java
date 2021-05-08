@@ -129,6 +129,12 @@ public class KrFileList {
         handler.setInitialNode("grind_item_compound");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\grind_item_compound.xml"), handler);
 
+        DB.truncate("enchant_datadrivens_enchant_level_list");
+        handler.setTruncate(true);
+        handler.setTableName("enchant_datadrivens");
+        handler.setInitialNode("enchant_datadriven");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\enchant_datadriven.xml"), handler);
+
 
 
 

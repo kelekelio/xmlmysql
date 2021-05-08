@@ -142,12 +142,11 @@ class XmlListTest {
 
 
 
-        DB.truncate("grind_item_compounds_material_list");
-        DB.truncate("grind_item_compounds_result_list");
+        DB.truncate("enchant_datadrivens_enchant_level_list");
         handler.setTruncate(true);
-        handler.setTableName("grind_item_compounds");
-        handler.setInitialNode("grind_item_compound");
-        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\grind_item_compound.xml"), handler);
+        handler.setTableName("enchant_datadrivens");
+        handler.setInitialNode("enchant_datadriven");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\enchant_datadriven.xml"), handler);
     }
 
 

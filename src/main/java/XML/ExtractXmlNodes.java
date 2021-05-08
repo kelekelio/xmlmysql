@@ -41,6 +41,9 @@ public class ExtractXmlNodes {
         //grind_item_compound.xml
         extractList.add("material_list");
         extractList.add("result_list");
+
+        //enchant_datadriven
+        extractList.add("enchant_level_list");
     }
 
     public ArrayList<String> getExtractList() {
