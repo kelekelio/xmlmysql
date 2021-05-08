@@ -185,6 +185,8 @@ public class GeneralHandler extends DefaultHandler{
             //TODO: list of MYSQL reserved words
             if ("condition".equalsIgnoreCase(qName)) {
                 xmlMap.put("conditions", "\"" + data + "\"");
+            } else if ("delete".equalsIgnoreCase(qName)) {
+                xmlMap.put("delete_", "\"" + data + "\"");
             } else if ("repeat".equalsIgnoreCase(qName)) {
                 xmlMap.put("repeats", "\"" + data + "\"");
             } else if ("index".equalsIgnoreCase(qName)) {

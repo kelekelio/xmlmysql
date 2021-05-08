@@ -78,6 +78,21 @@ public class ExtractXmlNodes {
         //client_achievement_action
         extractList.add("action_list");
 
+        //data_driven_quest
+        extractList.add("progress_info");
+
+        //quest_random_rewards
+        extractList.add("items");
+
+        //client_instance_cooltime
+        extractList.add("ext_condition_variable");
+        extractList.add("ui_gauge");
+
+        //client_monster_core
+        extractList.add("core_list");
+
+
+
     }
 
     public ArrayList<String> getExtractList() {

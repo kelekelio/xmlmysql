@@ -127,6 +127,8 @@ public class IgnoreXmlNodeList {
         ignoreList.add("neck_angle");
         ignoreList.add("art_org_speed_combat_run");
         ignoreList.add("front");
+        ignoreList.add("camera_offset");
+        ignoreList.add("ride_bone");
         ignoreList.add("ammo_bone");
         ignoreList.add("dmg_decal_texture");
         ignoreList.add("weapon_hit_fx");
@@ -329,6 +331,15 @@ public class IgnoreXmlNodeList {
         ignoreList.add("attach_mesh_size");
         ignoreList.add("customize_attach");
         ignoreList.add("cam_angle");
+        ignoreList.add("powerboost_fx");
+        ignoreList.add("highendboost_fx");
+        ignoreList.add("fly_fx");
+        ignoreList.add("mesh_rhand");
+        ignoreList.add("mesh_lhand");
+        ignoreList.add("highendboost_mesh_right");
+        ignoreList.add("highendboost_mesh_left");
+        ignoreList.add("glide_fx");
+        ignoreList.add("movingboost_fx");
     }
 
     public ArrayList<String> getIgnoreList() {
