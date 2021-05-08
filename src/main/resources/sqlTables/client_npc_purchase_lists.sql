@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `client_npc_trade_in_lists` (
+CREATE TABLE IF NOT EXISTS `client_npc_purchase_lists` (
                                                            `id` int NOT NULL,
                                                            `name` varchar(255) NOT NULL,
     `use_category` int DEFAULT NULL,

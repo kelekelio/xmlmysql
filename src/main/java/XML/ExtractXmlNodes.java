@@ -47,6 +47,26 @@ public class ExtractXmlNodes {
 
         //polish_bonus_setlist
         extractList.add("random_attr_group_list");
+
+        //client_reinvent_candidate
+        extractList.add("candidate_list");
+
+        //client_assembly_items
+        extractList.add("assemble_parts");
+
+        //client_login_event
+        extractList.add("reward_item_list");
+
+        //client_reinvent_package
+        extractList.add("candidate_list");
+        extractList.add("ui_reward_list");
+
+        //client_npc_goodslist & client_npc_purchase_list
+        extractList.add("goods_list");
+
+        //client_titles
+        extractList.add("bonus_attrs");
+
     }
 
     public ArrayList<String> getExtractList() {

@@ -135,44 +135,84 @@ public class KrFileList {
         handler.setInitialNode("enchant_datadriven");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\enchant_datadriven.xml"), handler);
 
+        handler.setTruncate(true);
+        handler.setTableName("client_itemcustomsets");
+        handler.setInitialNode("client_itemcustomset");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_item_custom_set.xml"), handler);
+
+        DB.truncate("client_login_events_reward_item_list");
+        handler.setTruncate(true);
+        handler.setTableName("client_login_events");
+        handler.setInitialNode("client_login_event");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_login_event.xml"), handler);
+
+        DB.truncate("client_reinvent_packages_candidate_list");
+        DB.truncate("client_reinvent_packages_ui_reward_list");
+        handler.setTruncate(true);
+        handler.setTableName("client_reinvent_packages");
+        handler.setInitialNode("client_reinvent_package");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_reinvent_package.xml"), handler);
+
 
 
 
         //TODO: NPC
         //handler.setTruncate(true);
-        handler.setInitialNode("npc_client");
         handler.setTableName("npc_clients");
+        handler.setInitialNode("npc_client");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\npcs\\client_npcs_monster.xml"), handler);
 
         //handler.setTruncate(true);
-        handler.setInitialNode("npc_client");
         handler.setTableName("npc_clients");
+        handler.setInitialNode("npc_client");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\npcs\\client_npcs_npc.xml"), handler);
 
         //handler.setTruncate(true);
-        handler.setInitialNode("npc_client");
         handler.setTableName("npc_clients");
+        handler.setInitialNode("npc_client");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\npcs\\client_npcs_abyss_monster.xml"), handler);
 
         //handler.setTruncate(true);
-        handler.setInitialNode("npc_client");
         handler.setTableName("npc_clients");
+        handler.setInitialNode("npc_client");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\npcs\\client_npcs_std_monster.xml"), handler);
 
         //handler.setTruncate(true);
-        handler.setInitialNode("npc_client");
         handler.setTableName("npc_clients");
+        handler.setInitialNode("npc_client");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\npcs\\client_npcs_test_monster.xml"), handler);
+
+        //handler.setTruncate(true);
+        handler.setTableName("npc_clients");
+        handler.setInitialNode("npc_client");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\npcs\\client_npcs_std_abyss_monster.xml"), handler);
 
+        DB.truncate("client_npc_purchase_lists_goods_list");
         //handler.setTruncate(false);
-        handler.setInitialNode("client_npc_goodslist");
+        handler.setTableName("client_npc_purchase_lists");
+        handler.setInitialNode("client_npc_purchase_list");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\npcs\\client_npc_purchase_list.xml"), handler);
+
+
+        DB.truncate("client_npc_goodslists_goods_list");
+        //handler.setTruncate(false);
         handler.setTableName("client_npc_goodslists");
+        handler.setInitialNode("client_npc_goodslist");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\npcs\\client_npc_goodslist.xml"), handler);
 
+        DB.truncate("client_npc_trade_in_list_goods_list");
         //handler.setTruncate(false);
-        handler.setInitialNode("client_npc_trade_in_list");
         handler.setTableName("client_npc_trade_in_lists");
+        handler.setInitialNode("client_npc_trade_in_list");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\npcs\\client_npc_trade_in_list.xml"), handler);
+
+
+        //TODO: PC
+        DB.truncate("client_titles_bonus_attrs");
+        //handler.setTruncate(false);
+        handler.setTableName("client_titles");
+        handler.setInitialNode("client_title");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\pc\\client_titles.xml"), handler);
 
 
         //TODO: Achievements
@@ -256,6 +296,18 @@ public class KrFileList {
         handler.setTableName("client_housing_custom_parts");
         handler.setInitialNode("client_housing_custom_part");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\Housing\\client_housing_custom_part.xml"), handler);
+
+        //TODO: Luna
+        handler.setTruncate(true);
+        handler.setTableName("client_luna_consume_rewards");
+        handler.setInitialNode("client_luna_consume_reward");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\Luna\\client_luna_consume_reward.xml"), handler);
+
+        handler.setTruncate(true);
+        handler.setTableName("client_luna_recipes");
+        handler.setInitialNode("client_luna_recipe");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\Luna\\client_luna_recipe.xml"), handler);
+
 
 
 

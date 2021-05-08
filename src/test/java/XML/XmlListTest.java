@@ -141,12 +141,11 @@ class XmlListTest {
         //saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_equipment_skill.xml"), handler);
 
 
-
-        DB.truncate("polish_bonus_setlists_random_attr_group_list");
-        handler.setTruncate(true);
-        handler.setTableName("polish_bonus_setlists");
-        handler.setInitialNode("polish_bonus_setlist");
-        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\polish_bonus_setlist.xml"), handler);
+        DB.truncate("client_titles_bonus_attrs");
+        //handler.setTruncate(false);
+        handler.setTableName("client_titles");
+        handler.setInitialNode("client_title");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\pc\\client_titles.xml"), handler);
     }
 
 

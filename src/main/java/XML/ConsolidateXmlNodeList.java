@@ -14,11 +14,7 @@ public class ConsolidateXmlNodeList {
         //client_item
         consolidateList.add("trade_in_item_list");
 
-        //client_npc_goodslists
-        consolidateList.add("goods_list");
 
-        //client_npc_trade_in_lists
-        consolidateList.add("goods_list");
 
         //npc_clients
         consolidateList.add("extra_currency_trade_info");
@@ -42,11 +38,6 @@ public class ConsolidateXmlNodeList {
         consolidateList.add("gunner_selectable_reward");
         consolidateList.add("rider_selectable_reward");
         consolidateList.add("painter_selectable_reward");
-
-        //client_toypets
-
-        //client_titles
-        consolidateList.add("bonus_attrs");
 
         //client_achievements
         consolidateList.add("item_list");

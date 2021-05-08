@@ -1,0 +1,28 @@
+CREATE TABLE IF NOT EXISTS `client_luna_recipes` (
+                                                     `id` int NOT NULL,
+                                                     `name` varchar(255) NOT NULL,
+    `qualification_race` text,
+    `component1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `compo1_recovery` int DEFAULT NULL,
+    `component2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `product` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `component3` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `component4` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `set_group` text,
+    `combine_rate` int DEFAULT NULL,
+    `compo5_quantity` int DEFAULT NULL,
+    `compo3_quantity` int DEFAULT NULL,
+    `compo2_recovery` int DEFAULT NULL,
+    `component5` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+    `compo2_quantity` int DEFAULT NULL,
+    `product_quantity` int DEFAULT NULL,
+    `compo3_recovery` int DEFAULT NULL,
+    `compo1_quantity` int DEFAULT NULL,
+    `compo5_recovery` int DEFAULT NULL,
+    `compo4_quantity` int DEFAULT NULL,
+    `compo4_recovery` int DEFAULT NULL,
+    `component_quantity` int DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `name` (`name`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+COMMIT;
