@@ -142,11 +142,11 @@ class XmlListTest {
 
 
 
-        DB.truncate("enchant_datadrivens_enchant_level_list");
+        DB.truncate("polish_bonus_setlists_random_attr_group_list");
         handler.setTruncate(true);
-        handler.setTableName("enchant_datadrivens");
-        handler.setInitialNode("enchant_datadriven");
-        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\enchant_datadriven.xml"), handler);
+        handler.setTableName("polish_bonus_setlists");
+        handler.setInitialNode("polish_bonus_setlist");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\polish_bonus_setlist.xml"), handler);
     }
 
 

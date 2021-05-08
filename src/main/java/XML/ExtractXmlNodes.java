@@ -44,6 +44,9 @@ public class ExtractXmlNodes {
 
         //enchant_datadriven
         extractList.add("enchant_level_list");
+
+        //polish_bonus_setlist
+        extractList.add("random_attr_group_list");
     }
 
     public ArrayList<String> getExtractList() {
