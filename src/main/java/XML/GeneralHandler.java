@@ -38,6 +38,12 @@ public class GeneralHandler extends DefaultHandler{
     private boolean insideExtractedNodes = false;
     private String tempExtractedNodeName = "";
 
+    /*
+        client_item_skill_enhances has dunble <data> nodes
+        because we skip them, we need to store <enchant_prob> outside extracted nodes until closing xml node
+     */
+    private String tempEnchantProb = "";
+
 
     int i = 0;
 
@@ -105,12 +111,18 @@ public class GeneralHandler extends DefaultHandler{
         }
         //end of a single XML object. Insert into DB
         else if (qName.equalsIgnoreCase(initialNode)) {
+
+            if (tableName.equalsIgnoreCase("client_item_skill_enhances")) {
+                xmlMap.put("enchant_prob", "\"" + tempEnchantProb + "\"");
+            }
+
             try {
                 DB.replace(xmlMap, tableName);
             } catch (IOException | SQLException ignored) {
 
             }
             System.out.println("Inserted " + i + " objects into the " + tableName + " table.");
+            tempEnchantProb = "";
         }
         // end of xml. Set truncate to true, start i from 0
         else if (qName.equalsIgnoreCase(tableName)) {
@@ -181,6 +193,9 @@ public class GeneralHandler extends DefaultHandler{
                 xmlMap.put("description", "\"" + data + "\"");
             } else if ("dir".equalsIgnoreCase(qName)) {
                 xmlMap.put("dir", "\"" + data.toString().replaceAll("\\\\", "/") + "\"");
+            } else if ("enchant_prob".equalsIgnoreCase(qName) && tableName.equalsIgnoreCase("client_item_skill_enhances") && !insideExtractedNodes) {
+                //we are storing enchant_prob until closing xml node
+                tempEnchantProb = tempEnchantProb + data + " ";
             }
             // inside consolidated node. put each node value into a temporary string
             else if (insideConsolidated

@@ -140,11 +140,14 @@ class XmlListTest {
         //handler.setInitialNode("client_equipment_skill");
         //saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_equipment_skill.xml"), handler);
 
-        DB.truncate("client_assembly_items_assemble_parts");
+
+
+        DB.truncate("grind_item_compounds_material_list");
+        DB.truncate("grind_item_compounds_result_list");
         handler.setTruncate(true);
-        handler.setTableName("client_assembly_items");
-        handler.setInitialNode("client_assembly_item");
-        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_assembly_items.xml"), handler);
+        handler.setTableName("grind_item_compounds");
+        handler.setInitialNode("grind_item_compound");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\grind_item_compound.xml"), handler);
     }
 
 

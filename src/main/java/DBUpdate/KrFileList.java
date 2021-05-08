@@ -55,8 +55,9 @@ public class KrFileList {
         handler.setInitialNode("client_combine_recipe");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_combine_recipe.xml"), handler);
 
-        handler.setInitialNode("client_setitem");
+
         handler.setTableName("client_setitems");
+        handler.setInitialNode("client_setitem");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_setitem.xml"), handler);
 
         DB.truncate("client_assembly_items_assemble_parts");
@@ -108,6 +109,25 @@ public class KrFileList {
         handler.setTableName("client_item_upgrades");
         handler.setInitialNode("client_item_upgrade");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_item_upgrade.xml"), handler);
+
+        handler.setTruncate(true);
+        handler.setTableName("client_reinvent_materials");
+        handler.setInitialNode("client_reinvent_material");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_reinvent_material.xml"), handler);
+
+        DB.truncate("client_item_skill_enhances_enchant_prob_list");
+        DB.truncate("client_item_skill_enhances_enchant_skill_list");
+        handler.setTruncate(true);
+        handler.setTableName("client_item_skill_enhances");
+        handler.setInitialNode("client_item_skill_enhance");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_item_skill_enhance.xml"), handler);
+
+        DB.truncate("grind_item_compounds_material_list");
+        DB.truncate("grind_item_compounds_result_list");
+        handler.setTruncate(true);
+        handler.setTableName("grind_item_compounds");
+        handler.setInitialNode("grind_item_compound");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\grind_item_compound.xml"), handler);
 
 
 

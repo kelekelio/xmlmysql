@@ -27,12 +27,20 @@ public class ExtractXmlNodes {
         //client_real_item_random_option.xml
         extractList.add("random_option_list");
 
-        //client_item_enchanttable.xml
+        //client_item_enchanttable.xml & client_item_authorizetable.xml
         extractList.add("enchant_attr_list");
         extractList.add("limitless_attr_list");
 
         //client_item_upgrade.xml
         extractList.add("upgrade_list");
+
+        //client_item_skill_enhance.xml
+        extractList.add("enchant_prob_list");
+        extractList.add("enchant_skill_list");
+
+        //grind_item_compound.xml
+        extractList.add("material_list");
+        extractList.add("result_list");
     }
 
     public ArrayList<String> getExtractList() {
