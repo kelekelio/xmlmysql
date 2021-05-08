@@ -39,18 +39,6 @@ public class ConsolidateXmlNodeList {
         consolidateList.add("rider_selectable_reward");
         consolidateList.add("painter_selectable_reward");
 
-        //client_achievements
-        consolidateList.add("item_list");
-        consolidateList.add("action_list");
-
-        //client_achievement_events
-        consolidateList.add("item_list_1");
-        consolidateList.add("item_list_2");
-        consolidateList.add("item_list_3");
-        consolidateList.add("item_list_4");
-
-        //client_assembly_items
-
 
 
         //client_equipment_skill

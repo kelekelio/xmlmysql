@@ -141,11 +141,12 @@ class XmlListTest {
         //saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_equipment_skill.xml"), handler);
 
 
-        DB.truncate("client_titles_bonus_attrs");
+        DB.truncate("client_achievements_item_list");
+        DB.truncate("client_achievements_action_list");
         //handler.setTruncate(false);
-        handler.setTableName("client_titles");
-        handler.setInitialNode("client_title");
-        saxParser.parse(new File("D:\\PB\\" + folderName + "\\pc\\client_titles.xml"), handler);
+        handler.setTableName("client_achievements");
+        handler.setInitialNode("client_achievement");
+        saxParser.parse(new File("D:\\PB\\" + folderName + "\\pc\\client_achievement.xml"), handler);
     }
 
 

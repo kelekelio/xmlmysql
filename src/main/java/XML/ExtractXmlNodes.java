@@ -67,6 +67,17 @@ public class ExtractXmlNodes {
         //client_titles
         extractList.add("bonus_attrs");
 
+        //client_achievement_event
+        extractList.add("item_list_1");
+        extractList.add("item_list_2");
+        extractList.add("item_list_3");
+
+        //client_achievement_action
+        extractList.add("item_list");
+
+        //client_achievement_action
+        extractList.add("action_list");
+
     }
 
     public ArrayList<String> getExtractList() {

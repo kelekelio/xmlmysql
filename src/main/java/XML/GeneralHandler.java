@@ -106,7 +106,7 @@ public class GeneralHandler extends DefaultHandler{
     public void endElement(String uri, String localName, String qName) throws SAXException {
 
         //start of XML object (ID is always first), set ID without "" in value. could be removed
-        if (qName.equalsIgnoreCase("id")) {
+        if (qName.equalsIgnoreCase("id") && !tableName.equalsIgnoreCase("client_item_collection_levels")) {
             xmlMap.put("id", String.valueOf(data));
         }
         //end of a single XML object. Insert into DB
