@@ -228,6 +228,7 @@ public class DB {
     }
 
     public static void updateOnDupliacteKey (LinkedHashMap<String, String> sqlArray, String columnName) throws IOException, SQLException {
+        String tableName = "translation";
         //keys => [id, id2, name, desc, desc1, desc2]
         Set<String> SQLkeys = sqlArray.keySet();
         String stringSQLkeys = String.join(",", SQLkeys);
@@ -241,7 +242,7 @@ public class DB {
 
         //String SQLStatement = "REPLACE INTO " + tableName + " "+ SQLkeys +" VALUES "+ SQLvalues +";";
 
-        String SQLStatement = "INSERT INTO translation (" + stringSQLkeys + ") VALUES (" + stringSQLvalues + ") ON DUPLICATE KEY UPDATE " + columnName + " = " + sqlArray.get("body") + ";";
+        String SQLStatement = "INSERT INTO translation (" + stringSQLkeys + ") VALUES (" + stringSQLvalues + ") ON DUPLICATE KEY UPDATE " + columnName + " = " + sqlArray.get("ko") + ";";
 
         System.out.println(ANSI_GREEN + ">> " + SQLStatement + ANSI_RESET);
 
@@ -255,6 +256,13 @@ public class DB {
             st.close();
         } catch (SQLException throwables) {
             System.out.println(ANSI_RED + "Error " + throwables.getErrorCode() + "(" + SQLStatement + ")" + ANSI_RESET);
+            // 1146 Table doesn't exist
+            if (throwables.getErrorCode() == 1146) {
+                System.out.println(ANSI_RED + "Table doesn't exist. Creating the table from a new. Error " + throwables.getErrorCode() + ANSI_RESET);
+                loadTableCreate(tableName);
+                System.out.println("Inserting data again.");
+                insert(sqlArray, tableName);
+            }
         }
 
     }

@@ -60,7 +60,7 @@ public class LanguageHandler extends DefaultHandler {
             i = 0;
         }
         else if (qName.equalsIgnoreCase("body")) {
-            xmlMap.put(qName, "\'" + data.toString().replaceAll("'", "&apos;") + "\'");
+            xmlMap.put("ko", "\'" + data.toString().replaceAll("'", "&apos;") + "\'");
         }else if (qName.equalsIgnoreCase("name")) {
             xmlMap.put(qName, "\"" + data + "\"");
         }else {

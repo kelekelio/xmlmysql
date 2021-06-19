@@ -6,23 +6,11 @@
 	<client_path>P:\PlayNC\AION_KOR_TEST</client_path>
 	<xml_files>
 		<file>
-			<path>\items\client_items.xml</path>
-			<initial_node>client_item</initial_node>
-			<table_name>client_items</table_name>
-			<truncate>true</truncate>
-		</file>
-	</xml_files>
-  </server>
-  <server>
-    <id>2</id>
-    <db_name>eu_live</db_name>
-	<client_path>P:\Program Files (x86)\Gameforge\AION Free-To-Play</client_path>
-	<xml_files>
-		<file>
-			<path>\items\client_items.xml</path>
-			<initial_node>client_item</initial_node>
-			<table_name>client_items</table_name>
-			<truncate>true</truncate>
+			<path>\npcs\client_npcs_npc.xml</path>
+			<initial_node>npc_client</initial_node>
+			<table_name>npc_clients</table_name>
+			<versions>true</versions>
+			<truncate>false</truncate>			
 		</file>
 	</xml_files>
   </server>
@@ -32,16 +20,26 @@
 	<client_path>P:\PlayNC\AION_CLASSIC</client_path>
 	<xml_files>
 		<file>
-			<path>\items\client_items.xml</path>
-			<initial_node>client_item</initial_node>
-			<table_name>client_items</table_name>
-			<truncate>true</truncate>
+			<path>\quest\quest.xml</path>
+			<initial_node>quest</initial_node>
+			<table_name>quests</table_name>
+			<versions>true</versions>
 		</file>
 		<file>
-			<path>\world\client_world_timeattack.xml</path>
-			<initial_node>client_world_timeattacks</initial_node>
-			<table_name>client_world_timeattack</table_name>
-			<truncate></truncate>
+			<path>\Strings\client_strings_bm.xml</path>
+			<lang>ko</lang>
+		</file>
+		<file>
+			<path>\Strings\client_strings_bm.xml</path>
+			<lang>en</lang>
+		</file>
+		<file>
+			<path>\Strings\client_strings_bm.xml</path>
+			<lang>de</lang>
+		</file>
+		<file>
+			<path>\Strings\client_strings_bm.xml</path>
+			<lang>en</lang>
 		</file>
 	</xml_files>
   </server>

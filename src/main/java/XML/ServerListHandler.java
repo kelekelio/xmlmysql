@@ -1,5 +1,8 @@
 package XML;
 
+import CSV.CSVReader;
+import DB.DB;
+import com.google.common.base.Strings;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -7,12 +10,18 @@ import servers.GameXmlFile;
 import servers.Server;
 import DLL.DLL;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ServerListHandler extends DefaultHandler {
     private StringBuilder data = null;
     private Server server;
     private GameXmlFile xml;
+    private SAXParser saxParser;
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
@@ -43,6 +52,10 @@ public class ServerListHandler extends DefaultHandler {
             xml.setTableName(String.valueOf(data));
         } else if (qName.equalsIgnoreCase("truncate")) {
             xml.setTruncate(Boolean.parseBoolean(String.valueOf(data)));
+        } else if (qName.equalsIgnoreCase("versions")) {
+            xml.setVersions(Boolean.parseBoolean(String.valueOf(data)));
+        } else if (qName.equalsIgnoreCase("lang")) {
+            xml.setLang(String.valueOf(data));
         } else if (qName.equalsIgnoreCase("file")) {
             //add xmlfile to the list
             ArrayList<GameXmlFile> list = server.getXmlFiles();
@@ -67,9 +80,67 @@ public class ServerListHandler extends DefaultHandler {
             }
 
 
-            //Point where we have a whole server obj
+            //Point where we have the whole server obj
 
 
+
+
+
+            DB.setiDbName(server.getDbName());
+            DB.newInstance();
+
+            SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+            try {
+                saxParser = saxParserFactory.newSAXParser();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            }
+
+            GeneralHandler handler = new GeneralHandler();
+            VersionHandler versionHandler = new VersionHandler();
+            LanguageHandler languageHandler = new LanguageHandler();
+            versionHandler.setVersion(server.getClientVersion());
+
+            for(GameXmlFile file : server.getXmlFiles()) {
+                handler.setInitialNode(file.getInitialNode());
+                handler.setTableName(file.getTableName());
+                handler.setTruncate(file.isTruncate());
+
+                if (file.isVersions()) {
+                    versionHandler.setInitialNode(file.getInitialNode());
+                    versionHandler.setTableName(file.getTableName());
+
+                    try {
+                        saxParser.parse(new File(server.getClientPath() + "\\data_" + server.getClientVersion() + "\\" + file.getPath()), versionHandler);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (!Strings.isNullOrEmpty(file.getLang())) {
+                    languageHandler.setColumnName(file.getLang());
+                    if (file.getLang().equalsIgnoreCase("ko")) {
+                        try {
+                            saxParser.parse(new File(server.getClientPath() + "\\data_" + server.getClientVersion() + "\\Strings\\client_strings_bm.xml"), languageHandler);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            saxParser.parse(new File("D:\\PB\\translations\\" + server.getDbName() + "\\" + file.getLang() + file.getPath()), languageHandler);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else {
+                    try {
+                        saxParser.parse(new File(server.getClientPath() + "\\data_" + server.getClientVersion() + "\\" + file.getPath()), handler);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+
+            }
 
 
         }

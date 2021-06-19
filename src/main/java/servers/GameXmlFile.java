@@ -4,7 +4,10 @@ public class GameXmlFile {
     private String path;
     private String initialNode;
     private String tableName;
-    private boolean truncate;
+    private boolean truncate = true;
+    private boolean versions = false;
+    private String lang;
+
 
     public String getPath() {
         return path;
@@ -38,10 +41,19 @@ public class GameXmlFile {
         this.truncate = truncate;
     }
 
-    public void reset() {
-        this.path = null;
-        this.initialNode = null;
-        this.tableName = null;
-        this.truncate = false;
+    public boolean isVersions() {
+        return versions;
+    }
+
+    public void setVersions(boolean versions) {
+        this.versions = versions;
+    }
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
     }
 }

@@ -17,7 +17,7 @@ public class VersionHandler extends GeneralHandler {
     private final LinkedHashMap<String, String> xmlMap = new LinkedHashMap<>();
     private String region = "kr";
     private String tableName;
-    private String version = DLL.DllVersionCheck(region);
+    private String version;
     private String initialNode;
     int i = 0;
     private StringBuilder data = null;
@@ -25,6 +25,14 @@ public class VersionHandler extends GeneralHandler {
     public void setRegion(String region) {
         this.region = region;
         version = DLL.DllVersionCheck(region);
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     public void setTableName(String tableName) {
