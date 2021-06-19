@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<server_list generated_time="2021/06/19 08:03:00">
+  <server>
+    <id>1</id>
+    <db_name>kr_live</db_name>
+	<client_path>P:\PlayNC\AION_KOR_TEST</client_path>
+	<xml_files>
+		<file>
+			<path>\items\client_items.xml</path>
+			<initial_node>client_item</initial_node>
+			<table_name>client_items</table_name>
+			<truncate>true</truncate>
+		</file>
+	</xml_files>
+  </server>
+  <server>
+    <id>2</id>
+    <db_name>eu_live</db_name>
+	<client_path>P:\Program Files (x86)\Gameforge\AION Free-To-Play</client_path>
+	<xml_files>
+		<file>
+			<path>\items\client_items.xml</path>
+			<initial_node>client_item</initial_node>
+			<table_name>client_items</table_name>
+			<truncate>true</truncate>
+		</file>
+	</xml_files>
+  </server>
+  <server>
+    <id>10</id>
+    <db_name>kr_classic</db_name>
+	<client_path>P:\PlayNC\AION_CLASSIC</client_path>
+	<xml_files>
+		<file>
+			<path>\items\client_items.xml</path>
+			<initial_node>client_item</initial_node>
+			<table_name>client_items</table_name>
+			<truncate>true</truncate>
+		</file>
+		<file>
+			<path>\world\client_world_timeattack.xml</path>
+			<initial_node>client_world_timeattacks</initial_node>
+			<table_name>client_world_timeattack</table_name>
+			<truncate></truncate>
+		</file>
+	</xml_files>
+  </server>
+</server_list>

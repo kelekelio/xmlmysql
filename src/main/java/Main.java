@@ -1,6 +1,7 @@
 
 import SSH.SshConnection;
 import Util.Controller;
+import Util.StartApp;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -30,7 +31,11 @@ public class Main {
 
         long startTime = System.nanoTime();
 
-        Controller.InitApp();
+        //old
+        //Controller.InitApp();
+
+        //new
+        StartApp.start();
 
 
         long elapsedTime = (System.nanoTime() - startTime)/1000000;

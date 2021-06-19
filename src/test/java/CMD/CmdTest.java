@@ -15,6 +15,11 @@ class CmdTest {
     }
 
     @Test
+    void beckupAionnHerokuDb(){
+        DumpDb.execute("aion_1206", "aion");
+    }
+
+    @Test
     void db_to_zip() {
     }
 }
