@@ -44,6 +44,8 @@ public class Main {
                 new SimpleDateFormat("mm:ss").format(new Date(elapsedTime))
         );
 
+        System.exit(0);
+
 
     }
 }

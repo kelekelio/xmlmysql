@@ -52,7 +52,7 @@ public class LanguageHandler extends DefaultHandler {
             } catch (IOException | SQLException ignored) {
 
             }
-            System.out.println("Inserted " + i + " translations into the translation table.");
+            //System.out.println("Inserted " + i + " translations into the translation table.");
         }
 
         // end of xml. Set truncate to true; clear ignore list, start i from 0

@@ -168,7 +168,7 @@ public class ClassicFileList {
 
 
         //TODO: Versions
-        versionHandler.setRegion("classic");
+        //versionHandler.setRegion("classic");
         versionHandler.setInitialNode("client_item");
         versionHandler.setTableName("client_items");
         saxParser.parse(new File("D:\\PB\\" + folderName + "\\items\\client_items.xml"), versionHandler);

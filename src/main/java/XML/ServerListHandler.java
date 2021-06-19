@@ -23,7 +23,17 @@ public class ServerListHandler extends DefaultHandler {
     private StringBuilder data = null;
     private Server server;
     private GameXmlFile xml;
-    private SAXParser saxParser;
+    SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+    SAXParser saxParser = saxParserFactory.newSAXParser();
+
+    GeneralHandler handler = new GeneralHandler();
+    VersionHandler versionHandler = new VersionHandler();
+    LanguageHandler languageHandler = new LanguageHandler();
+
+    ServerHandler serverHandler = new ServerHandler();
+
+    public ServerListHandler() throws ParserConfigurationException, SAXException {
+    }
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
@@ -93,67 +103,12 @@ public class ServerListHandler extends DefaultHandler {
 
 
             //Point where we have the whole server obj
-
-
-
-
-
-            DB.setiDbName(server.getDbName());
-            DB.newInstance();
-
-            SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+            serverHandler.setServer(server);
             try {
-                saxParser = saxParserFactory.newSAXParser();
+                serverHandler.update();
             } catch (ParserConfigurationException e) {
                 e.printStackTrace();
             }
-
-            GeneralHandler handler = new GeneralHandler();
-            VersionHandler versionHandler = new VersionHandler();
-            LanguageHandler languageHandler = new LanguageHandler();
-            versionHandler.setVersion(server.getClientVersion());
-
-            for(GameXmlFile file : server.getXmlFiles()) {
-                handler.setInitialNode(file.getInitialNode());
-                handler.setTableName(file.getTableName());
-                handler.setTruncate(file.isTruncate());
-
-
-                if (!Strings.isNullOrEmpty(file.getLang())) {
-                    languageHandler.setColumnName(file.getLang());
-                    if (file.getLang().equalsIgnoreCase("ko")) {
-                        try {
-                            saxParser.parse(new File(server.getClientPath() + "\\data_" + server.getClientVersion() + "\\Strings\\client_strings_bm.xml"), languageHandler);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        try {
-                            saxParser.parse(new File("D:\\PB\\translations\\" + server.getDbName() + "\\" + file.getLang() + file.getPath()), languageHandler);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } else {
-                    if (file.isVersions()) {
-                        versionHandler.setInitialNode(file.getInitialNode());
-                        versionHandler.setTableName(file.getTableName());
-
-                        try {
-                            saxParser.parse(new File(server.getClientPath() + "\\data_" + server.getClientVersion() + "\\" + file.getPath()), versionHandler);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    try {
-                        saxParser.parse(new File(server.getClientPath() + "\\data_" + server.getClientVersion() + "\\" + file.getPath()), handler);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
 
         }
     }

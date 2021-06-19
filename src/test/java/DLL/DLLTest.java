@@ -1,6 +1,7 @@
 package DLL;
 
 import junit.framework.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 
@@ -16,7 +17,7 @@ class DLLTest {
         String expected = "75.20.0714";
         String version = DLL.DllVersionCheck("eu");
         System.out.println(version);
-        Assert.assertEquals(expected, version);
+        Assertions.assertEquals(expected, version);
     }
 
     @Test
@@ -24,7 +25,7 @@ class DLLTest {
         String expected = "1.20.1030";
         String version = DLL.DllVersionCheck("classic");
         System.out.println(version);
-        Assert.assertEquals(expected, version);
+        Assertions.assertEquals(expected, version);
     }
 
     @Test
@@ -32,7 +33,7 @@ class DLLTest {
         String expected = "77.20.0806";
         String version = DLL.DllVersionCheck("kr");
         System.out.println(version);
-        Assert.assertEquals(expected, version);
+        Assertions.assertEquals(expected, version);
     }
 
     @Test
@@ -40,6 +41,6 @@ class DLLTest {
         short[] data = {77, 20, 611, 1122};
         String expected = "77.20.0611";
         String version = DLL.dump(data, "kr");
-        Assert.assertEquals(expected, version);
+        Assertions.assertEquals(expected, version);
     }
 }

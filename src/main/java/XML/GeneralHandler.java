@@ -115,7 +115,7 @@ public class GeneralHandler extends DefaultHandler{
             } catch (IOException | SQLException ignored) {
 
             }
-            System.out.println("Inserted " + i + " objects into the " + tableName + " table.");
+            //System.out.println("Inserted " + i + " objects into the " + tableName + " table.");
             tempEnchantProb = "";
         }
         // end of xml. Set truncate to true, start i from 0
@@ -136,7 +136,7 @@ public class GeneralHandler extends DefaultHandler{
                 } catch (IOException | SQLException ignored) {
 
                 }
-                System.out.println("Inserted " + i + " objects into the client_" + tempExtractedNodeName + " table.");
+                //System.out.println("Inserted " + i + " objects into the client_" + tempExtractedNodeName + " table.");
 
             } else if (qName.equalsIgnoreCase(tempExtractedNodeName)) {
                 tempExtractedNodeName = "";

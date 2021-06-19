@@ -27,7 +27,7 @@ public class StartApp {
         ServerListHandler handler = new ServerListHandler();
 
         try {
-            saxParser.parse(new File("servers.xml"), handler);
+            saxParser.parse(new File("src//main//resources//servers.xml"), handler);
         }
         catch (IOException io) {
             System.out.println("file not found.");

@@ -462,28 +462,6 @@
     <db_name>kr_classic</db_name>
 	<client_path>P:\PlayNC\AION_CLASSIC</client_path>
 	<xml_files>
-		<file>
-			<path>\quest\quest.xml</path>
-			<initial_node>quest</initial_node>
-			<table_name>quests</table_name>
-			<versions>true</versions>
-		</file>
-		<file>
-			<path>\Strings\client_strings_bm.xml</path>
-			<lang>ko</lang>
-		</file>
-		<file>
-			<path>\Strings\client_strings_bm.xml</path>
-			<lang>en</lang>
-		</file>
-		<file>
-			<path>\Strings\client_strings_bm.xml</path>
-			<lang>de</lang>
-		</file>
-		<file>
-			<path>\Strings\client_strings_bm.xml</path>
-			<lang>en</lang>
-		</file>
 	</xml_files>
   </server>
 </server_list>

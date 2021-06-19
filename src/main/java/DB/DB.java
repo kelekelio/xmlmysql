@@ -71,6 +71,40 @@ public class DB {
         }
     }
 
+    public static void insertIgnoreError(LinkedHashMap<String, String> sqlArray, String tableName) throws IOException, SQLException {
+
+        //keys => [id, id2, name, desc, desc1, desc2]
+        Set<String> SQLkeys = sqlArray.keySet();
+        //System.out.println(SQLkeys);
+
+        //values => ["133345", "1133345", "dev_name", "description", "description1", "description2"]
+        Collection<String> SQLvalues = sqlArray.values();
+        //System.out.println(SQLvalues);
+
+        String SQLStatement = "INSERT IGNORE INTO " + tableName + " "+ SQLkeys +" VALUES "+ SQLvalues +";";
+
+
+        //replace into [id, id2, name, desc, desc1, desc2] values ["133345", "1133345", "dev_name", "description", "description1", "description2"]
+
+        SQLStatement = SQLStatement
+                .replaceAll("\\[", "(")
+                .replaceAll("]", ")");
+
+        printInster(SQLStatement);
+
+        try {
+            Statement st = DB
+                    .getInstance()
+                    .getConn()
+                    .createStatement();
+
+            st.execute(SQLStatement);
+            st.close();
+        } catch (SQLException throwables) {
+
+        }
+    }
+
     public static void insert(LinkedHashMap<String, String> sqlArray, String tableName) throws IOException, SQLException {
 
         //keys => [id, id2, name, desc, desc1, desc2]
@@ -90,7 +124,7 @@ public class DB {
                 .replaceAll("\\[", "(")
                 .replaceAll("]", ")");
 
-        //System.out.println(ANSI_GREEN + ">> " + SQLStatement + ANSI_RESET);
+        printInster(SQLStatement);
 
         try {
             Statement st = DB
@@ -165,7 +199,7 @@ public class DB {
                 .replaceAll("\\[", "(")
                 .replaceAll("]", ")");
 
-        //System.out.println(ANSI_GREEN + ">> " + SQLStatement + ANSI_RESET);
+        printInster(SQLStatement);
 
         try {
             Statement st = DB
@@ -244,7 +278,7 @@ public class DB {
 
         String SQLStatement = "INSERT INTO translation (" + stringSQLkeys + ") VALUES (" + stringSQLvalues + ") ON DUPLICATE KEY UPDATE " + columnName + " = " + sqlArray.get("ko") + ";";
 
-        //System.out.println(ANSI_GREEN + ">> " + SQLStatement + ANSI_RESET);
+        printInster(SQLStatement);
 
         try {
             Statement st = DB
@@ -326,7 +360,7 @@ public class DB {
     public static void execute (String sqlStatement) {
 
         try {
-            System.out.println(ANSI_GREEN + ">> " + sqlStatement + ANSI_RESET);
+            printInster(sqlStatement);
             Statement st = DB
                     .getInstance()
                     .getConn()
@@ -420,6 +454,10 @@ public class DB {
 
     public Connection getConn() {
         return conn;
+    }
+
+    public static void printInster(String SQLStatement) {
+        System.out.println(ANSI_GREEN + ">> " + SQLStatement + ANSI_RESET);
     }
 
 }
