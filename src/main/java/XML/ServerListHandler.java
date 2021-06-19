@@ -16,6 +16,8 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ServerListHandler extends DefaultHandler {
     private StringBuilder data = null;
@@ -44,6 +46,16 @@ public class ServerListHandler extends DefaultHandler {
         } else if (qName.equalsIgnoreCase("client_path")) {
             server.setClientPath(String.valueOf(data));
             server.setClientVersion(DLL.checkDllVersion(String.valueOf(data)));
+        } else if (qName.equalsIgnoreCase("truncate_before")) {
+
+            String[] truncateBefore = String.valueOf(data).split(", ");
+
+            for (String truncate : truncateBefore) {
+                DB.truncate(truncate);
+            }
+
+
+
         } else if (qName.equalsIgnoreCase("path")) {
             xml.setPath(String.valueOf(data));
         } else if (qName.equalsIgnoreCase("initial_node")) {
@@ -106,16 +118,8 @@ public class ServerListHandler extends DefaultHandler {
                 handler.setTableName(file.getTableName());
                 handler.setTruncate(file.isTruncate());
 
-                if (file.isVersions()) {
-                    versionHandler.setInitialNode(file.getInitialNode());
-                    versionHandler.setTableName(file.getTableName());
 
-                    try {
-                        saxParser.parse(new File(server.getClientPath() + "\\data_" + server.getClientVersion() + "\\" + file.getPath()), versionHandler);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if (!Strings.isNullOrEmpty(file.getLang())) {
+                if (!Strings.isNullOrEmpty(file.getLang())) {
                     languageHandler.setColumnName(file.getLang());
                     if (file.getLang().equalsIgnoreCase("ko")) {
                         try {
@@ -131,15 +135,23 @@ public class ServerListHandler extends DefaultHandler {
                         }
                     }
                 } else {
+                    if (file.isVersions()) {
+                        versionHandler.setInitialNode(file.getInitialNode());
+                        versionHandler.setTableName(file.getTableName());
+
+                        try {
+                            saxParser.parse(new File(server.getClientPath() + "\\data_" + server.getClientVersion() + "\\" + file.getPath()), versionHandler);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
                     try {
                         saxParser.parse(new File(server.getClientPath() + "\\data_" + server.getClientVersion() + "\\" + file.getPath()), handler);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
-
-
-
             }
 
 

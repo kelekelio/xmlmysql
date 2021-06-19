@@ -67,13 +67,7 @@ public class GeneralHandler extends DefaultHandler{
 
         if (qName.equalsIgnoreCase(initialNode)) {
             if (i == 0 && truncate) {
-
-                try {
-                    DB.truncate(tableName);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+                DB.truncate(tableName);
             }
             xmlMap.clear();
             i++;

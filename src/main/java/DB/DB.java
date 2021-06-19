@@ -90,7 +90,7 @@ public class DB {
                 .replaceAll("\\[", "(")
                 .replaceAll("]", ")");
 
-        System.out.println(ANSI_GREEN + ">> " + SQLStatement + ANSI_RESET);
+        //System.out.println(ANSI_GREEN + ">> " + SQLStatement + ANSI_RESET);
 
         try {
             Statement st = DB
@@ -165,7 +165,7 @@ public class DB {
                 .replaceAll("\\[", "(")
                 .replaceAll("]", ")");
 
-        System.out.println(ANSI_GREEN + ">> " + SQLStatement + ANSI_RESET);
+        //System.out.println(ANSI_GREEN + ">> " + SQLStatement + ANSI_RESET);
 
         try {
             Statement st = DB
@@ -244,7 +244,7 @@ public class DB {
 
         String SQLStatement = "INSERT INTO translation (" + stringSQLkeys + ") VALUES (" + stringSQLvalues + ") ON DUPLICATE KEY UPDATE " + columnName + " = " + sqlArray.get("ko") + ";";
 
-        System.out.println(ANSI_GREEN + ">> " + SQLStatement + ANSI_RESET);
+        //System.out.println(ANSI_GREEN + ">> " + SQLStatement + ANSI_RESET);
 
         try {
             Statement st = DB
@@ -267,7 +267,7 @@ public class DB {
 
     }
 
-    public static void truncate (String tableName) throws IOException {
+    public static void truncate (String tableName) {
         // execute on initial xml tag (or 1st ID)
 
         try {
@@ -290,7 +290,12 @@ public class DB {
                 //on closing xml tag, create a new CREATE TABLE sql file =>
                 // store all unique xml nodes, get their last known type (SHOW COLUMNS FROM table_name;), else use text for all but ID
                 //create/overwrite SQLcreate file
-                loadTableCreate(tableName);
+                try {
+                    loadTableCreate(tableName);
+                } catch (IOException e) {
+                    System.out.println(tableName + " could not be created!");
+                }
+
             }
         }
     }

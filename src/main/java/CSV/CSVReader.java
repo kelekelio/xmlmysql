@@ -28,11 +28,7 @@ public class CSVReader {
         String line = "";
         String cvsSplitBy = ",";
 
-        try {
-            DB.truncate("source_sphere");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        DB.truncate("source_sphere");
 
         try {
 
@@ -83,11 +79,7 @@ public class CSVReader {
         String line = "";
         String cvsSplitBy = ",";
 
-        try {
-            DB.truncate("source_sphere");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        DB.truncate("source_sphere");
 
         try {
 

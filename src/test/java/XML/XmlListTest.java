@@ -1,5 +1,7 @@
 package XML;
 
+import DLL.DLL;
+import com.google.common.base.Strings;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
@@ -10,6 +12,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import DB.DB;
+import servers.GameXmlFile;
+import servers.Server;
 
 import static Extra.Colors.ANSI_RED;
 import static Extra.Colors.ANSI_RESET;
@@ -124,8 +128,20 @@ class XmlListTest {
 
     @Test
     void updateFromSingleXML () throws SAXException, IOException, ParserConfigurationException {
-        String folderName = "data";
-        DB.setiDbName("aion");
+        Server server = new Server();
+        server.setId(1);
+        server.setDbName("kr_live");
+        server.setClientPath("P:\\PlayNC\\AION_KOR_TEST");
+        server.setClientVersion(DLL.checkDllVersion("P:\\PlayNC\\AION_KOR_TEST"));
+
+        GameXmlFile file = new GameXmlFile();
+        file.setPath("\\items\\client_reinvent_package.xml");
+        file.setTableName("client_reinvent_packages");
+        file.setInitialNode("client_reinvent_package");
+        //file.setVersions(true);
+
+
+        DB.setiDbName(server.getDbName());
         DB.newInstance();
 
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
@@ -144,9 +160,45 @@ class XmlListTest {
         //DB.truncate("client_instance_cooltimes_ui_gauge");
         //DB.truncate("client_monster_cores_core_list");
         //handler.setTruncate(false);
-        handler.setTableName("client_world_timeattacks");
-        handler.setInitialNode("client_world_timeattack");
-        saxParser.parse(new File("D:\\PB\\" + folderName + "\\world\\client_world_timeattack.xml"), handler);
+        handler.setInitialNode(file.getInitialNode());
+        handler.setTableName(file.getTableName());
+        handler.setTruncate(file.isTruncate());
+        versionHandler.setVersion(server.getClientVersion());
+
+
+        if (!Strings.isNullOrEmpty(file.getLang())) {
+            languageHandler.setColumnName(file.getLang());
+            if (file.getLang().equalsIgnoreCase("ko")) {
+                try {
+                    saxParser.parse(new File(server.getClientPath() + "\\data_" + server.getClientVersion() + "\\Strings\\client_strings_bm.xml"), languageHandler);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    saxParser.parse(new File("D:\\PB\\translations\\" + server.getDbName() + "\\" + file.getLang() + file.getPath()), languageHandler);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            if (file.isVersions()) {
+                versionHandler.setInitialNode(file.getInitialNode());
+                versionHandler.setTableName(file.getTableName());
+
+                try {
+                    saxParser.parse(new File(server.getClientPath() + "\\data_" + server.getClientVersion() + "\\" + file.getPath()), versionHandler);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            try {
+                saxParser.parse(new File(server.getClientPath() + "\\data_" + server.getClientVersion() + "\\" + file.getPath()), handler);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

@@ -1,6 +1,7 @@
 package XML;
 
 import java.util.ArrayList;
+import DB.DB;
 
 /**
  * @author Grzegorz Nowakowski
@@ -12,16 +13,16 @@ public class ExtractXmlNodes {
         //client_assembly_items.xml
         extractList.add("assemble_parts");
 
-        //client_combine_recipe.xml
+        //client_combine_recipes
         extractList.add("combine_recipe_expansion");
 
         //client_disassembly_item_SetList.xml
         extractList.add("disassembly_create_item_list");
 
-        //client_disassembly_item.xml
+        //client_disassemblyitemsets
         extractList.add("disassemble_set_list");
 
-        //client_item_random_option.xml
+        //item_random_options
         extractList.add("random_attr_group_list");
 
         //client_real_item_random_option.xml
@@ -51,14 +52,10 @@ public class ExtractXmlNodes {
         //client_reinvent_candidate
         extractList.add("candidate_list");
 
-        //client_assembly_items
-        extractList.add("assemble_parts");
-
         //client_login_event
         extractList.add("reward_item_list");
 
         //client_reinvent_package
-        extractList.add("candidate_list");
         extractList.add("ui_reward_list");
 
         //client_npc_goodslist & client_npc_purchase_list

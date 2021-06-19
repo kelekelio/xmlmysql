@@ -11,6 +11,7 @@ public class Server {
     private String clientPath;
     private ArrayList<GameXmlFile> xmlFiles = new ArrayList<GameXmlFile>();
     private String clientVersion;
+    private ArrayList<String> truncateTablesList = new ArrayList<String>();
 
     public Integer getId() {
         return id;
@@ -50,6 +51,14 @@ public class Server {
 
     public void setClientVersion(String clientVersion) {
         this.clientVersion = clientVersion;
+    }
+
+    public ArrayList<String> getTruncateTablesList() {
+        return truncateTablesList;
+    }
+
+    public void setTruncateTablesList(ArrayList<String> truncateTablesList) {
+        this.truncateTablesList = truncateTablesList;
     }
 
     public void reset() {
